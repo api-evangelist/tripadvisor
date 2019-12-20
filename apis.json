@@ -1,0 +1,48 @@
+{
+    "name": "TripAdvisor",
+    "description": "<p>TripAdvisor is the world's largest travel site, enabling travelers to plan and book the perfect trip. TripAdvisor offers advice from millions of travelers and a wide variety of travel choices and planning features with seamless links to booking tools that check hundreds of websites to find the best hotel prices. TripAdvisor branded sites make up the largest travel community in the world, reaching 350 million unique monthly visitors**, and more than 290 million reviews and opinions covering more than 5.3 million accommodations, restaurants and attractions. The sites operate in 47 countries worldwide.&nbsp;<\/p>",
+    "image": "http:\/\/kinlane-productions.s3.amazonaws.com\/api-evangelist-site\/company\/logos\/tripadvisor-logo.jpg",
+    "tags": [
+        "content",
+        "have api"
+    ],
+    "created": "2019-12-19",
+    "modified": "2019-12-19",
+    "url": "https:\/\/raw.githubusercontent.com\/api-evangelist\/tripadvisor\/master\/apis.json",
+    "specificationVersion": "0.14",
+    "apis": [
+        {
+            "name": "TripAdvisor",
+            "description": null,
+            "image": "http:\/\/kinlane-productions.s3.amazonaws.com\/api-evangelist-site\/company\/logos\/tripadvisor-logo.jpg",
+            "humanURL": "https:\/\/www.tripadvisor.com\/",
+            "baseURL": "",
+            "tags": [],
+            "properties": [
+                {
+                    "type": "x-openapi",
+                    "url": "https:\/\/raw.githubusercontent.com\/api-evangelist\/1forge\/master\/tripadvisor-openapi.json"
+                }
+            ]
+        }
+    ],
+    "include": [],
+    "x-common": [
+        {
+            "type": "Developers",
+            "url": "https:\/\/developer-tripadvisor.com\/home\/"
+        },
+        {
+            "type": "Github",
+            "url": "https:\/\/github.com\/tripadvisor"
+        },
+        {
+            "type": "Twitter",
+            "url": "https:\/\/twitter.com\/TripAdvisor"
+        },
+        {
+            "type": "Website",
+            "url": "https:\/\/www.tripadvisor.com\/"
+        }
+    ]
+}
