@@ -1,0 +1,560 @@
+openapi: 3.1.0
+info:
+  title: Tripadvisor Hotel Availability Check API
+  description: >-
+    The Tripadvisor Hotel Availability Check (HAC) API allows hotel booking
+    partners to display their availability and pricing on Tripadvisor. This
+    specification describes the endpoints that partners must implement on
+    their servers. When a user views a hotel page, Tripadvisor sends HTTP
+    POST requests to the partner's API to retrieve real-time price and
+    availability data. The API supports batch requests for multiple hotels
+    and requires responses within 5 seconds on average. The current version
+    (v8) provides richer availability data to help partners increase
+    conversions. This spec also covers the hotel inventory endpoint that
+    Tripadvisor queries daily, and the configuration endpoint.
+  version: '8'
+  contact:
+    name: Tripadvisor Connectivity Support
+    url: https://developer-tripadvisor.com/connectivity-solutions/hotel-availability-check-api/support/
+  termsOfService: https://developer-tripadvisor.com/connectivity-solutions/
+externalDocs:
+  description: Tripadvisor HAC API Documentation
+  url: https://developer-tripadvisor.com/connectivity-solutions/hotel-availability-check-api/documentation/
+servers:
+  - url: https://{partnerEndpoint}
+    description: >-
+      Partner-hosted endpoint. Tripadvisor sends requests to the partner's
+      server at a URL configured during onboarding.
+    variables:
+      partnerEndpoint:
+        default: api.partner-example.com
+        description: >-
+          The partner's server hostname and base path.
+tags:
+  - name: Configuration
+    description: >-
+      Configuration endpoint that Tripadvisor queries to discover the partner's
+      supported features and API version.
+  - name: Hotel Inventory
+    description: >-
+      Hotel inventory endpoint queried daily by Tripadvisor to import the
+      partner's full list of connected hotels.
+  - name: Availability
+    description: >-
+      Availability endpoint called in real-time when users view hotel pages on
+      Tripadvisor to retrieve pricing and room availability.
+security: []
+paths:
+  /config:
+    get:
+      operationId: getConfiguration
+      summary: Get partner configuration
+      description: >-
+        Returns the partner's API configuration including supported API version,
+        features, and capabilities. Tripadvisor queries this endpoint to
+        understand what the partner supports.
+      tags:
+        - Configuration
+      parameters:
+        - $ref: '#/components/parameters/ApiVersion'
+      responses:
+        '200':
+          description: Successful configuration response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ConfigResponse'
+  /hotel_inventory:
+    get:
+      operationId: getHotelInventory
+      summary: Get hotel inventory
+      description: >-
+        Returns the partner's full list of hotel properties that are connected
+        for availability checking. Tripadvisor queries this endpoint once per
+        day and matches the returned hotels to Tripadvisor listings. Partners
+        must provide their complete inventory and remove all test properties
+        before the implementation is considered complete.
+      tags:
+        - Hotel Inventory
+      parameters:
+        - $ref: '#/components/parameters/ApiVersion'
+        - $ref: '#/components/parameters/Lang'
+        - name: inventory_type
+          in: query
+          required: false
+          description: >-
+            The type of inventory integration.
+          schema:
+            type: string
+            enum:
+              - tripconnect
+            example: tripconnect
+      responses:
+        '200':
+          description: Successful hotel inventory response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HotelInventoryResponse'
+  /availability:
+    post:
+      operationId: checkAvailability
+      summary: Check hotel availability
+      description: >-
+        Called by Tripadvisor in real-time when a user views a hotel page to
+        retrieve current pricing and availability. The request can include one
+        to many hotels. Partners must respond within 5 seconds on average.
+        All parameters are sent as application/x-www-form-urlencoded and the
+        response must be JSON with Content-Type application/json.
+      tags:
+        - Availability
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/AvailabilityRequest'
+      responses:
+        '200':
+          description: >-
+            Successful availability response. Must always return HTTP 200 even
+            when individual hotels have errors or no availability.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AvailabilityResponse'
+components:
+  securitySchemes: {}
+  parameters:
+    ApiVersion:
+      name: api_version
+      in: query
+      required: true
+      description: >-
+        The API version number. Current version is 8.
+      schema:
+        type: integer
+        enum:
+          - 8
+        example: 8
+    Lang:
+      name: lang
+      in: query
+      required: false
+      description: >-
+        The language code for the response content.
+      schema:
+        type: string
+        default: en
+        example: en
+  schemas:
+    ConfigResponse:
+      type: object
+      description: >-
+        Partner configuration response describing supported features and
+        API version.
+      properties:
+        api_version:
+          type: integer
+          description: >-
+            The API version supported by the partner.
+          example: 8
+        supported_languages:
+          type: array
+          description: >-
+            Array of language codes supported by the partner.
+          items:
+            type: string
+        supported_currencies:
+          type: array
+          description: >-
+            Array of currency codes supported by the partner.
+          items:
+            type: string
+    HotelInventoryResponse:
+      type: object
+      description: >-
+        Response containing the partner's complete hotel inventory listing.
+      required:
+        - api_version
+        - hotels
+      properties:
+        api_version:
+          type: integer
+          description: >-
+            The API version of this response.
+          example: 8
+        lang:
+          type: string
+          description: >-
+            The language of the response content.
+          example: en
+        hotels:
+          type: array
+          description: >-
+            Array of hotel objects representing the partner's full inventory.
+          items:
+            $ref: '#/components/schemas/InventoryHotel'
+    InventoryHotel:
+      type: object
+      description: >-
+        A hotel property in the partner's inventory.
+      required:
+        - ta_id
+        - partner_id
+      properties:
+        ta_id:
+          type: integer
+          description: >-
+            The Tripadvisor location ID for this hotel.
+        partner_id:
+          type: string
+          description: >-
+            The partner's internal identifier for this hotel. Must be consistent
+            between inventory and availability responses.
+        name:
+          type: string
+          description: >-
+            The name of the hotel property.
+        street:
+          type: string
+          description: >-
+            The street address of the hotel.
+        city:
+          type: string
+          description: >-
+            The city where the hotel is located.
+        postal:
+          type: string
+          description: >-
+            The postal code of the hotel.
+        country:
+          type: string
+          description: >-
+            The country code of the hotel.
+    AvailabilityRequest:
+      type: object
+      description: >-
+        Request parameters sent by Tripadvisor to check hotel availability.
+      required:
+        - api_version
+        - hotel_ids
+        - start_date
+        - end_date
+        - party
+      properties:
+        api_version:
+          type: integer
+          description: >-
+            The API version for this request.
+          example: 8
+        hotel_ids:
+          type: string
+          description: >-
+            Comma-separated list of partner hotel IDs to check availability for.
+        start_date:
+          type: string
+          format: date
+          description: >-
+            The check-in date in YYYY-MM-DD format.
+        end_date:
+          type: string
+          format: date
+          description: >-
+            The check-out date in YYYY-MM-DD format.
+        party:
+          type: string
+          description: >-
+            JSON-encoded array of party objects specifying the number of adults
+            and children per room.
+        num_rooms:
+          type: integer
+          description: >-
+            The number of rooms requested.
+          minimum: 1
+        lang:
+          type: string
+          description: >-
+            The language code for the response.
+        currency:
+          type: string
+          description: >-
+            The currency code for pricing.
+        user_country:
+          type: string
+          description: >-
+            The two-letter country code of the user making the request.
+        device_type:
+          type: string
+          description: >-
+            The type of device the user is browsing on.
+          enum:
+            - desktop
+            - mobile
+            - tablet
+        query_key:
+          type: string
+          description: >-
+            A unique identifier for this availability query.
+    AvailabilityResponse:
+      type: object
+      description: >-
+        Response containing availability and pricing data for requested hotels.
+      required:
+        - api_version
+        - hotels
+      properties:
+        api_version:
+          type: integer
+          description: >-
+            The API version of this response.
+          example: 8
+        hotels:
+          type: array
+          description: >-
+            Array of hotel availability results.
+          items:
+            $ref: '#/components/schemas/HotelAvailability'
+        errors:
+          type: array
+          description: >-
+            Array of errors encountered during the availability check.
+          items:
+            $ref: '#/components/schemas/AvailabilityError'
+    HotelAvailability:
+      type: object
+      description: >-
+        Availability and pricing information for a single hotel.
+      required:
+        - hotel_id
+        - room_types
+      properties:
+        hotel_id:
+          type: string
+          description: >-
+            The partner hotel ID matching the request.
+        availability:
+          type: string
+          description: >-
+            The availability status for this hotel.
+          enum:
+            - available
+            - unavailable
+            - error
+        room_types:
+          type: object
+          description: >-
+            Map of room type keys to room type objects. Must include an entry
+            for every unique room type key used in room rates.
+          additionalProperties:
+            $ref: '#/components/schemas/RoomType'
+        room_rates:
+          type: object
+          description: >-
+            Map of room rate keys to room rate objects containing pricing
+            details.
+          additionalProperties:
+            $ref: '#/components/schemas/RoomRate'
+        url:
+          type: string
+          format: uri
+          description: >-
+            The deep link URL to the partner's booking page for this hotel.
+    RoomType:
+      type: object
+      description: >-
+        A room type available at the hotel.
+      properties:
+        url:
+          type: string
+          format: uri
+          description: >-
+            Deep link URL to the booking page for this room type.
+        description:
+          type: string
+          description: >-
+            A description of the room type.
+        room_type_code:
+          type: string
+          description: >-
+            Persistent room type code that identifies this room type across
+            requests.
+        photos:
+          type: array
+          description: >-
+            Array of photo URLs for this room type.
+          items:
+            type: object
+            properties:
+              url:
+                type: string
+                format: uri
+                description: >-
+                  URL of the room type photo.
+              caption:
+                type: string
+                description: >-
+                  Caption for the room type photo.
+        amenities:
+          type: array
+          description: >-
+            Array of amenity names available in this room type.
+          items:
+            type: string
+        max_occupancy:
+          type: integer
+          description: >-
+            The maximum number of guests for this room type.
+          minimum: 1
+        bed_types:
+          type: array
+          description: >-
+            Array of bed type descriptions available in this room type.
+          items:
+            type: string
+    RoomRate:
+      type: object
+      description: >-
+        Pricing details for a specific room rate.
+      properties:
+        room_type_key:
+          type: string
+          description: >-
+            Key referencing the room type this rate applies to.
+        rate_plan_code:
+          type: string
+          description: >-
+            Persistent rate plan code for this rate across requests.
+        rate_plan_description:
+          type: string
+          description: >-
+            Description of the rate plan.
+        url:
+          type: string
+          format: uri
+          description: >-
+            Deep link URL to book at this rate.
+        line_items:
+          type: array
+          description: >-
+            Array of line item objects for rate, tax, and fee breakdowns.
+          items:
+            $ref: '#/components/schemas/LineItem'
+        cancellation_rules:
+          $ref: '#/components/schemas/CancellationRules'
+        occupancy:
+          type: integer
+          description: >-
+            The number of guests this rate is for.
+          minimum: 1
+        is_refundable:
+          type: boolean
+          description: >-
+            Whether this rate is refundable.
+        meal_plan:
+          type: string
+          description: >-
+            The meal plan included with this rate.
+          enum:
+            - none
+            - breakfast
+            - half_board
+            - full_board
+            - all_inclusive
+    LineItem:
+      type: object
+      description: >-
+        A pricing line item representing a rate, tax, or fee component.
+      required:
+        - type
+        - price
+        - currency
+      properties:
+        type:
+          type: string
+          description: >-
+            The line item type.
+          enum:
+            - rate
+            - tax
+            - fee
+        sub_type:
+          type: string
+          description: >-
+            The sub-type providing more detail about the line item.
+        price:
+          type: number
+          format: float
+          description: >-
+            The monetary amount for this line item.
+        currency:
+          type: string
+          description: >-
+            The three-letter currency code.
+          minLength: 3
+          maxLength: 3
+        paid_at_checkout:
+          type: boolean
+          description: >-
+            Whether this line item is paid at checkout rather than at booking.
+    CancellationRules:
+      type: object
+      description: >-
+        Cancellation policy rules for a room rate. In v8, rules include
+        start and end times for each cancellation policy window.
+      properties:
+        free_cancellation:
+          type: boolean
+          description: >-
+            Whether free cancellation is available for this rate.
+        rules:
+          type: array
+          description: >-
+            Array of cancellation rule periods with associated penalties.
+          items:
+            type: object
+            properties:
+              start:
+                type: string
+                format: date-time
+                description: >-
+                  The start date-time of this cancellation rule period.
+              end:
+                type: string
+                format: date-time
+                description: >-
+                  The end date-time of this cancellation rule period.
+              penalty_amount:
+                type: number
+                format: float
+                description: >-
+                  The penalty amount charged if cancelled during this period.
+              penalty_currency:
+                type: string
+                description: >-
+                  The currency of the penalty amount.
+              penalty_type:
+                type: string
+                description: >-
+                  The type of penalty.
+                enum:
+                  - amount
+                  - percentage
+                  - nights
+    AvailabilityError:
+      type: object
+      description: >-
+        An error encountered for a specific hotel during availability check.
+      properties:
+        hotel_id:
+          type: string
+          description: >-
+            The partner hotel ID that experienced the error.
+        error_type:
+          type: string
+          description: >-
+            The classification of the error.
+        message:
+          type: string
+          description: >-
+            A human-readable error message.

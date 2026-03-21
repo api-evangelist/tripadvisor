@@ -1,0 +1,154 @@
+{
+  "@context": {
+    "@version": 1.1,
+    "ta": "https://developer-tripadvisor.com/ns/",
+    "schema": "https://schema.org/",
+    "xsd": "http://www.w3.org/2001/XMLSchema#",
+    "dcterms": "http://purl.org/dc/terms/",
+
+    "Location": {
+      "@id": "schema:Place",
+      "@context": {
+        "location_id": "ta:locationId",
+        "name": "schema:name",
+        "description": "schema:description",
+        "web_url": {
+          "@id": "schema:url",
+          "@type": "@id"
+        },
+        "website": {
+          "@id": "schema:sameAs",
+          "@type": "@id"
+        },
+        "latitude": {
+          "@id": "schema:latitude",
+          "@type": "xsd:decimal"
+        },
+        "longitude": {
+          "@id": "schema:longitude",
+          "@type": "xsd:decimal"
+        },
+        "phone": "schema:telephone",
+        "rating": {
+          "@id": "schema:aggregateRating",
+          "@type": "xsd:decimal"
+        },
+        "num_reviews": {
+          "@id": "schema:reviewCount",
+          "@type": "xsd:integer"
+        },
+        "price_level": "schema:priceRange",
+        "timezone": "ta:timezone",
+        "photo_count": {
+          "@id": "ta:photoCount",
+          "@type": "xsd:integer"
+        },
+        "address_obj": "schema:address",
+        "category": "schema:additionalType",
+        "cuisine": {
+          "@id": "schema:servesCuisine",
+          "@container": "@set"
+        },
+        "hours": "schema:openingHoursSpecification",
+        "awards": {
+          "@id": "ta:awards",
+          "@container": "@set"
+        }
+      }
+    },
+
+    "Hotel": {
+      "@id": "schema:Hotel",
+      "@context": {
+        "ta_id": "ta:tripadvisorId",
+        "partner_id": "ta:partnerId",
+        "name": "schema:name",
+        "street": "schema:streetAddress",
+        "city": "schema:addressLocality",
+        "postal": "schema:postalCode",
+        "country": "schema:addressCountry"
+      }
+    },
+
+    "Review": {
+      "@id": "schema:Review",
+      "@context": {
+        "id": "ta:reviewId",
+        "title": "schema:headline",
+        "text": "schema:reviewBody",
+        "rating": {
+          "@id": "schema:reviewRating",
+          "@type": "xsd:integer"
+        },
+        "published_date": {
+          "@id": "dcterms:created",
+          "@type": "xsd:dateTime"
+        },
+        "travel_date": {
+          "@id": "ta:travelDate",
+          "@type": "xsd:gYearMonth"
+        },
+        "trip_type": "ta:tripType",
+        "lang": "schema:inLanguage",
+        "url": {
+          "@id": "schema:url",
+          "@type": "@id"
+        },
+        "helpful_votes": {
+          "@id": "schema:upvoteCount",
+          "@type": "xsd:integer"
+        },
+        "user": "schema:author"
+      }
+    },
+
+    "Photo": {
+      "@id": "schema:ImageObject",
+      "@context": {
+        "id": "ta:photoId",
+        "caption": "schema:caption",
+        "published_date": {
+          "@id": "dcterms:created",
+          "@type": "xsd:dateTime"
+        },
+        "images": "schema:image",
+        "album": "ta:album",
+        "user": "schema:author"
+      }
+    },
+
+    "Address": {
+      "@id": "schema:PostalAddress",
+      "@context": {
+        "street1": "schema:streetAddress",
+        "city": "schema:addressLocality",
+        "state": "schema:addressRegion",
+        "country": "schema:addressCountry",
+        "postalcode": "schema:postalCode",
+        "address_string": "schema:name"
+      }
+    },
+
+    "Award": {
+      "@id": "ta:Award",
+      "@context": {
+        "award_type": "ta:awardType",
+        "year": {
+          "@id": "dcterms:date",
+          "@type": "xsd:gYear"
+        },
+        "display_name": "schema:name",
+        "images": "schema:image"
+      }
+    },
+
+    "User": {
+      "@id": "schema:Person",
+      "@context": {
+        "username": "schema:name",
+        "avatar": "schema:image",
+        "user_location": "schema:homeLocation"
+      }
+    }
+  }
+}

@@ -1,0 +1,145 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://developer-tripadvisor.com/schemas/tripadvisor/review.json",
+  "title": "Tripadvisor Review",
+  "description": "A user review for a Tripadvisor location including rating, text, trip type, and reviewer information.",
+  "type": "object",
+  "required": ["id", "rating"],
+  "properties": {
+    "id": {
+      "type": "integer",
+      "description": "The unique identifier for this review."
+    },
+    "lang": {
+      "type": "string",
+      "description": "The language code of the review.",
+      "minLength": 2,
+      "maxLength": 5
+    },
+    "location_id": {
+      "type": "integer",
+      "description": "The Tripadvisor location ID this review is for."
+    },
+    "published_date": {
+      "type": "string",
+      "format": "date-time",
+      "description": "The date and time the review was published in ISO 8601 format."
+    },
+    "rating": {
+      "type": "integer",
+      "description": "The overall rating given by the reviewer.",
+      "minimum": 1,
+      "maximum": 5
+    },
+    "helpful_votes": {
+      "type": "integer",
+      "description": "The number of helpful votes this review has received.",
+      "minimum": 0
+    },
+    "rating_image_url": {
+      "type": "string",
+      "format": "uri",
+      "description": "URL of the rating bubble image for this review's rating."
+    },
+    "url": {
+      "type": "string",
+      "format": "uri",
+      "description": "URL of the full review on Tripadvisor."
+    },
+    "text": {
+      "type": "string",
+      "description": "The full text content of the review."
+    },
+    "title": {
+      "type": "string",
+      "description": "The title or headline of the review.",
+      "maxLength": 200
+    },
+    "trip_type": {
+      "type": "string",
+      "description": "The type of trip associated with this review.",
+      "enum": ["business", "couples", "family", "friends", "solo"]
+    },
+    "travel_date": {
+      "type": "string",
+      "description": "The date of travel associated with this review in YYYY-MM format.",
+      "pattern": "^\\d{4}-\\d{2}$"
+    },
+    "user": {
+      "$ref": "#/$defs/UserReference"
+    },
+    "subratings": {
+      "type": "object",
+      "description": "Sub-rating scores for specific aspects of the location (e.g., service, value, cleanliness).",
+      "additionalProperties": {
+        "$ref": "#/$defs/SubRating"
+      }
+    }
+  },
+  "$defs": {
+    "UserReference": {
+      "type": "object",
+      "description": "Reference to a Tripadvisor user who authored the review.",
+      "properties": {
+        "username": {
+          "type": "string",
+          "description": "The username of the reviewer."
+        },
+        "user_location": {
+          "type": "object",
+          "description": "The reviewer's stated location.",
+          "properties": {
+            "name": {
+              "type": "string",
+              "description": "The display name of the reviewer's location."
+            },
+            "id": {
+              "type": "string",
+              "description": "The location ID of the reviewer's location."
+            }
+          }
+        },
+        "avatar": {
+          "type": "object",
+          "description": "Avatar images for the reviewer.",
+          "properties": {
+            "thumbnail": {
+              "type": "string",
+              "format": "uri",
+              "description": "URL of the reviewer's thumbnail avatar."
+            },
+            "small": {
+              "type": "string",
+              "format": "uri",
+              "description": "URL of the reviewer's small avatar."
+            },
+            "large": {
+              "type": "string",
+              "format": "uri",
+              "description": "URL of the reviewer's large avatar."
+            }
+          }
+        }
+      }
+    },
+    "SubRating": {
+      "type": "object",
+      "description": "A sub-rating score for a specific aspect of a location.",
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "The name of the sub-rating category (e.g., Service, Value)."
+        },
+        "rating_image_url": {
+          "type": "string",
+          "format": "uri",
+          "description": "URL of the rating bubble image for this sub-rating."
+        },
+        "value": {
+          "type": "string",
+          "description": "The sub-rating numeric value."
+        }
+      }
+    }
+  }
+}

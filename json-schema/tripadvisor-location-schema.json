@@ -1,0 +1,364 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://developer-tripadvisor.com/schemas/tripadvisor/location.json",
+  "title": "Tripadvisor Location",
+  "description": "A Tripadvisor location representing a hotel, restaurant, or attraction with comprehensive details including address, rating, reviews, and photos.",
+  "type": "object",
+  "required": ["location_id", "name"],
+  "properties": {
+    "location_id": {
+      "type": "string",
+      "description": "The unique Tripadvisor identifier for this location."
+    },
+    "name": {
+      "type": "string",
+      "description": "The display name of the location."
+    },
+    "description": {
+      "type": "string",
+      "description": "A detailed text description of the location."
+    },
+    "web_url": {
+      "type": "string",
+      "format": "uri",
+      "description": "The URL of the location's page on Tripadvisor."
+    },
+    "address_obj": {
+      "$ref": "#/$defs/Address"
+    },
+    "ancestors": {
+      "type": "array",
+      "description": "Array of parent geographic locations in the hierarchy.",
+      "items": {
+        "$ref": "#/$defs/Ancestor"
+      }
+    },
+    "latitude": {
+      "type": "string",
+      "description": "The latitude coordinate of the location.",
+      "pattern": "^-?\\d+\\.?\\d*$"
+    },
+    "longitude": {
+      "type": "string",
+      "description": "The longitude coordinate of the location.",
+      "pattern": "^-?\\d+\\.?\\d*$"
+    },
+    "timezone": {
+      "type": "string",
+      "description": "The timezone of the location (e.g., America/New_York)."
+    },
+    "phone": {
+      "type": "string",
+      "description": "The phone number of the location."
+    },
+    "website": {
+      "type": "string",
+      "format": "uri",
+      "description": "The official website URL of the location."
+    },
+    "ranking_data": {
+      "$ref": "#/$defs/RankingData"
+    },
+    "rating": {
+      "type": "string",
+      "description": "The overall rating on a scale of 1.0 to 5.0.",
+      "pattern": "^[1-5](\\.[05])?$"
+    },
+    "rating_image_url": {
+      "type": "string",
+      "format": "uri",
+      "description": "URL of the rating bubble image."
+    },
+    "num_reviews": {
+      "type": "string",
+      "description": "The total number of reviews for this location.",
+      "pattern": "^\\d+$"
+    },
+    "review_rating_count": {
+      "type": "object",
+      "description": "Breakdown of review counts by rating level (1-5).",
+      "properties": {
+        "1": { "type": "string", "description": "Count of 1-star reviews." },
+        "2": { "type": "string", "description": "Count of 2-star reviews." },
+        "3": { "type": "string", "description": "Count of 3-star reviews." },
+        "4": { "type": "string", "description": "Count of 4-star reviews." },
+        "5": { "type": "string", "description": "Count of 5-star reviews." }
+      }
+    },
+    "photo_count": {
+      "type": "string",
+      "description": "The total number of photos available for this location.",
+      "pattern": "^\\d+$"
+    },
+    "price_level": {
+      "type": "string",
+      "description": "The price level indicator.",
+      "enum": ["$", "$$", "$$ - $$$", "$$$", "$$$$"]
+    },
+    "category": {
+      "$ref": "#/$defs/Tag"
+    },
+    "subcategory": {
+      "type": "array",
+      "description": "Array of subcategory classifications for this location.",
+      "items": {
+        "$ref": "#/$defs/Tag"
+      }
+    },
+    "cuisine": {
+      "type": "array",
+      "description": "Array of cuisine types for restaurant locations.",
+      "items": {
+        "$ref": "#/$defs/Tag"
+      }
+    },
+    "hours": {
+      "$ref": "#/$defs/Hours"
+    },
+    "groups": {
+      "type": "array",
+      "description": "Array of category groups this location belongs to.",
+      "items": {
+        "$ref": "#/$defs/Group"
+      }
+    },
+    "trip_types": {
+      "type": "array",
+      "description": "Array of trip type ratings for this location.",
+      "items": {
+        "$ref": "#/$defs/TripType"
+      }
+    },
+    "awards": {
+      "type": "array",
+      "description": "Array of awards received by this location.",
+      "items": {
+        "$ref": "#/$defs/Award"
+      }
+    }
+  },
+  "$defs": {
+    "Address": {
+      "type": "object",
+      "description": "The physical address of a location.",
+      "properties": {
+        "street1": {
+          "type": "string",
+          "description": "The primary street address line."
+        },
+        "street2": {
+          "type": "string",
+          "description": "The secondary street address line."
+        },
+        "city": {
+          "type": "string",
+          "description": "The city name."
+        },
+        "state": {
+          "type": "string",
+          "description": "The state or province name."
+        },
+        "country": {
+          "type": "string",
+          "description": "The country name."
+        },
+        "postalcode": {
+          "type": "string",
+          "description": "The postal or ZIP code."
+        },
+        "address_string": {
+          "type": "string",
+          "description": "The full formatted address as a single string."
+        }
+      }
+    },
+    "Ancestor": {
+      "type": "object",
+      "description": "A parent geographic location in the location hierarchy.",
+      "properties": {
+        "level": {
+          "type": "string",
+          "description": "The level in the geographic hierarchy (e.g., City, Region, Country)."
+        },
+        "name": {
+          "type": "string",
+          "description": "The name of the ancestor location."
+        },
+        "location_id": {
+          "type": "string",
+          "description": "The Tripadvisor location ID of the ancestor."
+        }
+      }
+    },
+    "RankingData": {
+      "type": "object",
+      "description": "Ranking information for the location within its category and geography.",
+      "properties": {
+        "geo_location_id": {
+          "type": "string",
+          "description": "The Tripadvisor ID of the geographic area for ranking."
+        },
+        "ranking_string": {
+          "type": "string",
+          "description": "A human-readable ranking string."
+        },
+        "geo_location_name": {
+          "type": "string",
+          "description": "The name of the geographic area for ranking."
+        },
+        "ranking_out_of": {
+          "type": "string",
+          "description": "The total number of locations in the ranking category."
+        },
+        "ranking": {
+          "type": "string",
+          "description": "The numeric rank position."
+        }
+      }
+    },
+    "Tag": {
+      "type": "object",
+      "description": "A category or classification tag.",
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "The display name of the tag."
+        },
+        "localized_name": {
+          "type": "string",
+          "description": "The localized display name of the tag."
+        }
+      }
+    },
+    "Group": {
+      "type": "object",
+      "description": "A category group with associated sub-categories.",
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "The name of the group."
+        },
+        "localized_name": {
+          "type": "string",
+          "description": "The localized name of the group."
+        },
+        "categories": {
+          "type": "array",
+          "description": "Array of category tags within this group.",
+          "items": {
+            "$ref": "#/$defs/Tag"
+          }
+        }
+      }
+    },
+    "TripType": {
+      "type": "object",
+      "description": "Rating data for a specific type of trip.",
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "The trip type name (e.g., business, couples, family)."
+        },
+        "localized_name": {
+          "type": "string",
+          "description": "The localized trip type name."
+        },
+        "value": {
+          "type": "string",
+          "description": "The count of reviews for this trip type."
+        }
+      }
+    },
+    "Award": {
+      "type": "object",
+      "description": "An award or recognition received by the location.",
+      "properties": {
+        "award_type": {
+          "type": "string",
+          "description": "The type of award."
+        },
+        "year": {
+          "type": "string",
+          "description": "The year the award was given.",
+          "pattern": "^\\d{4}$"
+        },
+        "images": {
+          "type": "object",
+          "description": "Image URLs for the award badge.",
+          "properties": {
+            "small": {
+              "type": "string",
+              "format": "uri",
+              "description": "URL for the small award image."
+            },
+            "large": {
+              "type": "string",
+              "format": "uri",
+              "description": "URL for the large award image."
+            }
+          }
+        },
+        "display_name": {
+          "type": "string",
+          "description": "The display name of the award."
+        }
+      }
+    },
+    "Hours": {
+      "type": "object",
+      "description": "Operating hours information for the location.",
+      "properties": {
+        "periods": {
+          "type": "array",
+          "description": "Array of time periods when the location is open.",
+          "items": {
+            "type": "object",
+            "properties": {
+              "open": {
+                "type": "object",
+                "description": "The opening time details.",
+                "properties": {
+                  "day": {
+                    "type": "integer",
+                    "description": "Day of the week (0 = Sunday, 6 = Saturday).",
+                    "minimum": 0,
+                    "maximum": 6
+                  },
+                  "time": {
+                    "type": "string",
+                    "description": "The opening time in 24-hour format (HHMM).",
+                    "pattern": "^\\d{4}$"
+                  }
+                }
+              },
+              "close": {
+                "type": "object",
+                "description": "The closing time details.",
+                "properties": {
+                  "day": {
+                    "type": "integer",
+                    "description": "Day of the week (0 = Sunday, 6 = Saturday).",
+                    "minimum": 0,
+                    "maximum": 6
+                  },
+                  "time": {
+                    "type": "string",
+                    "description": "The closing time in 24-hour format (HHMM).",
+                    "pattern": "^\\d{4}$"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "weekday_text": {
+          "type": "array",
+          "description": "Array of human-readable strings describing hours for each day.",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  }
+}

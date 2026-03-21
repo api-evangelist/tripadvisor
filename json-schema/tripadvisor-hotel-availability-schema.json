@@ -1,0 +1,266 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://developer-tripadvisor.com/schemas/tripadvisor/hotel-availability.json",
+  "title": "Tripadvisor Hotel Availability Response",
+  "description": "The response payload returned by a partner's availability endpoint when Tripadvisor checks hotel pricing and room availability in real-time via the Hotel Availability Check (HAC) API v8.",
+  "type": "object",
+  "required": ["api_version", "hotels"],
+  "properties": {
+    "api_version": {
+      "type": "integer",
+      "description": "The API version number of this response.",
+      "const": 8
+    },
+    "hotels": {
+      "type": "array",
+      "description": "Array of hotel availability results, one per requested hotel.",
+      "items": {
+        "$ref": "#/$defs/HotelAvailability"
+      }
+    },
+    "errors": {
+      "type": "array",
+      "description": "Array of errors encountered during the availability check.",
+      "items": {
+        "$ref": "#/$defs/AvailabilityError"
+      }
+    }
+  },
+  "$defs": {
+    "HotelAvailability": {
+      "type": "object",
+      "description": "Availability and pricing information for a single hotel property.",
+      "required": ["hotel_id", "availability"],
+      "properties": {
+        "hotel_id": {
+          "type": "string",
+          "description": "The partner's internal hotel ID matching the request."
+        },
+        "availability": {
+          "type": "string",
+          "description": "The availability status for this hotel.",
+          "enum": ["available", "unavailable", "error"]
+        },
+        "room_types": {
+          "type": "object",
+          "description": "Map from room type keys to room type objects. Must include an entry for every unique room_type_key used in room_rates.",
+          "additionalProperties": {
+            "$ref": "#/$defs/RoomType"
+          }
+        },
+        "room_rates": {
+          "type": "object",
+          "description": "Map from room rate keys to room rate objects containing pricing details.",
+          "additionalProperties": {
+            "$ref": "#/$defs/RoomRate"
+          }
+        },
+        "url": {
+          "type": "string",
+          "format": "uri",
+          "description": "Deep link URL to the partner's booking page for this hotel."
+        }
+      }
+    },
+    "RoomType": {
+      "type": "object",
+      "description": "A room type available at the hotel.",
+      "properties": {
+        "url": {
+          "type": "string",
+          "format": "uri",
+          "description": "Deep link URL to the booking page for this room type."
+        },
+        "description": {
+          "type": "string",
+          "description": "A description of the room type."
+        },
+        "room_type_code": {
+          "type": "string",
+          "description": "Persistent room type code that identifies this room type across requests."
+        },
+        "photos": {
+          "type": "array",
+          "description": "Array of photos for this room type.",
+          "items": {
+            "type": "object",
+            "properties": {
+              "url": {
+                "type": "string",
+                "format": "uri",
+                "description": "URL of the room type photo."
+              },
+              "caption": {
+                "type": "string",
+                "description": "Caption for the room type photo."
+              }
+            }
+          }
+        },
+        "amenities": {
+          "type": "array",
+          "description": "Array of amenity names available in this room type.",
+          "items": {
+            "type": "string"
+          }
+        },
+        "max_occupancy": {
+          "type": "integer",
+          "description": "The maximum number of guests for this room type.",
+          "minimum": 1
+        },
+        "bed_types": {
+          "type": "array",
+          "description": "Array of bed type descriptions.",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "RoomRate": {
+      "type": "object",
+      "description": "Pricing details for a specific room rate.",
+      "required": ["room_type_key", "line_items"],
+      "properties": {
+        "room_type_key": {
+          "type": "string",
+          "description": "Key referencing the room type this rate applies to."
+        },
+        "rate_plan_code": {
+          "type": "string",
+          "description": "Persistent rate plan code identifying this rate across requests."
+        },
+        "rate_plan_description": {
+          "type": "string",
+          "description": "Description of the rate plan."
+        },
+        "url": {
+          "type": "string",
+          "format": "uri",
+          "description": "Deep link URL to book at this rate."
+        },
+        "line_items": {
+          "type": "array",
+          "description": "Array of line item objects for rate, tax, and fee breakdowns.",
+          "items": {
+            "$ref": "#/$defs/LineItem"
+          },
+          "minItems": 1
+        },
+        "cancellation_rules": {
+          "$ref": "#/$defs/CancellationRules"
+        },
+        "occupancy": {
+          "type": "integer",
+          "description": "The number of guests this rate is for.",
+          "minimum": 1
+        },
+        "is_refundable": {
+          "type": "boolean",
+          "description": "Whether this rate is refundable."
+        },
+        "meal_plan": {
+          "type": "string",
+          "description": "The meal plan included with this rate.",
+          "enum": ["none", "breakfast", "half_board", "full_board", "all_inclusive"]
+        }
+      }
+    },
+    "LineItem": {
+      "type": "object",
+      "description": "A pricing line item representing a rate, tax, or fee component.",
+      "required": ["type", "price", "currency"],
+      "properties": {
+        "type": {
+          "type": "string",
+          "description": "The line item type.",
+          "enum": ["rate", "tax", "fee"]
+        },
+        "sub_type": {
+          "type": "string",
+          "description": "The sub-type providing more detail about the line item."
+        },
+        "price": {
+          "type": "number",
+          "description": "The monetary amount for this line item.",
+          "minimum": 0
+        },
+        "currency": {
+          "type": "string",
+          "description": "The three-letter ISO 4217 currency code.",
+          "minLength": 3,
+          "maxLength": 3
+        },
+        "paid_at_checkout": {
+          "type": "boolean",
+          "description": "Whether this amount is paid at checkout rather than at booking time."
+        }
+      }
+    },
+    "CancellationRules": {
+      "type": "object",
+      "description": "Cancellation policy rules for a room rate with time-windowed penalties.",
+      "properties": {
+        "free_cancellation": {
+          "type": "boolean",
+          "description": "Whether free cancellation is available."
+        },
+        "rules": {
+          "type": "array",
+          "description": "Array of cancellation rule periods with associated penalties.",
+          "items": {
+            "type": "object",
+            "properties": {
+              "start": {
+                "type": "string",
+                "format": "date-time",
+                "description": "The start date-time of this cancellation policy window."
+              },
+              "end": {
+                "type": "string",
+                "format": "date-time",
+                "description": "The end date-time of this cancellation policy window."
+              },
+              "penalty_amount": {
+                "type": "number",
+                "description": "The penalty amount charged if cancelled during this period.",
+                "minimum": 0
+              },
+              "penalty_currency": {
+                "type": "string",
+                "description": "The currency of the penalty amount.",
+                "minLength": 3,
+                "maxLength": 3
+              },
+              "penalty_type": {
+                "type": "string",
+                "description": "The type of penalty applied.",
+                "enum": ["amount", "percentage", "nights"]
+              }
+            }
+          }
+        }
+      }
+    },
+    "AvailabilityError": {
+      "type": "object",
+      "description": "An error encountered for a specific hotel during the availability check.",
+      "required": ["hotel_id"],
+      "properties": {
+        "hotel_id": {
+          "type": "string",
+          "description": "The partner hotel ID that experienced the error."
+        },
+        "error_type": {
+          "type": "string",
+          "description": "The classification of the error."
+        },
+        "message": {
+          "type": "string",
+          "description": "A human-readable error message describing what went wrong."
+        }
+      }
+    }
+  }
+}
