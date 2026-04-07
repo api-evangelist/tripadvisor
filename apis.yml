@@ -1,5 +1,6 @@
 aid: tripadvisor
-url: https://raw.githubusercontent.com/api-evangelist/tripadvisor/refs/heads/main/apis.yml
+url: 
+  https://raw.githubusercontent.com/api-evangelist/tripadvisor/refs/heads/main/apis.yml
 modified: '2026-03-20'
 apis:
   - aid: tripadvisor:content-api
@@ -11,7 +12,8 @@ apis:
       - Hotels
       - Restaurants
       - Attractions
-    image: https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+    image: 
+      https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
     baseURL: https://api.content.tripadvisor.com
     humanURL: https://developer-tripadvisor.com/content-api/
     properties:
@@ -35,11 +37,14 @@ apis:
       - Availability
       - Booking
       - Hospitality
-    image: https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+    image: 
+      https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
     baseURL: https://api.example.com
-    humanURL: https://developer-tripadvisor.com/connectivity-solutions/hotel-availability-check-api/
+    humanURL: 
+      https://developer-tripadvisor.com/connectivity-solutions/hotel-availability-check-api/
     properties:
-      - url: https://developer-tripadvisor.com/connectivity-solutions/hotel-availability-check-api/
+      - url: 
+          https://developer-tripadvisor.com/connectivity-solutions/hotel-availability-check-api/
         type: Documentation
       - url: openapi/tripadvisor-hotel-availability-check-api-openapi.yml
         type: OpenAPI
@@ -59,11 +64,14 @@ apis:
       - Inventory
       - Hospitality
       - Connectivity
-    image: https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+    image: 
+      https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
     baseURL: https://api.example.com
-    humanURL: https://developer-tripadvisor.com/connectivity-solutions/hotel-availability-check-api/documentation/hotel_inventory/
+    humanURL: 
+      https://developer-tripadvisor.com/connectivity-solutions/hotel-availability-check-api/documentation/hotel_inventory/
     properties:
-      - url: https://developer-tripadvisor.com/connectivity-solutions/hotel-availability-check-api/documentation/hotel_inventory/
+      - url: 
+          https://developer-tripadvisor.com/connectivity-solutions/hotel-availability-check-api/documentation/hotel_inventory/
         type: Documentation
       - url: openapi/tripadvisor-hotel-availability-check-api-openapi.yml
         type: OpenAPI
@@ -84,3 +92,7 @@ common:
     url: json-schema/tripadvisor-review-schema.json
   - type: JSONSchema
     url: json-schema/tripadvisor-hotel-availability-schema.json
+description: >-
+  Tripadvisor is the world's largest travel guidance platform, helping hundreds of
+  millions of travelers each month find places to stay, things to do, and restaurants
+  through reviews, photos, and tools.
