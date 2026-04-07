@@ -22,10 +22,6 @@ servers:
   - url: https://api.content.tripadvisor.com/api/v1
     description: Production Server
 tags:
-  - name: Location Search
-    description: >-
-      Search for locations by keyword query or geographic proximity. Returns up
-      to 10 matching locations per request.
   - name: Location Details
     description: >-
       Retrieve comprehensive information about a specific location including
@@ -38,6 +34,10 @@ tags:
     description: >-
       Retrieve the most recent reviews for a specific location, up to 5 reviews
       per request.
+  - name: Location Search
+    description: >-
+      Search for locations by keyword query or geographic proximity. Returns up
+      to 10 matching locations per request.
 security:
   - apiKeyQuery: []
 paths:

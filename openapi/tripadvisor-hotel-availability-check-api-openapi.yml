@@ -31,6 +31,10 @@ servers:
         description: >-
           The partner's server hostname and base path.
 tags:
+  - name: Availability
+    description: >-
+      Availability endpoint called in real-time when users view hotel pages on
+      Tripadvisor to retrieve pricing and room availability.
   - name: Configuration
     description: >-
       Configuration endpoint that Tripadvisor queries to discover the partner's
@@ -39,10 +43,6 @@ tags:
     description: >-
       Hotel inventory endpoint queried daily by Tripadvisor to import the
       partner's full list of connected hotels.
-  - name: Availability
-    description: >-
-      Availability endpoint called in real-time when users view hotel pages on
-      Tripadvisor to retrieve pricing and room availability.
 security: []
 paths:
   /config:

@@ -1,19 +1,17 @@
 aid: tripadvisor
-url: 
-  https://raw.githubusercontent.com/api-evangelist/tripadvisor/refs/heads/main/apis.yml
+url: https://raw.githubusercontent.com/api-evangelist/tripadvisor/refs/heads/main/apis.yml
 modified: '2026-03-20'
 apis:
   - aid: tripadvisor:content-api
     name: Tripadvisor Content API
     tags:
-      - Travel
-      - Reviews
-      - Locations
-      - Hotels
-      - Restaurants
       - Attractions
-    image: 
-      https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+      - Hotels
+      - Locations
+      - Restaurants
+      - Reviews
+      - Travel
+    image: https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
     baseURL: https://api.content.tripadvisor.com
     humanURL: https://developer-tripadvisor.com/content-api/
     properties:
@@ -32,19 +30,16 @@ apis:
   - aid: tripadvisor:hotel-availability-check-api
     name: Tripadvisor Hotel Availability Check API
     tags:
-      - Travel
-      - Hotels
       - Availability
       - Booking
       - Hospitality
-    image: 
-      https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+      - Hotels
+      - Travel
+    image: https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
     baseURL: https://api.example.com
-    humanURL: 
-      https://developer-tripadvisor.com/connectivity-solutions/hotel-availability-check-api/
+    humanURL: https://developer-tripadvisor.com/connectivity-solutions/hotel-availability-check-api/
     properties:
-      - url: 
-          https://developer-tripadvisor.com/connectivity-solutions/hotel-availability-check-api/
+      - url: https://developer-tripadvisor.com/connectivity-solutions/hotel-availability-check-api/
         type: Documentation
       - url: openapi/tripadvisor-hotel-availability-check-api-openapi.yml
         type: OpenAPI
@@ -59,19 +54,16 @@ apis:
   - aid: tripadvisor:hotel-inventory-api
     name: Tripadvisor Hotel Inventory API
     tags:
-      - Travel
+      - Connectivity
+      - Hospitality
       - Hotels
       - Inventory
-      - Hospitality
-      - Connectivity
-    image: 
-      https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+      - Travel
+    image: https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
     baseURL: https://api.example.com
-    humanURL: 
-      https://developer-tripadvisor.com/connectivity-solutions/hotel-availability-check-api/documentation/hotel_inventory/
+    humanURL: https://developer-tripadvisor.com/connectivity-solutions/hotel-availability-check-api/documentation/hotel_inventory/
     properties:
-      - url: 
-          https://developer-tripadvisor.com/connectivity-solutions/hotel-availability-check-api/documentation/hotel_inventory/
+      - url: https://developer-tripadvisor.com/connectivity-solutions/hotel-availability-check-api/documentation/hotel_inventory/
         type: Documentation
       - url: openapi/tripadvisor-hotel-availability-check-api-openapi.yml
         type: OpenAPI
