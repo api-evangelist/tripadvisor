@@ -1,0 +1,151 @@
+vocabulary:
+  name: Tripadvisor Vocabulary
+  description: >-
+    Domain vocabulary for Tripadvisor, the world's largest travel guidance platform.
+    Covers core concepts for location data, reviews, hospitality connectivity,
+    and travel content integration.
+  version: "2026"
+  created: "2026-05-03"
+  modified: "2026-05-03"
+
+terms:
+  - term: Location
+    definition: >-
+      A Tripadvisor entity representing a place that travelers can review and rate.
+      Locations encompass three primary categories: hotels (accommodations), restaurants
+      (dining establishments), and attractions (things to do, sights, landmarks). Each
+      location has a unique location_id, name, address, geographic coordinates, and
+      an aggregate traveler rating.
+    tags:
+      - Core Concepts
+      - Data Model
+
+  - term: Location ID
+    definition: >-
+      A unique numeric string identifier assigned by Tripadvisor to each location.
+      Used across all Content API endpoints to retrieve details, photos, and reviews
+      for a specific place. Example: "188151" for the Eiffel Tower.
+    tags:
+      - Core Concepts
+      - Identifiers
+
+  - term: Review
+    definition: >-
+      A traveler-submitted evaluation of a location consisting of a numeric rating
+      (1-5 bubbles), title, text content, travel date, trip type, and author
+      information. Reviews form the core of Tripadvisor's value proposition
+      with over 1 billion reviews across the platform.
+    tags:
+      - Content
+      - User-Generated Content
+
+  - term: Bubble Rating
+    definition: >-
+      Tripadvisor's proprietary rating scale from 1 to 5 bubbles (displayed as
+      filled circles). The overall bubble rating for a location is an aggregate of
+      all individual review ratings. Equivalent to a star rating on other platforms.
+    tags:
+      - Content
+      - Ratings
+
+  - term: Ranking
+    definition: >-
+      A Tripadvisor popularity score indicating a location's position relative to
+      similar locations within a geographic area (e.g., "#1 of 1,854 things to do
+      in Paris"). Rankings are computed from review recency, quantity, and quality.
+    tags:
+      - Content
+      - Discovery
+
+  - term: Content API
+    definition: >-
+      Tripadvisor's public REST API providing access to location data, reviews,
+      and photos. Available to qualified developers and businesses. Provides 5,000
+      free API calls per month. Responses are available in 29 languages. Rate-limited
+      and requires API key authentication via query parameter.
+    tags:
+      - APIs
+      - Developer
+
+  - term: Hotel Availability Check (HAC) API
+    definition: >-
+      A partner-integration API where Tripadvisor acts as the client: Tripadvisor
+      sends HTTP POST requests to the partner's endpoint to retrieve real-time room
+      pricing and availability when users view hotel pages. Partners must respond
+      within 5 seconds on average. Currently at version 8.
+    tags:
+      - APIs
+      - Connectivity
+      - Hotels
+
+  - term: Connectivity Partner
+    definition: >-
+      A hotel booking platform (OTA, booking engine, channel manager) that has
+      been approved to integrate with Tripadvisor's availability and pricing display.
+      Connectivity partners implement the Hotel Availability Check API on their servers
+      and register their hotel inventory with Tripadvisor.
+    tags:
+      - Connectivity
+      - Partnerships
+
+  - term: Category
+    definition: >-
+      The primary classification of a Tripadvisor location. The three main categories
+      are hotels (all accommodation types), restaurants (dining, cafes, bars), and
+      attractions (sights, activities, museums, parks, entertainment). A fourth
+      category, geos, represents geographic areas like cities and regions.
+    tags:
+      - Classification
+      - Core Concepts
+
+  - term: Nearby Search
+    definition: >-
+      A Content API operation that returns locations within a geographic radius of
+      a specified latitude/longitude coordinate. Used to power "near me" discovery
+      experiences in travel apps and maps.
+    tags:
+      - Discovery
+      - Search
+
+  - term: Trip Type
+    definition: >-
+      A classification of how a traveler visited a location, used to contextualize
+      reviews. Tripadvisor's standard trip types are: Business, Couples, Solo travel,
+      Family, and Friends getaway. Locations display distributions of visitor trip types.
+    tags:
+      - Classification
+      - Reviews
+
+  - term: Owner Response
+    definition: >-
+      A reply submitted by the owner or manager of a Tripadvisor location in response
+      to a traveler review. Owner responses appear directly below the original review
+      and are included in the review data returned by the Content API.
+    tags:
+      - Content
+      - Reviews
+
+  - term: Language Code
+    definition: >-
+      ISO 639-1 language code used in Content API requests to specify the language
+      for returned content. Tripadvisor supports 29 languages including en, fr, de,
+      es, it, ja, zh, ar, pt, ru, and more.
+    tags:
+      - Localization
+
+  - term: Viator
+    definition: >-
+      A Tripadvisor subsidiary specializing in tours, activities, and attraction
+      tickets. Viator has its own separate API for booking experiences and is
+      integrated with Tripadvisor's attraction listings.
+    tags:
+      - Products
+      - Subsidiaries
+
+  - term: TheFork
+    definition: >-
+      A Tripadvisor subsidiary providing restaurant discovery and reservation services,
+      primarily in Europe and Australia. TheFork powers restaurant booking on Tripadvisor.
+    tags:
+      - Products
+      - Subsidiaries

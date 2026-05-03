@@ -1,0 +1,35 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://api.content.tripadvisor.com/api/v1/location/search?searchQuery=Eiffel+Tower&category=attractions&language=en&key={api_key}",
+    "headers": {
+      "Accept": "application/json",
+      "Referer": "https://myapp.com"
+    }
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "data": [
+        {
+          "location_id": "188151",
+          "name": "Eiffel Tower",
+          "address_obj": {
+            "street1": "Champ de Mars, 5 Avenue Anatole France",
+            "city": "Paris",
+            "country": "France",
+            "postalcode": "75007",
+            "address_string": "Champ de Mars, 5 Avenue Anatole France, 75007 Paris France"
+          },
+          "category": {
+            "key": "attraction",
+            "name": "Attraction"
+          }
+        }
+      ]
+    }
+  }
+}

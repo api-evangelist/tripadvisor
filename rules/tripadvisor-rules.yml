@@ -1,0 +1,94 @@
+extends: spectral:oas
+rules:
+  # Content API must use /api/v1/ prefix
+  tripadvisor-path-versioned:
+    description: Tripadvisor Content API paths must use /api/v1/ prefix
+    message: "Path '{{property}}' should start with /api/v1/"
+    given: "$.paths[*]~"
+    severity: warn
+    then:
+      function: pattern
+      functionOptions:
+        match: "^/(api/v1|v[0-9]+)/"
+
+  # All operations must have operationIds in camelCase
+  tripadvisor-operation-id-camel-case:
+    description: OperationIds must use camelCase
+    message: "OperationId '{{value}}' should use camelCase"
+    given: "$.paths[*][*].operationId"
+    severity: warn
+    then:
+      function: pattern
+      functionOptions:
+        match: "^[a-z][a-zA-Z0-9]+$"
+
+  # All operation summaries must use Title Case
+  tripadvisor-summary-title-case:
+    description: Operation summaries must use Title Case
+    message: "Summary '{{value}}' should use Title Case"
+    given: "$.paths[*][*].summary"
+    severity: error
+    then:
+      function: pattern
+      functionOptions:
+        match: "^[A-Z][a-zA-Z0-9 ]+$"
+
+  # All GET operations must have a 200 response
+  tripadvisor-get-must-have-200:
+    description: GET operations must define a 200 response
+    message: "GET operation is missing a 200 response"
+    given: "$.paths[*].get"
+    severity: error
+    then:
+      field: responses.200
+      function: truthy
+
+  # All operations must have a 400 response for error handling
+  tripadvisor-must-have-400-response:
+    description: All operations must document a 400 Bad Request response
+    message: "Operation is missing 400 response definition"
+    given: "$.paths[*][get,post,put,delete].responses"
+    severity: warn
+    then:
+      field: "400"
+      function: truthy
+
+  # All operations must have a 401 response for unauthorized
+  tripadvisor-must-have-401-response:
+    description: All operations must document 401 Unauthorized response
+    message: "Operation is missing 401 response definition"
+    given: "$.paths[*][get,post,put,delete].responses"
+    severity: warn
+    then:
+      field: "401"
+      function: truthy
+
+  # All operations must have descriptions
+  tripadvisor-operation-must-have-description:
+    description: All operations must have a description
+    message: "Operation at '{{path}}' is missing a description"
+    given: "$.paths[*][get,post,put,patch,delete]"
+    severity: warn
+    then:
+      field: description
+      function: truthy
+
+  # Schema component names must use PascalCase
+  tripadvisor-schema-pascal-case:
+    description: Schema names must use PascalCase
+    message: "Schema '{{property}}' should use PascalCase"
+    given: "$.components.schemas[*]~"
+    severity: warn
+    then:
+      function: pattern
+      functionOptions:
+        match: "^[A-Z][a-zA-Z0-9]+$"
+
+  # Tags must be defined in the top-level tags list
+  tripadvisor-operations-must-use-defined-tags:
+    description: Operations should use tags defined in the top-level tags array
+    message: "Tag '{{value}}' used in operation but not defined at top level"
+    given: "$.paths[*][*].tags[*]"
+    severity: warn
+    then:
+      function: truthy

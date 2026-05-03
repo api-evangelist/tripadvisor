@@ -1,0 +1,63 @@
+{
+  "request": {
+    "method": "POST",
+    "url": "https://api.partner-example.com/availability",
+    "headers": {
+      "Content-Type": "application/json",
+      "Accept": "application/json",
+      "X-TripAdvisor-API-Key": "{tripadvisor_api_key}"
+    },
+    "body": {
+      "api_version": 8,
+      "query_key": "query-abc123",
+      "check_in": "2024-07-15",
+      "check_out": "2024-07-18",
+      "num_adults": 2,
+      "num_children": 0,
+      "currency_code": "USD",
+      "user_country": "US",
+      "hotel_ids": ["hotel_12345", "hotel_67890"],
+      "device_type": "desktop"
+    }
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "api_version": 8,
+      "query_key": "query-abc123",
+      "hotels": [
+        {
+          "hotel_id": "hotel_12345",
+          "available": true,
+          "room_types": [
+            {
+              "room_type_id": "standard_king",
+              "name": "Standard King Room",
+              "description": "Spacious room with king bed, city view, and modern amenities.",
+              "total_price": {
+                "amount": "450.00",
+                "currency": "USD"
+              },
+              "price_per_night": {
+                "amount": "150.00",
+                "currency": "USD"
+              },
+              "cancellation_policy": "Free cancellation until 48 hours before check-in",
+              "breakfast_included": false,
+              "max_occupancy": 2,
+              "booking_url": "https://partner-booking.example.com/book?room=standard_king&hotel=hotel_12345&checkin=2024-07-15&checkout=2024-07-18"
+            }
+          ]
+        },
+        {
+          "hotel_id": "hotel_67890",
+          "available": false,
+          "reason": "no_availability"
+        }
+      ]
+    }
+  }
+}

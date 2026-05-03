@@ -44,7 +44,7 @@ paths:
   /location/search:
     get:
       operationId: searchForLocations
-      summary: Search for locations
+      summary: Search for Locations
       description: >-
         Returns up to 10 locations found by the given search query. You can use
         category, phone number, address, and latitude/longitude to search with
@@ -88,7 +88,7 @@ paths:
   /location/nearby_search:
     get:
       operationId: searchForNearbyLocations
-      summary: Search for nearby locations
+      summary: Search for Nearby Locations
       description: >-
         Returns up to 10 locations found near the given latitude and longitude.
         You can use category, phone number, and address to search with more
@@ -132,7 +132,7 @@ paths:
   /location/{locationId}/details:
     get:
       operationId: getLocationDetails
-      summary: Get location details
+      summary: Get Location Details
       description: >-
         Returns comprehensive information about a specific location such as
         name, address, rating, ranking, and URLs for the listing on
@@ -177,7 +177,7 @@ paths:
   /location/{locationId}/photos:
     get:
       operationId: getLocationPhotos
-      summary: Get location photos
+      summary: Get Location Photos
       description: >-
         Returns up to 5 high-quality recent photos for a specific location.
         Photos are available in multiple sizes including thumbnail (50x50),
@@ -222,7 +222,7 @@ paths:
   /location/{locationId}/reviews:
     get:
       operationId: getLocationReviews
-      summary: Get location reviews
+      summary: Get Location Reviews
       description: >-
         Returns up to 5 of the most recent reviews for a specific location.
         Includes review text, rating, title, publication date, and information

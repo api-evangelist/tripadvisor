@@ -1,0 +1,67 @@
+{
+  "title": "Tripadvisor Location Structure",
+  "description": "Structural documentation for the Location object returned by the Tripadvisor Content API",
+  "type": "object",
+  "fields": [
+    { "name": "location_id", "type": "string", "required": true, "description": "Unique Tripadvisor identifier for the location" },
+    { "name": "name", "type": "string", "required": true, "description": "Display name of the location" },
+    { "name": "description", "type": "string", "required": false, "description": "Detailed text description" },
+    { "name": "web_url", "type": "string (uri)", "required": false, "description": "URL to the Tripadvisor listing page" },
+    {
+      "name": "address_obj",
+      "type": "object",
+      "required": false,
+      "description": "Structured mailing address",
+      "children": [
+        { "name": "street1", "type": "string", "required": false, "description": "Primary street address" },
+        { "name": "street2", "type": "string", "required": false, "description": "Secondary street address" },
+        { "name": "city", "type": "string", "required": false, "description": "City name" },
+        { "name": "state", "type": "string", "required": false, "description": "State/province/region" },
+        { "name": "country", "type": "string", "required": false, "description": "Country name" },
+        { "name": "postalcode", "type": "string", "required": false, "description": "Postal/ZIP code" },
+        { "name": "address_string", "type": "string", "required": false, "description": "Full formatted address string" }
+      ]
+    },
+    { "name": "latitude", "type": "string", "required": false, "description": "Geographic latitude (decimal degrees)" },
+    { "name": "longitude", "type": "string", "required": false, "description": "Geographic longitude (decimal degrees)" },
+    { "name": "timezone", "type": "string", "required": false, "description": "IANA timezone identifier" },
+    { "name": "phone", "type": "string", "required": false, "description": "Phone number in international format" },
+    { "name": "website", "type": "string", "required": false, "description": "Official website URL" },
+    {
+      "name": "ranking_data",
+      "type": "object",
+      "required": false,
+      "description": "Tripadvisor ranking information",
+      "children": [
+        { "name": "ranking_string", "type": "string", "required": false, "description": "Human-readable ranking (e.g., #1 of 1,854 things to do)" },
+        { "name": "ranking", "type": "string", "required": false, "description": "Numeric rank position" },
+        { "name": "ranking_out_of", "type": "string", "required": false, "description": "Total locations in ranking" },
+        { "name": "geo_location_name", "type": "string", "required": false, "description": "Geographic area for ranking" }
+      ]
+    },
+    { "name": "rating", "type": "string", "required": false, "description": "Average traveler rating (0.0-5.0)" },
+    { "name": "num_reviews", "type": "string", "required": false, "description": "Total number of traveler reviews" },
+    {
+      "name": "category",
+      "type": "object",
+      "required": false,
+      "description": "Primary category classification",
+      "children": [
+        { "name": "key", "type": "string", "required": false, "description": "Machine-readable category key" },
+        { "name": "name", "type": "string", "required": false, "description": "Human-readable category name" }
+      ]
+    },
+    {
+      "name": "subcategory",
+      "type": "array<object>",
+      "required": false,
+      "description": "Secondary category classifications"
+    },
+    {
+      "name": "trip_types",
+      "type": "array<object>",
+      "required": false,
+      "description": "Recommended trip types (Couples, Family, Solo, Business, Friends)"
+    }
+  ]
+}

@@ -48,7 +48,7 @@ paths:
   /config:
     get:
       operationId: getConfiguration
-      summary: Get partner configuration
+      summary: Get Partner Configuration
       description: >-
         Returns the partner's API configuration including supported API version,
         features, and capabilities. Tripadvisor queries this endpoint to
@@ -67,7 +67,7 @@ paths:
   /hotel_inventory:
     get:
       operationId: getHotelInventory
-      summary: Get hotel inventory
+      summary: Get Hotel Inventory
       description: >-
         Returns the partner's full list of hotel properties that are connected
         for availability checking. Tripadvisor queries this endpoint once per
@@ -99,7 +99,7 @@ paths:
   /availability:
     post:
       operationId: checkAvailability
-      summary: Check hotel availability
+      summary: Check Hotel Availability
       description: >-
         Called by Tripadvisor in real-time when a user views a hotel page to
         retrieve current pricing and availability. The request can include one

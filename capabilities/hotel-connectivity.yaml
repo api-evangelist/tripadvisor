@@ -1,0 +1,121 @@
+naftiko: "1.0.0-alpha1"
+
+info:
+  label: "Tripadvisor Hotel Connectivity"
+  description: >-
+    Workflow capability for hotel connectivity partners integrating with Tripadvisor's
+    availability and inventory systems. Combines the Hotel Availability Check API and
+    Hotel Inventory API to enable real-time pricing display on Tripadvisor hotel pages.
+    Designed for OTAs, hotel booking engines, and connectivity providers.
+  tags:
+    - Availability
+    - Booking
+    - Connectivity
+    - Hospitality
+    - Hotels
+    - Inventory
+    - Travel
+  created: "2026-05-03"
+  modified: "2026-05-03"
+
+binds:
+  - namespace: env
+    keys:
+      TRIPADVISOR_API_KEY: TRIPADVISOR_API_KEY
+      PARTNER_ENDPOINT: PARTNER_ENDPOINT
+
+capability:
+  consumes:
+    - import: tripadvisor-hac
+      location: ./shared/hotel-availability-api.yaml
+
+  exposes:
+    - type: rest
+      port: 8081
+      namespace: tripadvisor-hotel-connectivity-api
+      description: "Unified REST API for Tripadvisor hotel connectivity partner operations."
+      resources:
+        - path: /v1/hotels/availability
+          name: availability
+          description: "Real-time hotel availability and pricing"
+          operations:
+            - method: POST
+              name: check-availability
+              description: "Check availability for one or more hotels for given dates"
+              call: "tripadvisor-hac.check-hotel-availability"
+              with:
+                check_in: "rest.body.check_in"
+                check_out: "rest.body.check_out"
+                num_adults: "rest.body.num_adults"
+                hotel_ids: "rest.body.hotel_ids"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: /v1/hotels/inventory
+          name: inventory
+          description: "Hotel inventory management"
+          operations:
+            - method: GET
+              name: get-inventory
+              description: "Get the full hotel inventory connected through this partner"
+              call: "tripadvisor-hac.get-hotel-inventory"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: /v1/config
+          name: config
+          description: "Partner configuration"
+          operations:
+            - method: GET
+              name: get-config
+              description: "Get partner API configuration and supported features"
+              call: "tripadvisor-hac.get-partner-configuration"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+
+    - type: mcp
+      port: 9091
+      namespace: tripadvisor-hotel-connectivity-mcp
+      transport: http
+      description: "MCP server for AI-assisted hotel availability management and Tripadvisor connectivity."
+      tools:
+        - name: check-hotel-availability
+          description: >-
+            Check real-time hotel availability and pricing for specific check-in/check-out
+            dates and guest count. Returns room types, prices, cancellation policies,
+            and booking URLs for available hotels.
+          hints:
+            readOnly: true
+            openWorld: false
+          call: "tripadvisor-hac.check-hotel-availability"
+          with:
+            check_in: "tools.check_in"
+            check_out: "tools.check_out"
+            num_adults: "tools.num_adults"
+            num_children: "tools.num_children"
+            hotel_ids: "tools.hotel_ids"
+            currency_code: "tools.currency_code"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: get-hotel-inventory
+          description: >-
+            Get the complete list of hotels this connectivity partner can provide
+            availability data for. Used by Tripadvisor to know which hotels to query.
+          hints:
+            readOnly: true
+            openWorld: false
+          call: "tripadvisor-hac.get-hotel-inventory"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: get-partner-config
+          description: "Get partner API configuration including supported API version and features."
+          hints:
+            readOnly: true
+            openWorld: false
+          call: "tripadvisor-hac.get-partner-configuration"
+          outputParameters:
+            - type: object
+              mapping: "$."

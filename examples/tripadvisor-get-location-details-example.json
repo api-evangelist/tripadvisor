@@ -1,0 +1,73 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://api.content.tripadvisor.com/api/v1/location/188151/details?language=en&currency=USD&key={api_key}",
+    "headers": {
+      "Accept": "application/json",
+      "Referer": "https://myapp.com"
+    }
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "location_id": "188151",
+      "name": "Eiffel Tower",
+      "description": "A wrought-iron lattice tower on the Champ de Mars in Paris, France, designed by Gustave Eiffel.",
+      "web_url": "https://www.tripadvisor.com/Attraction_Review-g187147-d188151-Reviews-Eiffel_Tower-Paris_Ile_de_France.html",
+      "address_obj": {
+        "street1": "Champ de Mars, 5 Avenue Anatole France",
+        "city": "Paris",
+        "country": "France",
+        "postalcode": "75007",
+        "address_string": "Champ de Mars, 5 Avenue Anatole France, 75007 Paris France"
+      },
+      "ancestors": [
+        { "abbrv": null, "level": "City", "name": "Paris", "location_id": "187147" },
+        { "abbrv": null, "level": "Country", "name": "France", "location_id": "187070" }
+      ],
+      "latitude": "48.858360",
+      "longitude": "2.294481",
+      "timezone": "Europe/Paris",
+      "phone": "+33 892 70 12 39",
+      "website": "https://www.toureiffel.paris/en",
+      "ranking_data": {
+        "geo_location_id": "187147",
+        "ranking_string": "#1 of 1,854 things to do in Paris",
+        "geo_location_name": "Paris",
+        "ranking_out_of": "1854",
+        "ranking": "1"
+      },
+      "rating": "4.7",
+      "rating_image_url": "https://www.tripadvisor.com/img/cdsi/img2/ratings/traveler/4.7-64299-5.svg",
+      "num_reviews": "102847",
+      "category": {
+        "key": "attraction",
+        "name": "Attractions"
+      },
+      "subcategory": [
+        { "key": "sight_seeing", "name": "Sights & Landmarks" }
+      ],
+      "groups": [
+        {
+          "name": "See",
+          "categories": [
+            { "key": "historical_sites", "name": "Historic Sites" },
+            { "key": "architectural_buildings", "name": "Architectural Buildings" }
+          ]
+        }
+      ],
+      "trip_types": [
+        { "name": "Business", "localized_name": "Business", "value": "7" },
+        { "name": "Couples", "localized_name": "Couples", "value": "19" },
+        { "name": "Solo", "localized_name": "Solo travel", "value": "8" },
+        { "name": "Family", "localized_name": "Family", "value": "15" },
+        { "name": "Friends", "localized_name": "Friends getaway", "value": "10" }
+      ],
+      "nearby_hotels_url": "https://www.tripadvisor.com/HotelsNear-g187147-d188151-Eiffel_Tower-Paris.html",
+      "see_all_photos": "https://www.tripadvisor.com/LocationPhotoDirectLink-g187147-d188151-i92804052-Eiffel_Tower-Paris_Ile_de_France.html"
+    }
+  }
+}

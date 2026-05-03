@@ -1,0 +1,42 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://api.content.tripadvisor.com/api/v1/location/188151/reviews?language=en&key={api_key}",
+    "headers": {
+      "Accept": "application/json",
+      "Referer": "https://myapp.com"
+    }
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "data": [
+        {
+          "id": "987654321",
+          "lang": "en",
+          "location_id": "188151",
+          "published_date": "2024-04-10T10:15:00Z",
+          "rating": 5,
+          "helpful_votes": 24,
+          "rating_image_url": "https://www.tripadvisor.com/img/cdsi/img2/ratings/traveler/5.0-64299-5.svg",
+          "url": "https://www.tripadvisor.com/ShowUserReviews-g187147-d188151-r987654321.html",
+          "trip_type": "Couples",
+          "travel_date": "2024-04",
+          "user": {
+            "username": "TravellerMarie",
+            "user_location": {
+              "name": "London, United Kingdom"
+            },
+            "reviewer_badge": "Senior Reviewer"
+          },
+          "title": "Absolutely Breathtaking at Sunset",
+          "text": "We visited on a clear April evening and the views were spectacular. Highly recommend booking tickets in advance to skip the queues. The light show at night is magical!",
+          "owner_response": null
+        }
+      ]
+    }
+  }
+}
