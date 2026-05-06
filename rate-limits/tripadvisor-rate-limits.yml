@@ -4,97 +4,48 @@ schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main
 provider: Tripadvisor
 providerId: tripadvisor
 created: '2026-05-04'
-modified: '2026-05-04'
+modified: '2026-05-05'
+reconciled: true
 tags:
-  - Attractions
-  - Hotels
-  - Hospitality
-  - Restaurants
-  - Reviews
   - Travel
+  - Reviews
+  - Hospitality
   - Rate Limiting
-  - Quotas
-  - Throttling
-description: Machine-readable rate limit definitions for the Tripadvisor API surface. Captures per-tier
-  quotas, burst behavior, response signaling, and recovery semantics. Defaults are scaffold values to
-  be replaced with published provider limits.
-headers:
-  limit: X-RateLimit-Limit
-  remaining: X-RateLimit-Remaining
-  reset: X-RateLimit-Reset
-  retryAfter: Retry-After
-  policy: RateLimit-Policy
+description: Tripadvisor Content API enforces a published per-second rate limit, a daily call cap on
+  Search, and a customer-selected daily budget cap. Calls beyond the daily limit return 429.
+sources:
+  - https://tripadvisor-content-api.readme.io/reference/overview
+  - https://tripadvisor-content-api.readme.io/reference/faq
 responseCodes:
   throttled: 429
   quotaExceeded: 429
-  serviceUnavailable: 503
 limits:
-  - tier: free
-    name: Free Tier Default
-    scope: api-key
-    metric: requests_per_minute
-    limit: 10
-    burst: 20
-    timeFrame: minute
-    applies:
-      - Tripadvisor Content API
-      - Tripadvisor Hotel Availability Check API
-      - Tripadvisor Hotel Inventory API
-  - tier: free
-    name: Free Tier Monthly Quota
-    scope: api-key
-    metric: requests_per_month
-    limit: 1000
-    timeFrame: month
-    applies:
-      - Tripadvisor Content API
-      - Tripadvisor Hotel Availability Check API
-      - Tripadvisor Hotel Inventory API
-  - tier: professional
-    name: Professional Tier Default
-    scope: api-key
-    metric: requests_per_minute
-    limit: 100
-    burst: 200
-    timeFrame: minute
-    applies:
-      - Tripadvisor Content API
-      - Tripadvisor Hotel Availability Check API
-      - Tripadvisor Hotel Inventory API
-  - tier: professional
-    name: Professional Tier Monthly Quota
-    scope: api-key
-    metric: requests_per_month
-    limit: 100000
-    timeFrame: month
-    applies:
-      - Tripadvisor Content API
-      - Tripadvisor Hotel Availability Check API
-      - Tripadvisor Hotel Inventory API
-  - tier: enterprise
-    name: Enterprise Negotiated Limit
-    scope: contract
-    metric: requests_per_minute
-    limit: 1000
-    burst: 5000
-    timeFrame: minute
-    applies:
-      - Tripadvisor Content API
-      - Tripadvisor Hotel Availability Check API
-      - Tripadvisor Hotel Inventory API
+  - name: Per-Second Rate Limit
+    scope: key
+    metric: requests_per_second
+    limit: 50
+    timeFrame: second
+    notes: Documented as "up to 50 calls per second" on the Content API overview.
+  - name: Search API Daily Cap
+    scope: key
+    metric: requests_per_day
+    limit: 10000
+    timeFrame: day
+    notes: Search endpoints specifically allow up to 10,000 calls per day before throttling.
+  - name: Daily Budget Cap
+    scope: key
+    metric: varies
+    limit: customer-selected at signup
+    notes: Customer chooses a daily USD budget at signup; calls beyond it return 429.
 policies:
-  - name: Backoff Strategy
-    description: Clients should implement exponential backoff with jitter, honoring the Retry-After header
-      when present.
-  - name: Burst Handling
-    description: Short bursts above the steady-state limit are tolerated up to the documented burst ceiling
-      before throttling engages.
-  - name: Quota Reset
-    description: Monthly quotas reset at the start of each calendar month in UTC. Per-minute and per-second
-      windows reset on a sliding-window basis.
-  - name: Fair Use
-    description: Even on uncapped enterprise tiers, sustained usage that materially impacts shared infrastructure
-      may be subject to fair-use throttling.
+  - name: 429 On Daily Cap
+    description: Calls made after the daily Search cap or daily budget cap is hit return HTTP 429
+      until the next UTC day.
+  - name: Usage Reporting Delay
+    description: Usage metrics appear on the My Usage page within ~24 hours of the call.
+  - name: Volume Tier Routing
+    description: Consumers exceeding 500,000 calls per month are directed to contact sales for
+      volume pricing rather than continuing self-serve.
 maintainers:
   - FN: Kin Lane
     email: kin@apievangelist.com
