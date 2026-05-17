@@ -117,7 +117,7 @@ common:
   - type: GitHubOrganization
     url: https://github.com/tripadvisor-dev
     name: Tripadvisor Developers GitHub
-  - type: JSON-LD
+  - type: JSONLD
     url: json-ld/tripadvisor-context.jsonld
     name: Tripadvisor JSON-LD Context
   - type: JSONSchema
