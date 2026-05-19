@@ -1,0 +1,72 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Tripadvisor Content API — Location Photos
+  description: 'Tripadvisor Content API — Location Photos. 1 operations. Lead operation: Get Location Photos. Self-contained
+    Naftiko capability covering one Tripadvisor business surface.'
+  tags:
+  - Tripadvisor
+  - Location Photos
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    TRIPADVISOR_API_KEY: TRIPADVISOR_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: content-location-photos
+    baseUri: https://api.content.tripadvisor.com/api/v1
+    description: Tripadvisor Content API — Location Photos business capability. Self-contained, no shared references.
+    resources:
+    - name: location-locationId-photos
+      path: /location/{locationId}/photos
+      operations:
+      - name: getlocationphotos
+        method: GET
+        description: Get Location Photos
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    authentication:
+      type: apikey
+      key: key
+      value: '{{env.TRIPADVISOR_API_KEY}}'
+      placement: query
+  exposes:
+  - type: rest
+    namespace: content-location-photos-rest
+    port: 8080
+    description: REST adapter for Tripadvisor Content API — Location Photos. One Spectral-compliant resource per consumed
+      operation, prefixed with /v1.
+    resources:
+    - path: /v1/location/{locationid}/photos
+      name: location-locationid-photos
+      description: REST surface for location-locationId-photos.
+      operations:
+      - method: GET
+        name: getlocationphotos
+        description: Get Location Photos
+        call: content-location-photos.getlocationphotos
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: content-location-photos-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Tripadvisor Content API — Location Photos. One tool per consumed operation, routed inline
+      through this capability's consumes block.
+    tools:
+    - name: get-location-photos
+      description: Get Location Photos
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: content-location-photos.getlocationphotos
+      outputParameters:
+      - type: object
+        mapping: $.

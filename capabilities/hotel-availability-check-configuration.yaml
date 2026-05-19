@@ -1,0 +1,67 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Tripadvisor Hotel Availability Check API — Configuration
+  description: 'Tripadvisor Hotel Availability Check API — Configuration. 1 operations. Lead operation: Get Partner Configuration.
+    Self-contained Naftiko capability covering one Tripadvisor business surface.'
+  tags:
+  - Tripadvisor
+  - Configuration
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    TRIPADVISOR_API_KEY: TRIPADVISOR_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: hotel-availability-check-configuration
+    baseUri: https://{partnerEndpoint}
+    description: Tripadvisor Hotel Availability Check API — Configuration business capability. Self-contained, no shared references.
+    resources:
+    - name: config
+      path: /config
+      operations:
+      - name: getconfiguration
+        method: GET
+        description: Get Partner Configuration
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+  exposes:
+  - type: rest
+    namespace: hotel-availability-check-configuration-rest
+    port: 8080
+    description: REST adapter for Tripadvisor Hotel Availability Check API — Configuration. One Spectral-compliant resource
+      per consumed operation, prefixed with /v1.
+    resources:
+    - path: /v1/config
+      name: config
+      description: REST surface for config.
+      operations:
+      - method: GET
+        name: getconfiguration
+        description: Get Partner Configuration
+        call: hotel-availability-check-configuration.getconfiguration
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: hotel-availability-check-configuration-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Tripadvisor Hotel Availability Check API — Configuration. One tool per consumed operation,
+      routed inline through this capability's consumes block.
+    tools:
+    - name: get-partner-configuration
+      description: Get Partner Configuration
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: hotel-availability-check-configuration.getconfiguration
+      outputParameters:
+      - type: object
+        mapping: $.

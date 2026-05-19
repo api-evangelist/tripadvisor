@@ -1,0 +1,72 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Tripadvisor Content API — Location Reviews
+  description: 'Tripadvisor Content API — Location Reviews. 1 operations. Lead operation: Get Location Reviews. Self-contained
+    Naftiko capability covering one Tripadvisor business surface.'
+  tags:
+  - Tripadvisor
+  - Location Reviews
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    TRIPADVISOR_API_KEY: TRIPADVISOR_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: content-location-reviews
+    baseUri: https://api.content.tripadvisor.com/api/v1
+    description: Tripadvisor Content API — Location Reviews business capability. Self-contained, no shared references.
+    resources:
+    - name: location-locationId-reviews
+      path: /location/{locationId}/reviews
+      operations:
+      - name: getlocationreviews
+        method: GET
+        description: Get Location Reviews
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    authentication:
+      type: apikey
+      key: key
+      value: '{{env.TRIPADVISOR_API_KEY}}'
+      placement: query
+  exposes:
+  - type: rest
+    namespace: content-location-reviews-rest
+    port: 8080
+    description: REST adapter for Tripadvisor Content API — Location Reviews. One Spectral-compliant resource per consumed
+      operation, prefixed with /v1.
+    resources:
+    - path: /v1/location/{locationid}/reviews
+      name: location-locationid-reviews
+      description: REST surface for location-locationId-reviews.
+      operations:
+      - method: GET
+        name: getlocationreviews
+        description: Get Location Reviews
+        call: content-location-reviews.getlocationreviews
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: content-location-reviews-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Tripadvisor Content API — Location Reviews. One tool per consumed operation, routed inline
+      through this capability's consumes block.
+    tools:
+    - name: get-location-reviews
+      description: Get Location Reviews
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: content-location-reviews.getlocationreviews
+      outputParameters:
+      - type: object
+        mapping: $.
