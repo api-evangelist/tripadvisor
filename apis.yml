@@ -168,6 +168,8 @@ common:
     - name: Hotels.com
     - name: Viator
     - name: TheFork
+  - type: LLMsTxt
+    url: https://tripadvisor-content-api.readme.io/llms.txt
 maintainers:
   - FN: Kin Lane
     email: kin@apievangelist.com
