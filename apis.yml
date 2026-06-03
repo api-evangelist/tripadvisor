@@ -14,7 +14,7 @@ tags:
   - Reviews
   - Travel
 created: '2026-05-03'
-modified: '2026-05-19'
+modified: '2026-06-03'
 specificationVersion: '0.19'
 apis:
   - aid: tripadvisor:content-api
@@ -35,13 +35,13 @@ apis:
     - url: openapi/tripadvisor-content-api-openapi.yml
       type: OpenAPI
     - type: NaftikoCapability
-      url: capabilities/content-location-details.yaml
+      url: capabilities/content-api-location-details.yaml
     - type: NaftikoCapability
-      url: capabilities/content-location-photos.yaml
+      url: capabilities/content-api-location-photos.yaml
     - type: NaftikoCapability
-      url: capabilities/content-location-reviews.yaml
+      url: capabilities/content-api-location-reviews.yaml
     - type: NaftikoCapability
-      url: capabilities/content-location-search.yaml
+      url: capabilities/content-api-location-search.yaml
     description: The Tripadvisor Content API provides developers with access to Tripadvisor's extensive dataset of more than
       7.5 million locations, 1 billion reviews and opinions, and content in 29 languages. The API includes endpoints for location
       search, nearby search, location details, location photos, and location reviews, enabling developers to integrate rich
@@ -65,11 +65,9 @@ apis:
     - url: openapi/tripadvisor-hotel-availability-check-api-openapi.yml
       type: OpenAPI
     - type: NaftikoCapability
-      url: capabilities/hotel-availability-check-availability.yaml
+      url: capabilities/hotel-availability-check-api-availability.yaml
     - type: NaftikoCapability
-      url: capabilities/hotel-availability-check-configuration.yaml
-    - type: NaftikoCapability
-      url: capabilities/hotel-availability-check-hotel-inventory.yaml
+      url: capabilities/hotel-availability-check-api-configuration.yaml
     description: The Tripadvisor Hotel Availability Check (HAC) API allows hotel booking partners to display their availability
       and pricing on Tripadvisor. When a user views a hotel page, Tripadvisor sends HTTP POST requests to the partner's API
       to retrieve real-time price and availability data. The API supports batch requests for multiple hotels and requires responses
@@ -90,6 +88,8 @@ apis:
       type: Documentation
     - url: openapi/tripadvisor-hotel-availability-check-api-openapi.yml
       type: OpenAPI
+    - type: NaftikoCapability
+      url: capabilities/hotel-availability-check-api-hotel-inventory.yaml
     description: The Tripadvisor Hotel Inventory API enables connectivity partners to manage their hotel inventory listings
       on the Tripadvisor platform. Partners use this API to register and update the hotels they can provide availability and
       pricing data for, ensuring that their connected properties are accurately represented. This API works in conjunction with

@@ -1,0 +1,108 @@
+naftiko: "1.0.0-alpha2"
+
+info:
+  label: "Tripadvisor Content API — Location Details"
+  description: >-
+    Location Details — retrieve comprehensive information about one Tripadvisor
+    location. 1 operation. Lead operation: Get Location Details returns name,
+    address, rating, ranking, hours, cuisine, awards, and Tripadvisor listing
+    URLs for a hotel, restaurant, or attraction. Self-contained Naftiko
+    capability covering one Tripadvisor business surface.
+  tags:
+    - Tripadvisor
+    - Content
+    - Location Details
+  created: "2026-06-03"
+  modified: "2026-06-03"
+
+binds:
+  - namespace: env
+    keys:
+      TRIPADVISOR_API_KEY: TRIPADVISOR_API_KEY
+
+capability:
+
+  # ── 1. Consumes — the upstream HTTP API this capability speaks to ─────
+  consumes:
+    - type: http
+      namespace: "content-api-location-details"
+      baseUri: "https://api.content.tripadvisor.com/api/v1"
+      description: "Tripadvisor Content API — Location Details business capability. Self-contained, no shared references."
+      authentication:
+        type: apikey
+        key: key
+        value: "{{env.TRIPADVISOR_API_KEY}}"
+        placement: query
+      resources:
+        - name: "location-details"
+          path: "/location/{locationId}/details"
+          operations:
+            - name: "getLocationDetails"
+              method: GET
+              description: "Returns comprehensive information about a specific location."
+              inputParameters:
+                - name: "locationId"
+                  in: path
+                  type: integer
+                  required: true
+                  description: "The unique identifier for a Tripadvisor location."
+                - name: "language"
+                  in: query
+                  type: string
+                  required: false
+                  description: "The language code for the response content."
+                - name: "currency"
+                  in: query
+                  type: string
+                  required: false
+                  description: "The currency code for pricing information in the response."
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+
+  # ── 2. REST exposer — one Spectral-compliant resource per consumed op ──
+  exposes:
+    - type: rest
+      namespace: "content-api-location-details-rest"
+      port: 8080
+      description: "REST adapter for Tripadvisor Content API — Location Details. One Spectral-compliant resource per consumed operation, prefixed with /v1."
+      resources:
+        - path: "/v1/locations/{location-id}/details"
+          name: "location-details"
+          description: "REST surface for location details."
+          operations:
+            - method: GET
+              name: "getLocationDetails"
+              description: "Returns comprehensive information about a specific location."
+              call: "content-api-location-details.getLocationDetails"
+              with:
+                "locationId": "rest.locationId"
+                "language": "rest.language"
+                "currency": "rest.currency"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+
+  # ── 3. MCP exposer — one verb-noun tool per consumed op ──
+    - type: mcp
+      namespace: "content-api-location-details-mcp"
+      port: 9090
+      transport: http
+      description: "MCP adapter for Tripadvisor Content API — Location Details. One tool per consumed operation, routed inline through this capability's consumes block."
+      tools:
+        - name: "get-location-details"
+          description: "Returns comprehensive information about a specific location."
+          hints:
+            readOnly: true
+            destructive: false
+            idempotent: true
+          call: "content-api-location-details.getLocationDetails"
+          with:
+            "locationId": "tools.locationId"
+            "language": "tools.language"
+            "currency": "tools.currency"
+          outputParameters:
+            - type: object
+              mapping: "$."

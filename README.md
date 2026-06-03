@@ -4,6 +4,8 @@ Tripadvisor is the world's largest travel guidance platform, helping hundreds of
 
 **URL:** https://raw.githubusercontent.com/api-evangelist/tripadvisor/refs/heads/main/apis.yml
 
+**Run:** [Capabilities Using Naftiko](https://github.com/naftiko/fleet?utm_source=api-evangelist&utm_medium=readme&utm_campaign=company-api-evangelist&utm_content=repo)
+
 ## Tags
 
 Attractions, Hotels, Hospitality, Restaurants, Reviews, Travel
@@ -76,17 +78,29 @@ Partner API for registering and managing hotel listings that a connectivity part
 
 ## Capabilities
 
-| Capability | Description |
-|-----------|-------------|
-| [travel-content](capabilities/travel-content.yaml) | Travel content discovery: search locations, get details, photos, and reviews |
-| [hotel-connectivity](capabilities/hotel-connectivity.yaml) | Hotel connectivity partner workflow: availability check and inventory management |
+Self-contained Naftiko capabilities, one per business surface (OpenAPI tag). Each file inlines its own consumes block plus REST and MCP exposers.
 
-### Shared Definitions
+### Tripadvisor Content API
 
-| Shared Definition | API |
-|-------------------|-----|
-| [content-api](capabilities/shared/content-api.yaml) | Tripadvisor Content API |
-| [hotel-availability-api](capabilities/shared/hotel-availability-api.yaml) | Tripadvisor Hotel Availability Check API |
+| Capability | Tools | Description |
+|-----------|-------|-------------|
+| [content-api-location-search](capabilities/content-api-location-search.yaml) | 2 | Search locations by query and search nearby by coordinate |
+| [content-api-location-details](capabilities/content-api-location-details.yaml) | 1 | Get comprehensive details for a location |
+| [content-api-location-photos](capabilities/content-api-location-photos.yaml) | 1 | Get up to 5 recent photos for a location |
+| [content-api-location-reviews](capabilities/content-api-location-reviews.yaml) | 1 | Get up to 5 recent reviews for a location |
+
+### Tripadvisor Hotel Availability Check API
+
+| Capability | Tools | Description |
+|-----------|-------|-------------|
+| [hotel-availability-check-api-availability](capabilities/hotel-availability-check-api-availability.yaml) | 1 | Real-time price and availability for one-to-many hotels |
+| [hotel-availability-check-api-configuration](capabilities/hotel-availability-check-api-configuration.yaml) | 1 | Partner configuration discovery |
+
+### Tripadvisor Hotel Inventory API
+
+| Capability | Tools | Description |
+|-----------|-------|-------------|
+| [hotel-availability-check-api-hotel-inventory](capabilities/hotel-availability-check-api-hotel-inventory.yaml) | 1 | Daily pull of the partner's connected hotel inventory |
 
 ## Common Properties
 

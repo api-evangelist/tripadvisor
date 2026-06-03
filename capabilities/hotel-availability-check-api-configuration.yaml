@@ -1,0 +1,90 @@
+naftiko: "1.0.0-alpha2"
+
+info:
+  label: "Tripadvisor Hotel Availability Check API — Configuration"
+  description: >-
+    Configuration — the discovery endpoint a connectivity partner implements so
+    Tripadvisor can learn what the partner supports. 1 operation. Lead
+    operation: Get Partner Configuration returns the supported API version,
+    languages, and currencies. This surface is partner-hosted and queried by
+    Tripadvisor. Self-contained Naftiko capability covering one Tripadvisor
+    business surface.
+  tags:
+    - Tripadvisor
+    - Connectivity
+    - Configuration
+  created: "2026-06-03"
+  modified: "2026-06-03"
+
+binds:
+  - namespace: env
+    keys:
+      TRIPADVISOR_PARTNER_ENDPOINT: TRIPADVISOR_PARTNER_ENDPOINT
+
+capability:
+
+  # ── 1. Consumes — the partner-hosted endpoint Tripadvisor queries ─────
+  consumes:
+    - type: http
+      namespace: "hotel-availability-check-api-configuration"
+      baseUri: "https://{{env.TRIPADVISOR_PARTNER_ENDPOINT}}"
+      description: "Tripadvisor Hotel Availability Check API — Configuration business capability. Partner-hosted, no authentication; Tripadvisor is the caller. Self-contained, no shared references."
+      resources:
+        - name: "config"
+          path: "/config"
+          operations:
+            - name: "getConfiguration"
+              method: GET
+              description: "Returns the partner's API configuration including supported version, features, and capabilities."
+              inputParameters:
+                - name: "api_version"
+                  in: query
+                  type: integer
+                  required: true
+                  description: "The API version number. Current version is 8."
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+
+  # ── 2. REST exposer — one Spectral-compliant resource per consumed op ──
+  exposes:
+    - type: rest
+      namespace: "hotel-availability-check-api-configuration-rest"
+      port: 8080
+      description: "REST adapter for Tripadvisor Hotel Availability Check API — Configuration. One Spectral-compliant resource per consumed operation, prefixed with /v1."
+      resources:
+        - path: "/v1/config"
+          name: "config"
+          description: "REST surface for partner configuration discovery."
+          operations:
+            - method: GET
+              name: "getConfiguration"
+              description: "Returns the partner's API configuration including supported version, features, and capabilities."
+              call: "hotel-availability-check-api-configuration.getConfiguration"
+              with:
+                "api_version": "rest.api_version"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+
+  # ── 3. MCP exposer — one verb-noun tool per consumed op ──
+    - type: mcp
+      namespace: "hotel-availability-check-api-configuration-mcp"
+      port: 9090
+      transport: http
+      description: "MCP adapter for Tripadvisor Hotel Availability Check API — Configuration. One tool per consumed operation, routed inline through this capability's consumes block."
+      tools:
+        - name: "get-partner-configuration"
+          description: "Returns the partner's API configuration including supported version, features, and capabilities."
+          hints:
+            readOnly: true
+            destructive: false
+            idempotent: true
+          call: "hotel-availability-check-api-configuration.getConfiguration"
+          with:
+            "api_version": "tools.api_version"
+          outputParameters:
+            - type: object
+              mapping: "$."

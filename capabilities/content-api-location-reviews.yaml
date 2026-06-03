@@ -1,0 +1,101 @@
+naftiko: "1.0.0-alpha2"
+
+info:
+  label: "Tripadvisor Content API — Location Reviews"
+  description: >-
+    Location Reviews — surface the most recent traveler reviews for one
+    Tripadvisor location. 1 operation. Lead operation: Get Location Reviews
+    returns up to 5 reviews with text, rating, title, trip type, travel date,
+    sub-ratings, and reviewer details. Self-contained Naftiko capability
+    covering one Tripadvisor business surface.
+  tags:
+    - Tripadvisor
+    - Content
+    - Location Reviews
+  created: "2026-06-03"
+  modified: "2026-06-03"
+
+binds:
+  - namespace: env
+    keys:
+      TRIPADVISOR_API_KEY: TRIPADVISOR_API_KEY
+
+capability:
+
+  # ── 1. Consumes — the upstream HTTP API this capability speaks to ─────
+  consumes:
+    - type: http
+      namespace: "content-api-location-reviews"
+      baseUri: "https://api.content.tripadvisor.com/api/v1"
+      description: "Tripadvisor Content API — Location Reviews business capability. Self-contained, no shared references."
+      authentication:
+        type: apikey
+        key: key
+        value: "{{env.TRIPADVISOR_API_KEY}}"
+        placement: query
+      resources:
+        - name: "location-reviews"
+          path: "/location/{locationId}/reviews"
+          operations:
+            - name: "getLocationReviews"
+              method: GET
+              description: "Returns up to 5 of the most recent reviews for a specific location."
+              inputParameters:
+                - name: "locationId"
+                  in: path
+                  type: integer
+                  required: true
+                  description: "The unique identifier for a Tripadvisor location."
+                - name: "language"
+                  in: query
+                  type: string
+                  required: false
+                  description: "The language code for the response content."
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+
+  # ── 2. REST exposer — one Spectral-compliant resource per consumed op ──
+  exposes:
+    - type: rest
+      namespace: "content-api-location-reviews-rest"
+      port: 8080
+      description: "REST adapter for Tripadvisor Content API — Location Reviews. One Spectral-compliant resource per consumed operation, prefixed with /v1."
+      resources:
+        - path: "/v1/locations/{location-id}/reviews"
+          name: "location-reviews"
+          description: "REST surface for location reviews."
+          operations:
+            - method: GET
+              name: "getLocationReviews"
+              description: "Returns up to 5 of the most recent reviews for a specific location."
+              call: "content-api-location-reviews.getLocationReviews"
+              with:
+                "locationId": "rest.locationId"
+                "language": "rest.language"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+
+  # ── 3. MCP exposer — one verb-noun tool per consumed op ──
+    - type: mcp
+      namespace: "content-api-location-reviews-mcp"
+      port: 9090
+      transport: http
+      description: "MCP adapter for Tripadvisor Content API — Location Reviews. One tool per consumed operation, routed inline through this capability's consumes block."
+      tools:
+        - name: "get-location-reviews"
+          description: "Returns up to 5 of the most recent reviews for a specific location."
+          hints:
+            readOnly: true
+            destructive: false
+            idempotent: true
+          call: "content-api-location-reviews.getLocationReviews"
+          with:
+            "locationId": "tools.locationId"
+            "language": "tools.language"
+          outputParameters:
+            - type: object
+              mapping: "$."
