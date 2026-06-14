@@ -1,0 +1,812 @@
+"""
+TripAdvisor GraphQL Schema
+Conceptual schema modeling the TripAdvisor travel reviews and search platform.
+Derived from the Tripadvisor Content API: https://tripadvisor-content-api.readme.io/reference/overview
+"""
+
+# ─────────────────────────────────────────────
+# Enums
+# ─────────────────────────────────────────────
+
+enum TravelerType {
+  FAMILIES
+  COUPLES
+  SOLO
+  BUSINESS
+  FRIENDS
+}
+
+enum PriceLevel {
+  BUDGET
+  MODERATE
+  EXPENSIVE
+  VERY_EXPENSIVE
+}
+
+enum OpenStatusCode {
+  OPEN
+  CLOSED
+  UNKNOWN
+}
+
+enum ReviewSortOrder {
+  MOST_RECENT
+  MOST_HELPFUL
+  RATING_HIGH
+  RATING_LOW
+}
+
+enum LocationCategory {
+  HOTELS
+  RESTAURANTS
+  ATTRACTIONS
+  VACATION_RENTALS
+  AIRLINES
+  CRUISES
+}
+
+enum Season {
+  SPRING
+  SUMMER
+  FALL
+  WINTER
+}
+
+# ─────────────────────────────────────────────
+# Geographic Types
+# ─────────────────────────────────────────────
+
+"""Latitude and longitude coordinate pair."""
+type GeoPoint {
+  latitude: Float!
+  longitude: Float!
+}
+
+"""Geographic bounding box defined by northeast and southwest corners."""
+type BoundingBox {
+  northeast: GeoPoint!
+  southwest: GeoPoint!
+}
+
+"""Individual component of a structured postal address."""
+type AddressComponent {
+  longName: String!
+  shortName: String!
+  types: [String!]!
+}
+
+"""Structured postal address for a location."""
+type Address {
+  street1: String
+  street2: String
+  city: String
+  state: String
+  country: String
+  postalCode: String
+  components: [AddressComponent!]
+  formatted: String
+}
+
+"""Named neighborhood or district within a city."""
+type Neighborhood {
+  locationId: ID!
+  name: String!
+  description: String
+  geo: GeoPoint
+}
+
+"""Broader geographic area or region."""
+type Area {
+  locationId: ID!
+  name: String!
+  description: String
+  boundingBox: BoundingBox
+}
+
+# ─────────────────────────────────────────────
+# Classification Types
+# ─────────────────────────────────────────────
+
+"""Top-level content category."""
+type Category {
+  id: ID!
+  name: String!
+  localizedName: String
+  subcategories: [Subcategory!]
+}
+
+"""Finer-grained classification within a category."""
+type Subcategory {
+  id: ID!
+  name: String!
+  localizedName: String
+  category: Category
+}
+
+"""User-generated or system-assigned tag for a location."""
+type Tag {
+  id: ID!
+  name: String!
+  tagType: String
+  count: Int
+}
+
+"""Amenity offered by a hotel or attraction."""
+type Amenity {
+  id: ID!
+  name: String!
+  category: String
+  available: Boolean
+}
+
+"""Cuisine type offered by a restaurant."""
+type Cuisine {
+  id: ID!
+  name: String!
+  localizedName: String
+}
+
+# ─────────────────────────────────────────────
+# Pricing Types
+# ─────────────────────────────────────────────
+
+"""Minimum and maximum price range with currency."""
+type PriceRange {
+  min: Float
+  max: Float
+  currency: Currency
+  displayString: String
+}
+
+# ─────────────────────────────────────────────
+# Recognition Types
+# ─────────────────────────────────────────────
+
+"""Award received by a location (e.g., Travelers' Choice)."""
+type Award {
+  id: ID!
+  name: String!
+  category: String
+  year: Int
+  imageUrl: String
+}
+
+"""Certificate of Excellence or similar annual recognition."""
+type Certificate {
+  id: ID!
+  name: String!
+  year: Int
+  description: String
+}
+
+"""Third-party accreditation or industry certification."""
+type Accreditation {
+  id: ID!
+  name: String!
+  issuingBody: String
+  issuedDate: String
+  expiryDate: String
+}
+
+# ─────────────────────────────────────────────
+# Hours & Status Types
+# ─────────────────────────────────────────────
+
+"""A single open/close period within a day."""
+type Period {
+  day: Int!
+  openTime: String
+  closeTime: String
+}
+
+"""Operating hours schedule for a location."""
+type Hours {
+  periods: [Period!]
+  weekdayText: [String!]
+  isAlwaysOpen: Boolean
+}
+
+"""Current open/closed status with next change time."""
+type OpenStatus {
+  status: OpenStatusCode!
+  localizedStatusText: String
+  nextOpenTime: String
+  nextCloseTime: String
+}
+
+# ─────────────────────────────────────────────
+# Localization Types
+# ─────────────────────────────────────────────
+
+"""Supported language with ISO code and display name."""
+type Language {
+  code: String!
+  name: String!
+  nativeName: String
+}
+
+"""Currency with ISO code, symbol, and display name."""
+type Currency {
+  code: String!
+  symbol: String!
+  name: String
+  decimalDigits: Int
+}
+
+# ─────────────────────────────────────────────
+# Rating Types
+# ─────────────────────────────────────────────
+
+"""Breakdown of ratings by score bucket."""
+type RatingBreakdown {
+  oneStar: Int
+  twoStar: Int
+  threeStar: Int
+  fourStar: Int
+  fiveStar: Int
+}
+
+"""Overall aggregate rating for a location."""
+type Rating {
+  overall: Float
+  count: Int
+  breakdown: RatingBreakdown
+}
+
+"""Dimension-level rating (cleanliness, service, value, etc.)."""
+type ReviewRating {
+  dimension: String!
+  value: Float!
+  label: String
+}
+
+# ─────────────────────────────────────────────
+# Review Types
+# ─────────────────────────────────────────────
+
+"""Profile of the traveler who authored a review."""
+type ReviewAuthor {
+  memberId: ID!
+  username: String!
+  displayName: String
+  location: String
+  reviewCount: Int
+  helpfulVotes: Int
+  avatarUrl: String
+}
+
+"""Aggregate review score data for a location."""
+type ReviewScore {
+  locationId: ID!
+  rating: Float!
+  reviewCount: Int!
+  subratings: [ReviewRating!]
+}
+
+"""Owner or management staff response to a traveler review."""
+type OwnerResponse {
+  id: ID!
+  title: String
+  text: String!
+  respondedDate: String!
+  responderName: String
+  responderTitle: String
+}
+
+"""Generic response to a review (owner, management, or staff)."""
+type ReviewResponse {
+  id: ID!
+  text: String!
+  respondedDate: String!
+  responderName: String
+}
+
+"""A single traveler review."""
+type Review {
+  id: ID!
+  locationId: ID!
+  lang: String
+  url: String
+  publishedDate: String!
+  rating: Int!
+  title: String!
+  text: String
+  tripType: TravelerType
+  travelDate: String
+  author: ReviewAuthor
+  subratings: [ReviewRating!]
+  ownerResponse: OwnerResponse
+  helpfulVotes: Int
+  photos: [Photo!]
+}
+
+# ─────────────────────────────────────────────
+# Media Types
+# ─────────────────────────────────────────────
+
+"""Individual photo with attribution, caption, and sizing."""
+type Photo {
+  id: ID!
+  locationId: ID!
+  caption: String
+  publishedDate: String
+  images: PhotoImages
+  source: PhotoSource
+  album: PhotoAlbum
+}
+
+"""Different size variants of a photo."""
+type PhotoImages {
+  thumbnail: PhotoImage
+  small: PhotoImage
+  medium: PhotoImage
+  large: PhotoImage
+  original: PhotoImage
+}
+
+"""A specific resolution variant of a photo."""
+type PhotoImage {
+  url: String!
+  width: Int
+  height: Int
+}
+
+"""Attribution source for a photo."""
+type PhotoSource {
+  name: String
+  localizedName: String
+}
+
+"""A grouped collection of photos for a location."""
+type PhotoAlbum {
+  id: ID!
+  locationId: ID!
+  name: String
+  description: String
+  photoCount: Int
+  coverPhoto: Photo
+  photos: [Photo!]
+}
+
+# ─────────────────────────────────────────────
+# Ranking & Popularity Types
+# ─────────────────────────────────────────────
+
+"""Position of a location within a geographic area and category."""
+type Ranking {
+  rank: Int
+  outOf: Int
+  category: String
+  geo: LocationSummary
+}
+
+"""Popularity score and ranking within a category."""
+type Popularity {
+  score: Float
+  rank: Int
+  totalLocations: Int
+  category: String
+}
+
+# ─────────────────────────────────────────────
+# Location Types
+# ─────────────────────────────────────────────
+
+"""Lightweight summary of a location for list and search results."""
+type LocationSummary {
+  locationId: ID!
+  name: String!
+  category: Category
+  subcategory: [Subcategory!]
+  rating: Float
+  reviewCount: Int
+  address: Address
+  geo: GeoPoint
+  webUrl: String
+}
+
+"""Geographic metadata associated with a location."""
+type LocationGeo {
+  locationId: ID!
+  name: String!
+  geo: GeoPoint
+  boundingBox: BoundingBox
+  neighborhood: Neighborhood
+  area: Area
+}
+
+"""Full details for a Tripadvisor location."""
+type LocationDetails {
+  locationId: ID!
+  name: String!
+  description: String
+  webUrl: String
+  address: Address
+  geo: GeoPoint
+  timezone: String
+  phone: String
+  website: String
+  email: String
+  hours: Hours
+  openStatus: OpenStatus
+  rating: Rating
+  reviewCount: Int
+  rankingData: Ranking
+  awards: [Award!]
+  tags: [Tag!]
+  photos: [Photo!]
+  reviews: [Review!]
+  nearbyLocations: [LocationSummary!]
+}
+
+"""Base location entity combining summary and detail fields."""
+type Location {
+  locationId: ID!
+  name: String!
+  description: String
+  webUrl: String
+  address: Address
+  geo: GeoPoint
+  category: Category
+  subcategory: [Subcategory!]
+  rating: Float
+  reviewCount: Int
+  hours: Hours
+  openStatus: OpenStatus
+  awards: [Award!]
+  certificate: Certificate
+  tags: [Tag!]
+  popularity: Popularity
+  ranking: Ranking
+  photos: [Photo!]
+  reviews: [Review!]
+}
+
+# ─────────────────────────────────────────────
+# Hospitality Types
+# ─────────────────────────────────────────────
+
+"""Hotel property with rooms, amenities, pricing, and recognition."""
+type Hotel {
+  locationId: ID!
+  name: String!
+  description: String
+  address: Address
+  geo: GeoPoint
+  phone: String
+  website: String
+  email: String
+  starRating: Int
+  priceLevel: PriceLevel
+  priceRange: PriceRange
+  checkInTime: String
+  checkOutTime: String
+  amenities: [Amenity!]
+  hours: Hours
+  rating: Rating
+  reviewCount: Int
+  reviewScore: ReviewScore
+  awards: [Award!]
+  certificates: [Certificate!]
+  accreditations: [Accreditation!]
+  photos: [Photo!]
+  reviews: [Review!]
+  ranking: Ranking
+  popularity: Popularity
+  nearbyRestaurants: [Restaurant!]
+  nearbyAttractions: [Attraction!]
+}
+
+"""Restaurant with cuisine types, price level, hours, and reservation details."""
+type Restaurant {
+  locationId: ID!
+  name: String!
+  description: String
+  address: Address
+  geo: GeoPoint
+  phone: String
+  website: String
+  email: String
+  priceLevel: PriceLevel
+  priceRange: PriceRange
+  cuisines: [Cuisine!]
+  dietaryRestrictions: [String!]
+  mealTypes: [String!]
+  features: [String!]
+  hours: Hours
+  openStatus: OpenStatus
+  reservationUrl: String
+  rating: Rating
+  reviewCount: Int
+  reviewScore: ReviewScore
+  awards: [Award!]
+  photos: [Photo!]
+  reviews: [Review!]
+  ranking: Ranking
+  tags: [Tag!]
+}
+
+"""Tourist attraction with category, admission, and visiting hours."""
+type Attraction {
+  locationId: ID!
+  name: String!
+  description: String
+  address: Address
+  geo: GeoPoint
+  phone: String
+  website: String
+  category: Category
+  subcategory: [Subcategory!]
+  tags: [Tag!]
+  hours: Hours
+  openStatus: OpenStatus
+  admissionFee: Boolean
+  priceRange: PriceRange
+  duration: String
+  rating: Rating
+  reviewCount: Int
+  reviewScore: ReviewScore
+  awards: [Award!]
+  photos: [Photo!]
+  reviews: [Review!]
+  ranking: Ranking
+  nearbyAttractions: [Attraction!]
+}
+
+"""Airline entity with routes, ratings, and traveler reviews."""
+type Airline {
+  locationId: ID!
+  name: String!
+  iataCode: String
+  website: String
+  logo: String
+  rating: Rating
+  reviewCount: Int
+  subratings: [ReviewRating!]
+  photos: [Photo!]
+  reviews: [Review!]
+}
+
+"""Cruise line or ship with itineraries and onboard amenities."""
+type Cruise {
+  locationId: ID!
+  name: String!
+  line: String
+  description: String
+  website: String
+  amenities: [Amenity!]
+  priceRange: PriceRange
+  duration: String
+  itineraryPorts: [LocationSummary!]
+  rating: Rating
+  reviewCount: Int
+  reviewScore: ReviewScore
+  photos: [Photo!]
+  reviews: [Review!]
+  awards: [Award!]
+}
+
+"""Vacation rental property with features and host details."""
+type Vacation {
+  locationId: ID!
+  name: String!
+  description: String
+  address: Address
+  geo: GeoPoint
+  phone: String
+  website: String
+  priceRange: PriceRange
+  amenities: [Amenity!]
+  maxGuests: Int
+  bedrooms: Int
+  bathrooms: Int
+  rating: Rating
+  reviewCount: Int
+  photos: [Photo!]
+  reviews: [Review!]
+}
+
+# ─────────────────────────────────────────────
+# Search Types
+# ─────────────────────────────────────────────
+
+"""Input parameters for a nearby location search."""
+input NearbySearchInput {
+  latLong: String!
+  category: LocationCategory
+  language: String
+  currency: String
+  limit: Int
+  offset: Int
+}
+
+"""Result set for a nearby location search."""
+type NearbySearch {
+  center: GeoPoint!
+  radiusKm: Float
+  results: [SearchResult!]!
+  totalResults: Int!
+}
+
+"""A single item returned from a location or keyword search."""
+type SearchResult {
+  locationId: ID!
+  name: String!
+  score: Float
+  category: Category
+  address: Address
+  geo: GeoPoint
+  rating: Float
+  reviewCount: Int
+  priceLevel: PriceLevel
+  webUrl: String
+  photo: Photo
+}
+
+# ─────────────────────────────────────────────
+# Travel Intelligence Types
+# ─────────────────────────────────────────────
+
+"""Date range used for travel-specific queries."""
+type TravelDate {
+  startDate: String!
+  endDate: String!
+}
+
+"""Popularity and pricing trends by season or month."""
+type SeasonalTrend {
+  season: Season
+  month: Int
+  year: Int
+  popularityScore: Float
+  averagePrice: Float
+  currency: Currency
+  peakDays: [String!]
+}
+
+"""Derived insights about traveler behavior at a location."""
+type TravelInsight {
+  locationId: ID!
+  topTravelerTypes: [TravelerType!]
+  averageStayDuration: Float
+  averageGroupSize: Float
+  peakSeason: Season
+  seasonalTrends: [SeasonalTrend!]
+  popularActivities: [String!]
+  recommendedVisitDuration: String
+}
+
+"""General travel information for a destination."""
+type TravelInfo {
+  locationId: ID!
+  bestTimeToVisit: String
+  gettingThere: String
+  localTransport: String
+  currency: Currency
+  languages: [Language!]
+  visaRequired: Boolean
+  safetyRating: String
+  popularNeighborhoods: [Neighborhood!]
+  topAttractions: [Attraction!]
+  topRestaurants: [Restaurant!]
+  topHotels: [Hotel!]
+}
+
+# ─────────────────────────────────────────────
+# Community Types
+# ─────────────────────────────────────────────
+
+"""A discussion thread in the Tripadvisor travel forums."""
+type TopicThread {
+  id: ID!
+  title: String!
+  locationId: ID
+  category: String
+  postCount: Int
+  viewCount: Int
+  createdDate: String!
+  lastPostDate: String
+  author: ReviewAuthor
+  posts: [ForumPost!]
+}
+
+"""A single post within a Tripadvisor forum thread."""
+type ForumPost {
+  id: ID!
+  threadId: ID!
+  text: String!
+  publishedDate: String!
+  helpfulVotes: Int
+  author: ReviewAuthor
+}
+
+"""Metadata about high-contribution reviewers and travel influencers."""
+type InfluencerMeta {
+  memberId: ID!
+  username: String!
+  displayName: String
+  totalReviews: Int
+  totalHelpfulVotes: Int
+  badges: [String!]
+  topContributorLevel: String
+  destinations: [LocationSummary!]
+  recentReviews: [Review!]
+}
+
+# ─────────────────────────────────────────────
+# Root Types
+# ─────────────────────────────────────────────
+
+type Query {
+  """Fetch full details for a single location by Tripadvisor location ID."""
+  location(locationId: ID!, language: String, currency: String): LocationDetails
+
+  """Search locations by name or keyword."""
+  locationSearch(
+    query: String!
+    language: String
+    currency: String
+    category: LocationCategory
+    limit: Int
+    offset: Int
+  ): [SearchResult!]!
+
+  """Find locations near a geographic coordinate."""
+  nearbySearch(input: NearbySearchInput!): NearbySearch!
+
+  """Retrieve photos for a location."""
+  locationPhotos(
+    locationId: ID!
+    language: String
+    limit: Int
+    offset: Int
+  ): [Photo!]!
+
+  """Retrieve traveler reviews for a location."""
+  locationReviews(
+    locationId: ID!
+    language: String
+    limit: Int
+    offset: Int
+    sortOrder: ReviewSortOrder
+  ): [Review!]!
+
+  """Fetch hotel-specific details."""
+  hotel(locationId: ID!, language: String, currency: String): Hotel
+
+  """Fetch restaurant-specific details."""
+  restaurant(locationId: ID!, language: String, currency: String): Restaurant
+
+  """Fetch attraction-specific details."""
+  attraction(locationId: ID!, language: String, currency: String): Attraction
+
+  """Fetch airline details and reviews."""
+  airline(locationId: ID!, language: String): Airline
+
+  """Fetch cruise details and reviews."""
+  cruise(locationId: ID!, language: String, currency: String): Cruise
+
+  """Fetch vacation rental details."""
+  vacation(locationId: ID!, language: String, currency: String): Vacation
+
+  """Retrieve travel insights and seasonal trends for a location."""
+  travelInsights(locationId: ID!, travelerType: TravelerType): TravelInsight
+
+  """Retrieve general travel information for a destination."""
+  travelInfo(locationId: ID!, language: String): TravelInfo
+
+  """Fetch forum threads related to a location."""
+  forumThreads(locationId: ID!, limit: Int, offset: Int): [TopicThread!]!
+
+  """Fetch a single forum thread with its posts."""
+  forumThread(threadId: ID!): TopicThread
+
+  """Fetch influencer metadata for a member."""
+  influencer(memberId: ID!): InfluencerMeta
+
+  """List supported languages."""
+  languages: [Language!]!
+
+  """List supported currencies."""
+  currencies: [Currency!]!
+}
