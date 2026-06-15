@@ -1,0 +1,537 @@
+{
+  "item": [
+    {
+      "id": "ec67f322-e573-469a-8701-71d5d4f6b28b",
+      "name": "Availability",
+      "description": {
+        "content": "Availability endpoint called in real-time when users view hotel pages on Tripadvisor to retrieve pricing and room availability.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "7f247c6a-e777-48d3-8e8e-87b5f1dac5cf",
+          "name": "Check Hotel Availability",
+          "request": {
+            "name": "Check Hotel Availability",
+            "description": {
+              "content": "Called by Tripadvisor in real-time when a user views a hotel page to retrieve current pricing and availability. The request can include one to many hotels. Partners must respond within 5 seconds on average. All parameters are sent as application/x-www-form-urlencoded and the response must be JSON with Content-Type application/json.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "availability"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "description": "The partner's server hostname and base path.",
+                  "type": "any",
+                  "value": "{{partnerEndpoint}}",
+                  "key": "partnerEndpoint"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/x-www-form-urlencoded"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "urlencoded",
+              "urlencoded": [
+                {
+                  "disabled": false,
+                  "key": "api_version",
+                  "value": "<integer>",
+                  "description": "(Required) The API version for this request."
+                },
+                {
+                  "disabled": false,
+                  "key": "hotel_ids",
+                  "value": "<string>",
+                  "description": "(Required) Comma-separated list of partner hotel IDs to check availability for."
+                },
+                {
+                  "disabled": false,
+                  "key": "start_date",
+                  "value": "<date>",
+                  "description": "(Required) The check-in date in YYYY-MM-DD format."
+                },
+                {
+                  "disabled": false,
+                  "key": "end_date",
+                  "value": "<date>",
+                  "description": "(Required) The check-out date in YYYY-MM-DD format."
+                },
+                {
+                  "disabled": false,
+                  "key": "party",
+                  "value": "<string>",
+                  "description": "(Required) JSON-encoded array of party objects specifying the number of adults and children per room."
+                },
+                {
+                  "disabled": false,
+                  "key": "num_rooms",
+                  "value": "<integer>",
+                  "description": "The number of rooms requested."
+                },
+                {
+                  "disabled": false,
+                  "key": "lang",
+                  "value": "<string>",
+                  "description": "The language code for the response."
+                },
+                {
+                  "disabled": false,
+                  "key": "currency",
+                  "value": "<string>",
+                  "description": "The currency code for pricing."
+                },
+                {
+                  "disabled": false,
+                  "key": "user_country",
+                  "value": "<string>",
+                  "description": "The two-letter country code of the user making the request."
+                },
+                {
+                  "disabled": false,
+                  "key": "device_type",
+                  "value": "<string>",
+                  "description": "The type of device the user is browsing on."
+                },
+                {
+                  "disabled": false,
+                  "key": "query_key",
+                  "value": "<string>",
+                  "description": "A unique identifier for this availability query."
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "c7271001-5772-497a-8fc7-1643010b036b",
+              "name": "Successful availability response. Must always return HTTP 200 even when individual hotels have errors or no availability.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "availability"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "The partner's server hostname and base path.",
+                      "type": "any",
+                      "value": "{{partnerEndpoint}}",
+                      "key": "partnerEndpoint"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) The API version for this request.",
+                        "type": "text/plain"
+                      },
+                      "key": "api_version",
+                      "value": "8"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) Comma-separated list of partner hotel IDs to check availability for.",
+                        "type": "text/plain"
+                      },
+                      "key": "hotel_ids",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) The check-in date in YYYY-MM-DD format.",
+                        "type": "text/plain"
+                      },
+                      "key": "start_date",
+                      "value": "<date>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) The check-out date in YYYY-MM-DD format.",
+                        "type": "text/plain"
+                      },
+                      "key": "end_date",
+                      "value": "<date>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) JSON-encoded array of party objects specifying the number of adults and children per room.",
+                        "type": "text/plain"
+                      },
+                      "key": "party",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The number of rooms requested.",
+                        "type": "text/plain"
+                      },
+                      "key": "num_rooms",
+                      "value": "<integer>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The language code for the response.",
+                        "type": "text/plain"
+                      },
+                      "key": "lang",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The currency code for pricing.",
+                        "type": "text/plain"
+                      },
+                      "key": "currency",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The two-letter country code of the user making the request.",
+                        "type": "text/plain"
+                      },
+                      "key": "user_country",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The type of device the user is browsing on.",
+                        "type": "text/plain"
+                      },
+                      "key": "device_type",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "A unique identifier for this availability query.",
+                        "type": "text/plain"
+                      },
+                      "key": "query_key",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"api_version\": 8,\n  \"hotels\": [\n    {\n      \"hotel_id\": \"string\",\n      \"room_types\": {\n        \"key_0\": {\n          \"url\": \"http://SEQNzwCiDCZNs.vximUd,96zdMlCWK+K5vG\",\n          \"description\": \"string\",\n          \"room_type_code\": \"string\",\n          \"photos\": [\n            {\n              \"url\": \"https://vKMpvOYWYSSEddwVqgfBTDCUdmQIBX.bqI.Nl,\",\n              \"caption\": \"string\"\n            },\n            {\n              \"url\": \"http://h.plxdoWGT07jntyOEv1phpozOD3ncTn6tKI4rhRAGtmoZoxSkaPQ9tYb3CZmQXw3DA8CUJGjmQ\",\n              \"caption\": \"string\"\n            }\n          ],\n          \"amenities\": [\n            \"string\",\n            \"string\"\n          ],\n          \"max_occupancy\": 2465,\n          \"bed_types\": [\n            \"string\",\n            \"string\"\n          ]\n        }\n      },\n      \"availability\": \"available\",\n      \"room_rates\": {\n        \"key_0\": {\n          \"room_type_key\": \"string\",\n          \"rate_plan_code\": \"string\",\n          \"rate_plan_description\": \"string\",\n          \"url\": \"https://PkG.whOl-5vAlc\",\n          \"line_items\": [\n            {\n              \"type\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"price\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"currency\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"sub_type\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"paid_at_checkout\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"type\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"price\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"currency\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"sub_type\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"paid_at_checkout\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ],\n          \"cancellation_rules\": {\n            \"free_cancellation\": true,\n            \"rules\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ]\n          },\n          \"occupancy\": 3742,\n          \"is_refundable\": false,\n          \"meal_plan\": \"full_board\"\n        }\n      },\n      \"url\": \"https://vnwiRPjjDopeFpRwLgvYcPq.naeq2+vddAvamURsre3o\"\n    },\n    {\n      \"hotel_id\": \"string\",\n      \"room_types\": {\n        \"key_0\": {\n          \"url\": \"http://cCJuYxAELARtbfXdRSRlLOhJXevYBYKlj.oghMcGP1UH1f8IPOSKcbHFHYhjSMB44CQ+lJHdNvnlliZv0eUvqAB.LupMdJwg60m.vKeNMKi7lBs\",\n          \"description\": \"string\",\n          \"room_type_code\": \"string\",\n          \"photos\": [\n            {\n              \"url\": \"https://TSsyTNPlsQNgCHGBfALrNja.lukP8x-91HCOgfkliJ.AEWR6nsW1hPellJvgn+KggnVdD0j3ID3OTzO-ivRvFnGqSU9nhvfIpAKRJ\",\n              \"caption\": \"string\"\n            },\n            {\n              \"url\": \"https://kgicgeQabLljAXaDvTxzJnXG.vsxhpDVJ2mSA0Eji\",\n              \"caption\": \"string\"\n            }\n          ],\n          \"amenities\": [\n            \"string\",\n            \"string\"\n          ],\n          \"max_occupancy\": 1269,\n          \"bed_types\": [\n            \"string\",\n            \"string\"\n          ]\n        },\n        \"key_1\": {\n          \"url\": \"https://i.zbhtMENBDgNvqHtBPRo85vFXYUdGonCviV\",\n          \"description\": \"string\",\n          \"room_type_code\": \"string\",\n          \"photos\": [\n            {\n              \"url\": \"http://QomJj.iegaSXRdoZiSN\",\n              \"caption\": \"string\"\n            },\n            {\n              \"url\": \"https://VAetERToyoQzJtGMWWPGV.clMTXYjDT\",\n              \"caption\": \"string\"\n            }\n          ],\n          \"amenities\": [\n            \"string\",\n            \"string\"\n          ],\n          \"max_occupancy\": 7943,\n          \"bed_types\": [\n            \"string\",\n            \"string\"\n          ]\n        }\n      },\n      \"availability\": \"error\",\n      \"room_rates\": {\n        \"key_0\": {\n          \"room_type_key\": \"string\",\n          \"rate_plan_code\": \"string\",\n          \"rate_plan_description\": \"string\",\n          \"url\": \"http://skPHcoQvXXgWhM.dcxsmTX46Aby21lEmFEeJTMkya\",\n          \"line_items\": [\n            {\n              \"type\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"price\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"currency\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"sub_type\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"paid_at_checkout\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"type\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"price\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"currency\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"sub_type\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"paid_at_checkout\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ],\n          \"cancellation_rules\": {\n            \"free_cancellation\": true,\n            \"rules\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ]\n          },\n          \"occupancy\": 50,\n          \"is_refundable\": false,\n          \"meal_plan\": \"all_inclusive\"\n        },\n        \"key_1\": {\n          \"room_type_key\": \"string\",\n          \"rate_plan_code\": \"string\",\n          \"rate_plan_description\": \"string\",\n          \"url\": \"https://nfjotDlBBNMzh.vwktl,FJoQUMHRSzY.PPcAlnPj+821SFMyzqRXRl5\",\n          \"line_items\": [\n            {\n              \"type\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"price\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"currency\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"sub_type\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"paid_at_checkout\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"type\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"price\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"currency\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"sub_type\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"paid_at_checkout\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ],\n          \"cancellation_rules\": {\n            \"free_cancellation\": true,\n            \"rules\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ]\n          },\n          \"occupancy\": 2484,\n          \"is_refundable\": true,\n          \"meal_plan\": \"none\"\n        }\n      },\n      \"url\": \"https://EykprqnGjap.aodvrz.a.Obi\"\n    }\n  ],\n  \"errors\": [\n    {\n      \"hotel_id\": \"string\",\n      \"error_type\": \"string\",\n      \"message\": \"string\"\n    },\n    {\n      \"hotel_id\": \"string\",\n      \"error_type\": \"string\",\n      \"message\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    },
+    {
+      "id": "18c8a86d-22d4-44f0-8664-574aeb9cf9cb",
+      "name": "Configuration",
+      "description": {
+        "content": "Configuration endpoint that Tripadvisor queries to discover the partner's supported features and API version.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "b740736a-2213-4ca7-b7a8-dc70150f3672",
+          "name": "Get Partner Configuration",
+          "request": {
+            "name": "Get Partner Configuration",
+            "description": {
+              "content": "Returns the partner's API configuration including supported API version, features, and capabilities. Tripadvisor queries this endpoint to understand what the partner supports.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "config"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "api_version",
+                  "value": "<integer>",
+                  "description": "(Required) The API version number. Current version is 8."
+                }
+              ],
+              "variable": [
+                {
+                  "description": "The partner's server hostname and base path.",
+                  "type": "any",
+                  "value": "{{partnerEndpoint}}",
+                  "key": "partnerEndpoint"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "ee8ed564-2360-4950-b7fd-4aeb34a2609f",
+              "name": "Successful configuration response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "config"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "api_version",
+                      "value": "8"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "description": "The partner's server hostname and base path.",
+                      "type": "any",
+                      "value": "{{partnerEndpoint}}",
+                      "key": "partnerEndpoint"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"api_version\": 8,\n  \"supported_languages\": [\n    \"string\",\n    \"string\"\n  ],\n  \"supported_currencies\": [\n    \"string\",\n    \"string\"\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    },
+    {
+      "id": "93d8be94-9e75-43f6-b240-3c3d8c7b7a88",
+      "name": "Hotel Inventory",
+      "description": {
+        "content": "Hotel inventory endpoint queried daily by Tripadvisor to import the partner's full list of connected hotels.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "ff4373cb-a9a1-4bb8-bcd3-6b1ed709ffce",
+          "name": "Get Hotel Inventory",
+          "request": {
+            "name": "Get Hotel Inventory",
+            "description": {
+              "content": "Returns the partner's full list of hotel properties that are connected for availability checking. Tripadvisor queries this endpoint once per day and matches the returned hotels to Tripadvisor listings. Partners must provide their complete inventory and remove all test properties before the implementation is considered complete.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "hotel_inventory"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "api_version",
+                  "value": "<integer>",
+                  "description": "(Required) The API version number. Current version is 8."
+                },
+                {
+                  "disabled": false,
+                  "key": "lang",
+                  "value": "en",
+                  "description": "The language code for the response content."
+                },
+                {
+                  "disabled": false,
+                  "key": "inventory_type",
+                  "value": "<string>",
+                  "description": "The type of inventory integration."
+                }
+              ],
+              "variable": [
+                {
+                  "description": "The partner's server hostname and base path.",
+                  "type": "any",
+                  "value": "{{partnerEndpoint}}",
+                  "key": "partnerEndpoint"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "b3a74bbb-ce6f-4500-8317-e5a010973eae",
+              "name": "Successful hotel inventory response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "hotel_inventory"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "api_version",
+                      "value": "8"
+                    },
+                    {
+                      "key": "lang",
+                      "value": "en"
+                    },
+                    {
+                      "key": "inventory_type",
+                      "value": "tripconnect"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "description": "The partner's server hostname and base path.",
+                      "type": "any",
+                      "value": "{{partnerEndpoint}}",
+                      "key": "partnerEndpoint"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"api_version\": 8,\n  \"hotels\": [\n    {\n      \"ta_id\": 8123,\n      \"partner_id\": \"string\",\n      \"name\": \"string\",\n      \"street\": \"string\",\n      \"city\": \"string\",\n      \"postal\": \"string\",\n      \"country\": \"string\"\n    },\n    {\n      \"ta_id\": 8449,\n      \"partner_id\": \"string\",\n      \"name\": \"string\",\n      \"street\": \"string\",\n      \"city\": \"string\",\n      \"postal\": \"string\",\n      \"country\": \"string\"\n    }\n  ],\n  \"lang\": \"en\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "description": {
+        "content": "The partner's server hostname and base path.",
+        "type": "text/plain"
+      },
+      "type": "any",
+      "value": "api.partner-example.com",
+      "key": "partnerEndpoint"
+    },
+    {
+      "type": "string",
+      "value": "https://{{partnerEndpoint}}",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "0efb10da-975b-4221-b6cd-3d20cbd83bce",
+    "name": "Tripadvisor Hotel Availability Check API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Tripadvisor Hotel Availability Check (HAC) API allows hotel booking partners to display their availability and pricing on Tripadvisor. This specification describes the endpoints that partners must implement on their servers. When a user views a hotel page, Tripadvisor sends HTTP POST requests to the partner's API to retrieve real-time price and availability data. The API supports batch requests for multiple hotels and requires responses within 5 seconds on average. The current version (v8) provides richer availability data to help partners increase conversions. This spec also covers the hotel inventory endpoint that Tripadvisor queries daily, and the configuration endpoint.\n\nContact Support:\n Name: Tripadvisor Connectivity Support",
+      "type": "text/plain"
+    }
+  }
+}

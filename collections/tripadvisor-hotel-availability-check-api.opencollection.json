@@ -1,0 +1,99 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Tripadvisor Hotel Availability Check API",
+    "version": "8"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Configuration",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get Partner Configuration",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{partnerEndpoint}/config",
+            "params": [
+              {
+                "name": "api_version",
+                "value": "",
+                "type": "query",
+                "description": "The API version number. Current version is 8."
+              }
+            ]
+          },
+          "docs": "Returns the partner's API configuration including supported API version, features, and capabilities. Tripadvisor queries this endpoint to understand what the partner supports."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Hotel Inventory",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get Hotel Inventory",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{partnerEndpoint}/hotel_inventory",
+            "params": [
+              {
+                "name": "api_version",
+                "value": "",
+                "type": "query",
+                "description": "The API version number. Current version is 8."
+              },
+              {
+                "name": "lang",
+                "value": "",
+                "type": "query",
+                "description": "The language code for the response content."
+              },
+              {
+                "name": "inventory_type",
+                "value": "",
+                "type": "query",
+                "description": "The type of inventory integration."
+              }
+            ]
+          },
+          "docs": "Returns the partner's full list of hotel properties that are connected for availability checking. Tripadvisor queries this endpoint once per day and matches the returned hotels to Tripadvisor listings. Partners must provide their complete inventory and remove all test properties before the implementation is considered complete."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Availability",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Check Hotel Availability",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{partnerEndpoint}/availability",
+            "body": {
+              "type": "form-urlencoded",
+              "data": []
+            }
+          },
+          "docs": "Called by Tripadvisor in real-time when a user views a hotel page to retrieve current pricing and availability. The request can include one to many hotels. Partners must respond within 5 seconds on average. All parameters are sent as application/x-www-form-urlencoded and the response must be JSON with Content-Type application/json."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}
