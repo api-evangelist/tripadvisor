@@ -7,7 +7,7 @@ description: Tripadvisor is the world's largest travel guidance platform, helpin
   7.5 million locations and 1 billion reviews across 43 markets and 29 languages.
   Tripadvisor provides APIs for content integration, hotel connectivity, and restaurant
   reservations.
-image: https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
 tags:
 - Attractions
 - Hotels
@@ -28,7 +28,7 @@ apis:
   - Restaurants
   - Reviews
   - Travel
-  image: https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
   baseURL: https://api.content.tripadvisor.com/api/v1
   humanURL: https://developer-tripadvisor.com/content-api/
   properties:
@@ -54,7 +54,7 @@ apis:
   - Hospitality
   - Hotels
   - Travel
-  image: https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
   baseURL: https://partner-endpoint.example.com
   humanURL: https://developer-tripadvisor.com/connectivity-solutions/hotel-availability-check-api/
   properties:
@@ -76,7 +76,7 @@ apis:
   - Hotels
   - Inventory
   - Travel
-  image: https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
   baseURL: https://partner-endpoint.example.com
   humanURL: https://developer-tripadvisor.com/connectivity-solutions/hotel-availability-check-api/documentation/hotel_inventory/
   properties:
