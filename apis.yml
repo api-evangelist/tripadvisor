@@ -102,7 +102,7 @@ common:
 - type: Documentation
   url: https://tripadvisor-content-api.readme.io/reference/overview
   name: Content API Reference
-- type: SignUp
+- type: Signup
   url: https://developer-tripadvisor.com/content-api/
   name: Register for Content API
 - type: TermsOfService
@@ -164,7 +164,7 @@ common:
   - name: Hotels.com
   - name: Viator
   - name: TheFork
-- type: LLMsTxt
+- type: LlmsText
   url: https://tripadvisor-content-api.readme.io/llms.txt
 maintainers:
 - FN: Kin Lane
