@@ -91,6 +91,12 @@ apis:
     This API works in conjunction with the Hotel Availability Check API as part of
     Tripadvisor's connectivity solutions for the hospitality industry.
 common:
+- type: DomainSecurity
+  url: security/tripadvisor-domain-security.yml
+- type: Authentication
+  url: authentication/tripadvisor-authentication.yml
+- url: https://www.tripadvisor.com/blog/
+  type: Blog
 - type: LinkedIn
   url: https://www.linkedin.com/company/tripadvisor
 - type: Website
