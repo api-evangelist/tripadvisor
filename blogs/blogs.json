@@ -1,0 +1,14 @@
+{
+  "repo": "tripadvisor",
+  "feeds": [
+    {
+      "source": "https://www.tripadvisor.com/blog/",
+      "feed_url": "https://www.tripadvisor.com/rss/articles.xml",
+      "title": "",
+      "saved": 2,
+      "method": "discovered"
+    }
+  ],
+  "fetched": "2026-07-11T11:50:51Z",
+  "post_count": 8
+}
