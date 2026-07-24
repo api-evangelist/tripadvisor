@@ -1,0 +1,225 @@
+openapi: 3.1.0
+info:
+  title: Tripadvisor Content Availability Location Photos API
+  description: The Tripadvisor Content API provides developers with access to Tripadvisor's extensive dataset of more than 7.5 million locations, 1 billion reviews and opinions, and content in 29 languages. The API includes endpoints for location search, nearby search, location details, location photos, and location reviews, enabling developers to integrate rich travel content into their websites and applications. Locations are defined within this API as hotels, restaurants, or attractions. The first 5,000 API calls per month are free for initial development and testing.
+  version: '1.0'
+  contact:
+    name: Tripadvisor Developer Support
+    url: https://developer-tripadvisor.com/content-api/
+  termsOfService: https://developer-tripadvisor.com/content-api/terms-of-use/
+servers:
+- url: https://api.content.tripadvisor.com/api/v1
+  description: Production Server
+security:
+- apiKeyQuery: []
+tags:
+- name: Location Photos
+  description: Access high-quality recent photos for a specific location in multiple size formats.
+paths:
+  /location/{locationId}/photos:
+    get:
+      operationId: getLocationPhotos
+      summary: Get Location Photos
+      description: Returns up to 5 high-quality recent photos for a specific location. Photos are available in multiple sizes including thumbnail (50x50), small (150x150), medium (max 250px), large (max 550px), and original resolution.
+      tags:
+      - Location Photos
+      parameters:
+      - $ref: '#/components/parameters/LocationId'
+      - $ref: '#/components/parameters/Language'
+      responses:
+        '200':
+          description: Successful location photos response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LocationPhotosResponse'
+        '400':
+          description: Bad request due to invalid parameters
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized due to missing or invalid API key
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Location not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '429':
+          description: Rate limit exceeded
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+components:
+  parameters:
+    Language:
+      name: language
+      in: query
+      required: false
+      description: The language code for the response content. Tripadvisor supports 29 languages.
+      schema:
+        type: string
+        default: en
+        example: en
+    LocationId:
+      name: locationId
+      in: path
+      required: true
+      description: The unique identifier for a Tripadvisor location (hotel, restaurant, or attraction).
+      schema:
+        type: integer
+        example: 60745
+  schemas:
+    PhotoImages:
+      type: object
+      description: Available image sizes for a photo.
+      properties:
+        thumbnail:
+          $ref: '#/components/schemas/ImageSize'
+        small:
+          $ref: '#/components/schemas/ImageSize'
+        medium:
+          $ref: '#/components/schemas/ImageSize'
+        large:
+          $ref: '#/components/schemas/ImageSize'
+        original:
+          $ref: '#/components/schemas/ImageSize'
+    ImageSize:
+      type: object
+      description: An image at a specific size with dimensions.
+      properties:
+        height:
+          type: integer
+          description: The height of the image in pixels.
+        width:
+          type: integer
+          description: The width of the image in pixels.
+        url:
+          type: string
+          format: uri
+          description: The URL to access the image at this size.
+    Address:
+      type: object
+      description: The physical address of a location.
+      properties:
+        street1:
+          type: string
+          description: The primary street address line.
+        street2:
+          type: string
+          description: The secondary street address line.
+        city:
+          type: string
+          description: The city name.
+        state:
+          type: string
+          description: The state or province name.
+        country:
+          type: string
+          description: The country name.
+        postalcode:
+          type: string
+          description: The postal or ZIP code.
+        address_string:
+          type: string
+          description: The full formatted address as a single string.
+    LocationPhotosResponse:
+      type: object
+      description: Response containing photos for a specific location.
+      properties:
+        data:
+          type: array
+          description: Array of photo objects for the location, up to 5 photos.
+          items:
+            $ref: '#/components/schemas/Photo'
+    UserReference:
+      type: object
+      description: Reference to a Tripadvisor user who contributed content.
+      properties:
+        username:
+          type: string
+          description: The username of the contributor.
+        user_location:
+          $ref: '#/components/schemas/Address'
+        avatar:
+          type: object
+          description: Avatar images for the user.
+          properties:
+            thumbnail:
+              type: string
+              format: uri
+              description: URL of the user's thumbnail avatar.
+            small:
+              type: string
+              format: uri
+              description: URL of the user's small avatar.
+            large:
+              type: string
+              format: uri
+              description: URL of the user's large avatar.
+    Photo:
+      type: object
+      description: A photo associated with a Tripadvisor location.
+      properties:
+        id:
+          type: integer
+          description: The unique identifier for this photo.
+        is_blessed:
+          type: boolean
+          description: Whether this photo has been marked as a featured photo.
+        caption:
+          type: string
+          description: The caption text for the photo.
+        published_date:
+          type: string
+          format: date-time
+          description: The date and time the photo was published.
+        images:
+          $ref: '#/components/schemas/PhotoImages'
+        album:
+          type: string
+          description: The album category this photo belongs to.
+        source:
+          type: object
+          description: Information about who uploaded the photo.
+          properties:
+            name:
+              type: string
+              description: The name of the photo contributor.
+            localized_name:
+              type: string
+              description: The localized name of the photo contributor.
+        user:
+          $ref: '#/components/schemas/UserReference'
+    Error:
+      type: object
+      description: Error response returned when a request fails.
+      properties:
+        error:
+          type: object
+          properties:
+            message:
+              type: string
+              description: A human-readable error message describing what went wrong.
+            type:
+              type: string
+              description: The error type classification.
+            code:
+              type: integer
+              description: A numeric error code.
+  securitySchemes:
+    apiKeyQuery:
+      type: apiKey
+      name: key
+      in: query
+      description: API key passed as a query parameter. Obtain your key by registering at the Tripadvisor Developer Portal.
+externalDocs:
+  description: Tripadvisor Content API Documentation
+  url: https://tripadvisor-content-api.readme.io/reference/overview

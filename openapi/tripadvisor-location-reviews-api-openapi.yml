@@ -1,0 +1,226 @@
+openapi: 3.1.0
+info:
+  title: Tripadvisor Content Availability Location Reviews API
+  description: The Tripadvisor Content API provides developers with access to Tripadvisor's extensive dataset of more than 7.5 million locations, 1 billion reviews and opinions, and content in 29 languages. The API includes endpoints for location search, nearby search, location details, location photos, and location reviews, enabling developers to integrate rich travel content into their websites and applications. Locations are defined within this API as hotels, restaurants, or attractions. The first 5,000 API calls per month are free for initial development and testing.
+  version: '1.0'
+  contact:
+    name: Tripadvisor Developer Support
+    url: https://developer-tripadvisor.com/content-api/
+  termsOfService: https://developer-tripadvisor.com/content-api/terms-of-use/
+servers:
+- url: https://api.content.tripadvisor.com/api/v1
+  description: Production Server
+security:
+- apiKeyQuery: []
+tags:
+- name: Location Reviews
+  description: Retrieve the most recent reviews for a specific location, up to 5 reviews per request.
+paths:
+  /location/{locationId}/reviews:
+    get:
+      operationId: getLocationReviews
+      summary: Get Location Reviews
+      description: Returns up to 5 of the most recent reviews for a specific location. Includes review text, rating, title, publication date, and information about the reviewer.
+      tags:
+      - Location Reviews
+      parameters:
+      - $ref: '#/components/parameters/LocationId'
+      - $ref: '#/components/parameters/Language'
+      responses:
+        '200':
+          description: Successful location reviews response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LocationReviewsResponse'
+        '400':
+          description: Bad request due to invalid parameters
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized due to missing or invalid API key
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Location not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '429':
+          description: Rate limit exceeded
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+components:
+  schemas:
+    LocationReviewsResponse:
+      type: object
+      description: Response containing reviews for a specific location.
+      properties:
+        data:
+          type: array
+          description: Array of review objects for the location, up to 5 reviews.
+          items:
+            $ref: '#/components/schemas/Review'
+    Address:
+      type: object
+      description: The physical address of a location.
+      properties:
+        street1:
+          type: string
+          description: The primary street address line.
+        street2:
+          type: string
+          description: The secondary street address line.
+        city:
+          type: string
+          description: The city name.
+        state:
+          type: string
+          description: The state or province name.
+        country:
+          type: string
+          description: The country name.
+        postalcode:
+          type: string
+          description: The postal or ZIP code.
+        address_string:
+          type: string
+          description: The full formatted address as a single string.
+    Review:
+      type: object
+      description: A user review for a Tripadvisor location.
+      properties:
+        id:
+          type: integer
+          description: The unique identifier for this review.
+        lang:
+          type: string
+          description: The language code of the review.
+        location_id:
+          type: integer
+          description: The location ID this review is for.
+        published_date:
+          type: string
+          format: date-time
+          description: The date and time the review was published.
+        rating:
+          type: integer
+          description: The rating given by the reviewer on a scale of 1 to 5.
+          minimum: 1
+          maximum: 5
+        helpful_votes:
+          type: integer
+          description: The number of helpful votes this review has received.
+        rating_image_url:
+          type: string
+          format: uri
+          description: URL of the rating bubble image for this review.
+        url:
+          type: string
+          format: uri
+          description: URL of the review on Tripadvisor.
+        text:
+          type: string
+          description: The full text content of the review.
+        title:
+          type: string
+          description: The title of the review.
+        trip_type:
+          type: string
+          description: The type of trip associated with this review.
+        travel_date:
+          type: string
+          description: The date of travel associated with this review.
+        user:
+          $ref: '#/components/schemas/UserReference'
+        subratings:
+          type: object
+          description: Sub-rating scores for specific aspects of the location.
+          additionalProperties:
+            type: object
+            properties:
+              name:
+                type: string
+                description: The name of the sub-rating category.
+              rating_image_url:
+                type: string
+                format: uri
+                description: URL of the rating bubble image for this sub-rating.
+              value:
+                type: string
+                description: The sub-rating value.
+    UserReference:
+      type: object
+      description: Reference to a Tripadvisor user who contributed content.
+      properties:
+        username:
+          type: string
+          description: The username of the contributor.
+        user_location:
+          $ref: '#/components/schemas/Address'
+        avatar:
+          type: object
+          description: Avatar images for the user.
+          properties:
+            thumbnail:
+              type: string
+              format: uri
+              description: URL of the user's thumbnail avatar.
+            small:
+              type: string
+              format: uri
+              description: URL of the user's small avatar.
+            large:
+              type: string
+              format: uri
+              description: URL of the user's large avatar.
+    Error:
+      type: object
+      description: Error response returned when a request fails.
+      properties:
+        error:
+          type: object
+          properties:
+            message:
+              type: string
+              description: A human-readable error message describing what went wrong.
+            type:
+              type: string
+              description: The error type classification.
+            code:
+              type: integer
+              description: A numeric error code.
+  parameters:
+    Language:
+      name: language
+      in: query
+      required: false
+      description: The language code for the response content. Tripadvisor supports 29 languages.
+      schema:
+        type: string
+        default: en
+        example: en
+    LocationId:
+      name: locationId
+      in: path
+      required: true
+      description: The unique identifier for a Tripadvisor location (hotel, restaurant, or attraction).
+      schema:
+        type: integer
+        example: 60745
+  securitySchemes:
+    apiKeyQuery:
+      type: apiKey
+      name: key
+      in: query
+      description: API key passed as a query parameter. Obtain your key by registering at the Tripadvisor Developer Portal.
+externalDocs:
+  description: Tripadvisor Content API Documentation
+  url: https://tripadvisor-content-api.readme.io/reference/overview

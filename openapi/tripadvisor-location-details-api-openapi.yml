@@ -1,0 +1,373 @@
+openapi: 3.1.0
+info:
+  title: Tripadvisor Content Availability Location Details API
+  description: The Tripadvisor Content API provides developers with access to Tripadvisor's extensive dataset of more than 7.5 million locations, 1 billion reviews and opinions, and content in 29 languages. The API includes endpoints for location search, nearby search, location details, location photos, and location reviews, enabling developers to integrate rich travel content into their websites and applications. Locations are defined within this API as hotels, restaurants, or attractions. The first 5,000 API calls per month are free for initial development and testing.
+  version: '1.0'
+  contact:
+    name: Tripadvisor Developer Support
+    url: https://developer-tripadvisor.com/content-api/
+  termsOfService: https://developer-tripadvisor.com/content-api/terms-of-use/
+servers:
+- url: https://api.content.tripadvisor.com/api/v1
+  description: Production Server
+security:
+- apiKeyQuery: []
+tags:
+- name: Location Details
+  description: Retrieve comprehensive information about a specific location including name, address, rating, and Tripadvisor listing URLs.
+paths:
+  /location/{locationId}/details:
+    get:
+      operationId: getLocationDetails
+      summary: Get Location Details
+      description: Returns comprehensive information about a specific location such as name, address, rating, ranking, and URLs for the listing on Tripadvisor. Works for hotels, restaurants, and attractions.
+      tags:
+      - Location Details
+      parameters:
+      - $ref: '#/components/parameters/LocationId'
+      - $ref: '#/components/parameters/Language'
+      - $ref: '#/components/parameters/Currency'
+      responses:
+        '200':
+          description: Successful location details response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LocationDetails'
+        '400':
+          description: Bad request due to invalid parameters
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized due to missing or invalid API key
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Location not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '429':
+          description: Rate limit exceeded
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+components:
+  schemas:
+    RankingData:
+      type: object
+      description: Ranking information for the location within its category and geography.
+      properties:
+        geo_location_id:
+          type: string
+          description: The Tripadvisor ID of the geographic area for ranking.
+        ranking_string:
+          type: string
+          description: A human-readable ranking string.
+        geo_location_name:
+          type: string
+          description: The name of the geographic area for ranking.
+        ranking_out_of:
+          type: string
+          description: The total number of locations in the ranking category.
+        ranking:
+          type: string
+          description: The numeric rank position.
+    Group:
+      type: object
+      description: A category group with associated sub-categories.
+      properties:
+        name:
+          type: string
+          description: The name of the group.
+        localized_name:
+          type: string
+          description: The localized name of the group.
+        categories:
+          type: array
+          description: Array of category tags within this group.
+          items:
+            $ref: '#/components/schemas/Tag'
+    Award:
+      type: object
+      description: An award or recognition received by the location.
+      properties:
+        award_type:
+          type: string
+          description: The type of award.
+        year:
+          type: string
+          description: The year the award was given.
+        images:
+          type: object
+          description: Image URLs for the award badge.
+          properties:
+            small:
+              type: string
+              format: uri
+              description: URL for the small award image.
+            large:
+              type: string
+              format: uri
+              description: URL for the large award image.
+        display_name:
+          type: string
+          description: The display name of the award.
+    TripType:
+      type: object
+      description: Rating data for a specific type of trip.
+      properties:
+        name:
+          type: string
+          description: The trip type name (e.g., business, couples, family).
+        localized_name:
+          type: string
+          description: The localized trip type name.
+        value:
+          type: string
+          description: The count of reviews for this trip type.
+    Address:
+      type: object
+      description: The physical address of a location.
+      properties:
+        street1:
+          type: string
+          description: The primary street address line.
+        street2:
+          type: string
+          description: The secondary street address line.
+        city:
+          type: string
+          description: The city name.
+        state:
+          type: string
+          description: The state or province name.
+        country:
+          type: string
+          description: The country name.
+        postalcode:
+          type: string
+          description: The postal or ZIP code.
+        address_string:
+          type: string
+          description: The full formatted address as a single string.
+    Ancestor:
+      type: object
+      description: A parent geographic location in the location hierarchy.
+      properties:
+        level:
+          type: string
+          description: The level in the geographic hierarchy (e.g., City, Region, Country).
+        name:
+          type: string
+          description: The name of the ancestor location.
+        location_id:
+          type: string
+          description: The Tripadvisor location ID of the ancestor.
+    Tag:
+      type: object
+      description: A category or classification tag.
+      properties:
+        name:
+          type: string
+          description: The display name of the tag.
+        localized_name:
+          type: string
+          description: The localized display name of the tag.
+    Hours:
+      type: object
+      description: Operating hours information for the location.
+      properties:
+        periods:
+          type: array
+          description: Array of time periods when the location is open.
+          items:
+            type: object
+            properties:
+              open:
+                type: object
+                description: The opening time details.
+                properties:
+                  day:
+                    type: integer
+                    description: Day of the week (0 = Sunday, 6 = Saturday).
+                    minimum: 0
+                    maximum: 6
+                  time:
+                    type: string
+                    description: The opening time in 24-hour format (HHMM).
+              close:
+                type: object
+                description: The closing time details.
+                properties:
+                  day:
+                    type: integer
+                    description: Day of the week (0 = Sunday, 6 = Saturday).
+                    minimum: 0
+                    maximum: 6
+                  time:
+                    type: string
+                    description: The closing time in 24-hour format (HHMM).
+        weekday_text:
+          type: array
+          description: Array of human-readable strings describing hours for each day of the week.
+          items:
+            type: string
+    LocationDetails:
+      type: object
+      description: Comprehensive information about a specific Tripadvisor location.
+      properties:
+        location_id:
+          type: string
+          description: The unique Tripadvisor identifier for this location.
+        name:
+          type: string
+          description: The display name of the location.
+        description:
+          type: string
+          description: A detailed text description of the location.
+        web_url:
+          type: string
+          format: uri
+          description: The URL of the location's page on Tripadvisor.
+        address_obj:
+          $ref: '#/components/schemas/Address'
+        ancestors:
+          type: array
+          description: Array of parent geographic locations in the hierarchy.
+          items:
+            $ref: '#/components/schemas/Ancestor'
+        latitude:
+          type: string
+          description: The latitude coordinate of the location.
+        longitude:
+          type: string
+          description: The longitude coordinate of the location.
+        timezone:
+          type: string
+          description: The timezone of the location.
+        phone:
+          type: string
+          description: The phone number of the location.
+        website:
+          type: string
+          format: uri
+          description: The official website URL of the location.
+        write_review:
+          type: string
+          format: uri
+          description: URL to write a review for this location on Tripadvisor.
+        ranking_data:
+          $ref: '#/components/schemas/RankingData'
+        rating:
+          type: string
+          description: The overall rating of the location on a scale of 1 to 5.
+        rating_image_url:
+          type: string
+          format: uri
+          description: URL of the rating bubble image.
+        num_reviews:
+          type: string
+          description: The total number of reviews for this location.
+        review_rating_count:
+          type: object
+          description: Breakdown of review counts by rating level (1-5).
+          additionalProperties:
+            type: string
+        photo_count:
+          type: string
+          description: The total number of photos available for this location.
+        see_all_photos:
+          type: string
+          format: uri
+          description: URL to view all photos on Tripadvisor.
+        price_level:
+          type: string
+          description: The price level indicator (e.g., $, $$, $$$, $$$$).
+        hours:
+          $ref: '#/components/schemas/Hours'
+        cuisine:
+          type: array
+          description: Array of cuisine types for restaurant locations.
+          items:
+            $ref: '#/components/schemas/Tag'
+        category:
+          $ref: '#/components/schemas/Tag'
+        subcategory:
+          type: array
+          description: Array of subcategory classifications for this location.
+          items:
+            $ref: '#/components/schemas/Tag'
+        groups:
+          type: array
+          description: Array of category groups this location belongs to.
+          items:
+            $ref: '#/components/schemas/Group'
+        trip_types:
+          type: array
+          description: Array of trip type ratings for this location.
+          items:
+            $ref: '#/components/schemas/TripType'
+        awards:
+          type: array
+          description: Array of awards received by this location.
+          items:
+            $ref: '#/components/schemas/Award'
+    Error:
+      type: object
+      description: Error response returned when a request fails.
+      properties:
+        error:
+          type: object
+          properties:
+            message:
+              type: string
+              description: A human-readable error message describing what went wrong.
+            type:
+              type: string
+              description: The error type classification.
+            code:
+              type: integer
+              description: A numeric error code.
+  parameters:
+    Language:
+      name: language
+      in: query
+      required: false
+      description: The language code for the response content. Tripadvisor supports 29 languages.
+      schema:
+        type: string
+        default: en
+        example: en
+    Currency:
+      name: currency
+      in: query
+      required: false
+      description: The currency code for pricing information in the response.
+      schema:
+        type: string
+        default: USD
+        example: USD
+    LocationId:
+      name: locationId
+      in: path
+      required: true
+      description: The unique identifier for a Tripadvisor location (hotel, restaurant, or attraction).
+      schema:
+        type: integer
+        example: 60745
+  securitySchemes:
+    apiKeyQuery:
+      type: apiKey
+      name: key
+      in: query
+      description: API key passed as a query parameter. Obtain your key by registering at the Tripadvisor Developer Portal.
+externalDocs:
+  description: Tripadvisor Content API Documentation
+  url: https://tripadvisor-content-api.readme.io/reference/overview

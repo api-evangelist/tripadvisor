@@ -1,0 +1,123 @@
+openapi: 3.1.0
+info:
+  title: Tripadvisor Content Availability Hotel Inventory API
+  description: The Tripadvisor Content API provides developers with access to Tripadvisor's extensive dataset of more than 7.5 million locations, 1 billion reviews and opinions, and content in 29 languages. The API includes endpoints for location search, nearby search, location details, location photos, and location reviews, enabling developers to integrate rich travel content into their websites and applications. Locations are defined within this API as hotels, restaurants, or attractions. The first 5,000 API calls per month are free for initial development and testing.
+  version: '1.0'
+  contact:
+    name: Tripadvisor Developer Support
+    url: https://developer-tripadvisor.com/content-api/
+  termsOfService: https://developer-tripadvisor.com/content-api/terms-of-use/
+servers:
+- url: https://api.content.tripadvisor.com/api/v1
+  description: Production Server
+security:
+- apiKeyQuery: []
+tags:
+- name: Hotel Inventory
+  description: Hotel inventory endpoint queried daily by Tripadvisor to import the partner's full list of connected hotels.
+paths:
+  /hotel_inventory:
+    get:
+      operationId: getHotelInventory
+      summary: Get Hotel Inventory
+      description: Returns the partner's full list of hotel properties that are connected for availability checking. Tripadvisor queries this endpoint once per day and matches the returned hotels to Tripadvisor listings. Partners must provide their complete inventory and remove all test properties before the implementation is considered complete.
+      tags:
+      - Hotel Inventory
+      parameters:
+      - $ref: '#/components/parameters/ApiVersion'
+      - $ref: '#/components/parameters/Lang'
+      - name: inventory_type
+        in: query
+        required: false
+        description: The type of inventory integration.
+        schema:
+          type: string
+          enum:
+          - tripconnect
+          example: tripconnect
+      responses:
+        '200':
+          description: Successful hotel inventory response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HotelInventoryResponse'
+components:
+  schemas:
+    InventoryHotel:
+      type: object
+      description: A hotel property in the partner's inventory.
+      required:
+      - ta_id
+      - partner_id
+      properties:
+        ta_id:
+          type: integer
+          description: The Tripadvisor location ID for this hotel.
+        partner_id:
+          type: string
+          description: The partner's internal identifier for this hotel. Must be consistent between inventory and availability responses.
+        name:
+          type: string
+          description: The name of the hotel property.
+        street:
+          type: string
+          description: The street address of the hotel.
+        city:
+          type: string
+          description: The city where the hotel is located.
+        postal:
+          type: string
+          description: The postal code of the hotel.
+        country:
+          type: string
+          description: The country code of the hotel.
+    HotelInventoryResponse:
+      type: object
+      description: Response containing the partner's complete hotel inventory listing.
+      required:
+      - api_version
+      - hotels
+      properties:
+        api_version:
+          type: integer
+          description: The API version of this response.
+          example: 8
+        lang:
+          type: string
+          description: The language of the response content.
+          example: en
+        hotels:
+          type: array
+          description: Array of hotel objects representing the partner's full inventory.
+          items:
+            $ref: '#/components/schemas/InventoryHotel'
+  parameters:
+    Lang:
+      name: lang
+      in: query
+      required: false
+      description: The language code for the response content.
+      schema:
+        type: string
+        default: en
+        example: en
+    ApiVersion:
+      name: api_version
+      in: query
+      required: true
+      description: The API version number. Current version is 8.
+      schema:
+        type: integer
+        enum:
+        - 8
+        example: 8
+  securitySchemes:
+    apiKeyQuery:
+      type: apiKey
+      name: key
+      in: query
+      description: API key passed as a query parameter. Obtain your key by registering at the Tripadvisor Developer Portal.
+externalDocs:
+  description: Tripadvisor Content API Documentation
+  url: https://tripadvisor-content-api.readme.io/reference/overview
