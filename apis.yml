@@ -7,7 +7,20 @@ description: Tripadvisor is the world's largest travel guidance platform, helpin
   7.5 million locations and 1 billion reviews across 43 markets and 29 languages.
   Tripadvisor provides APIs for content integration, hotel connectivity, and restaurant
   reservations.
-image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+accessModel:
+  pricing: enterprise
+  onboarding: self-serve
+  trial: false
+  try_now: false
+  public: false
+  label: Enterprise · Self-serve signup
+  confidence: high
+  source:
+  - plans
+  - authentication
+  generated: '2026-07-22'
+  method: derived
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/tripadvisor.png
 tags:
 - Attractions
 - Hotels
@@ -19,77 +32,149 @@ created: '2026-05-03'
 modified: '2026-06-03'
 specificationVersion: '0.19'
 apis:
-- aid: tripadvisor:content-api
-  name: Tripadvisor Content API
-  tags:
-  - Attractions
-  - Hotels
-  - Locations
-  - Restaurants
-  - Reviews
-  - Travel
-  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
-  baseURL: https://api.content.tripadvisor.com/api/v1
+- aid: tripadvisor:tripadvisor-availability-api
+  name: Tripadvisor Availability API
+  description: >-
+    Availability endpoint called in real-time when users view hotel pages on Tripadvisor to retrieve pricing
+    and room availability.
   humanURL: https://developer-tripadvisor.com/content-api/
-  properties:
-  - url: https://developer-tripadvisor.com/content-api/
-    type: Documentation
-  - url: openapi/tripadvisor-content-api-openapi.yml
-    type: OpenAPI
-  - url: graphql/tripadvisor-graphql.md
-    type: GraphQL
-  description: The Tripadvisor Content API provides developers with access to Tripadvisor's
-    extensive dataset of more than 7.5 million locations, 1 billion reviews and opinions,
-    and content in 29 languages. The API includes endpoints for location search, nearby
-    search, location details, location photos, and location reviews, enabling developers
-    to integrate rich travel content into their websites and applications. The first
-    5,000 API calls per month are free, making it accessible for initial development
-    and testing.
-- aid: tripadvisor:hotel-availability-check-api
-  name: Tripadvisor Hotel Availability Check API
+  baseURL: https://api.content.tripadvisor.com/api/v1
   tags:
   - Availability
-  - Booking
-  - Connectivity
-  - Hospitality
-  - Hotels
-  - Travel
-  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
-  baseURL: https://partner-endpoint.example.com
-  humanURL: https://developer-tripadvisor.com/connectivity-solutions/hotel-availability-check-api/
   properties:
-  - url: https://developer-tripadvisor.com/connectivity-solutions/hotel-availability-check-api/
-    type: Documentation
-  - url: openapi/tripadvisor-hotel-availability-check-api-openapi.yml
-    type: OpenAPI
-  description: The Tripadvisor Hotel Availability Check (HAC) API allows hotel booking
-    partners to display their availability and pricing on Tripadvisor. When a user
-    views a hotel page, Tripadvisor sends HTTP POST requests to the partner's API
-    to retrieve real-time price and availability data. The API supports batch requests
-    for multiple hotels and requires responses within 5 seconds on average. The current
-    version (v8) provides richer availability data to help partners increase conversions.
-- aid: tripadvisor:hotel-inventory-api
-  name: Tripadvisor Hotel Inventory API
+  - type: OpenAPI
+    url: openapi/tripadvisor-availability-api-openapi.yml
+  - type: Documentation
+    url: https://developer-tripadvisor.com/content-api/
+  - type: GraphQL
+    url: graphql/tripadvisor-graphql.md
+  - type: Documentation
+    url: https://developer-tripadvisor.com/connectivity-solutions/hotel-availability-check-api/
+  - type: Documentation
+    url: >-
+      https://developer-tripadvisor.com/connectivity-solutions/hotel-availability-check-api/documentation/hotel_inventory/
+- aid: tripadvisor:tripadvisor-configuration-api
+  name: Tripadvisor Configuration API
+  description: >-
+    Configuration endpoint that Tripadvisor queries to discover the partner's supported features and API
+    version.
+  humanURL: https://developer-tripadvisor.com/content-api/
+  baseURL: https://api.content.tripadvisor.com/api/v1
   tags:
-  - Connectivity
-  - Hospitality
-  - Hotels
-  - Inventory
-  - Travel
-  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
-  baseURL: https://partner-endpoint.example.com
-  humanURL: https://developer-tripadvisor.com/connectivity-solutions/hotel-availability-check-api/documentation/hotel_inventory/
+  - Configuration
   properties:
-  - url: https://developer-tripadvisor.com/connectivity-solutions/hotel-availability-check-api/documentation/hotel_inventory/
-    type: Documentation
-  - url: openapi/tripadvisor-hotel-availability-check-api-openapi.yml
-    type: OpenAPI
-  description: The Tripadvisor Hotel Inventory API enables connectivity partners to
-    manage their hotel inventory listings on the Tripadvisor platform. Partners use
-    this API to register and update the hotels they can provide availability and pricing
-    data for, ensuring that their connected properties are accurately represented.
-    This API works in conjunction with the Hotel Availability Check API as part of
-    Tripadvisor's connectivity solutions for the hospitality industry.
+  - type: OpenAPI
+    url: openapi/tripadvisor-configuration-api-openapi.yml
+  - type: Documentation
+    url: https://developer-tripadvisor.com/content-api/
+  - type: GraphQL
+    url: graphql/tripadvisor-graphql.md
+  - type: Documentation
+    url: https://developer-tripadvisor.com/connectivity-solutions/hotel-availability-check-api/
+  - type: Documentation
+    url: >-
+      https://developer-tripadvisor.com/connectivity-solutions/hotel-availability-check-api/documentation/hotel_inventory/
+- aid: tripadvisor:tripadvisor-hotel-inventory-api
+  name: Tripadvisor Hotel Inventory API
+  description: >-
+    Hotel inventory endpoint queried daily by Tripadvisor to import the partner's full list of connected
+    hotels.
+  humanURL: https://developer-tripadvisor.com/content-api/
+  baseURL: https://api.content.tripadvisor.com/api/v1
+  tags:
+  - Hotel Inventory
+  properties:
+  - type: OpenAPI
+    url: openapi/tripadvisor-hotel-inventory-api-openapi.yml
+  - type: Documentation
+    url: https://developer-tripadvisor.com/content-api/
+  - type: GraphQL
+    url: graphql/tripadvisor-graphql.md
+  - type: Documentation
+    url: https://developer-tripadvisor.com/connectivity-solutions/hotel-availability-check-api/
+  - type: Documentation
+    url: >-
+      https://developer-tripadvisor.com/connectivity-solutions/hotel-availability-check-api/documentation/hotel_inventory/
+- aid: tripadvisor:tripadvisor-location-details-api
+  name: Tripadvisor Location Details API
+  description: >-
+    Retrieve comprehensive information about a specific location including name, address, rating, and
+    Tripadvisor listing URLs.
+  humanURL: https://developer-tripadvisor.com/content-api/
+  baseURL: https://api.content.tripadvisor.com/api/v1
+  tags:
+  - Location Details
+  properties:
+  - type: OpenAPI
+    url: openapi/tripadvisor-location-details-api-openapi.yml
+  - type: Documentation
+    url: https://developer-tripadvisor.com/content-api/
+  - type: GraphQL
+    url: graphql/tripadvisor-graphql.md
+  - type: Documentation
+    url: https://developer-tripadvisor.com/connectivity-solutions/hotel-availability-check-api/
+  - type: Documentation
+    url: >-
+      https://developer-tripadvisor.com/connectivity-solutions/hotel-availability-check-api/documentation/hotel_inventory/
+- aid: tripadvisor:tripadvisor-location-photos-api
+  name: Tripadvisor Location Photos API
+  description: Access high-quality recent photos for a specific location in multiple size formats.
+  humanURL: https://developer-tripadvisor.com/content-api/
+  baseURL: https://api.content.tripadvisor.com/api/v1
+  tags:
+  - Location Photos
+  properties:
+  - type: OpenAPI
+    url: openapi/tripadvisor-location-photos-api-openapi.yml
+  - type: Documentation
+    url: https://developer-tripadvisor.com/content-api/
+  - type: GraphQL
+    url: graphql/tripadvisor-graphql.md
+  - type: Documentation
+    url: https://developer-tripadvisor.com/connectivity-solutions/hotel-availability-check-api/
+  - type: Documentation
+    url: >-
+      https://developer-tripadvisor.com/connectivity-solutions/hotel-availability-check-api/documentation/hotel_inventory/
+- aid: tripadvisor:tripadvisor-location-reviews-api
+  name: Tripadvisor Location Reviews API
+  description: Retrieve the most recent reviews for a specific location, up to 5 reviews per request.
+  humanURL: https://developer-tripadvisor.com/content-api/
+  baseURL: https://api.content.tripadvisor.com/api/v1
+  tags:
+  - Location Reviews
+  properties:
+  - type: OpenAPI
+    url: openapi/tripadvisor-location-reviews-api-openapi.yml
+  - type: Documentation
+    url: https://developer-tripadvisor.com/content-api/
+  - type: GraphQL
+    url: graphql/tripadvisor-graphql.md
+  - type: Documentation
+    url: https://developer-tripadvisor.com/connectivity-solutions/hotel-availability-check-api/
+  - type: Documentation
+    url: >-
+      https://developer-tripadvisor.com/connectivity-solutions/hotel-availability-check-api/documentation/hotel_inventory/
+- aid: tripadvisor:tripadvisor-location-search-api
+  name: Tripadvisor Location Search API
+  description: >-
+    Search for locations by keyword query or geographic proximity. Returns up to 10 matching locations
+    per request.
+  humanURL: https://developer-tripadvisor.com/content-api/
+  baseURL: https://api.content.tripadvisor.com/api/v1
+  tags:
+  - Location Search
+  properties:
+  - type: OpenAPI
+    url: openapi/tripadvisor-location-search-api-openapi.yml
+  - type: Documentation
+    url: https://developer-tripadvisor.com/content-api/
+  - type: GraphQL
+    url: graphql/tripadvisor-graphql.md
+  - type: Documentation
+    url: https://developer-tripadvisor.com/connectivity-solutions/hotel-availability-check-api/
+  - type: Documentation
+    url: >-
+      https://developer-tripadvisor.com/connectivity-solutions/hotel-availability-check-api/documentation/hotel_inventory/
 common:
 - type: AgenticAccess
   url: agentic-access/tripadvisor-agentic-access.yml
