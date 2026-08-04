@@ -1,0 +1,26 @@
+{
+  "provider": "tripadvisor",
+  "sources": [
+    "tripadvisor-availability-api-openapi.yml",
+    "tripadvisor-configuration-api-openapi.yml",
+    "tripadvisor-hotel-inventory-api-openapi.yml",
+    "tripadvisor-location-details-api-openapi.yml",
+    "tripadvisor-location-photos-api-openapi.yml",
+    "tripadvisor-location-reviews-api-openapi.yml",
+    "tripadvisor-location-search-api-openapi.yml"
+  ],
+  "outputs": [
+    "tripadvisor-availability-api-openapi.yml",
+    "tripadvisor-configuration-api-openapi.yml",
+    "tripadvisor-hotel-inventory-api-openapi.yml",
+    "tripadvisor-location-details-api-openapi.yml",
+    "tripadvisor-location-photos-api-openapi.yml",
+    "tripadvisor-location-reviews-api-openapi.yml",
+    "tripadvisor-location-search-api-openapi.yml"
+  ],
+  "archived": [],
+  "errors": [],
+  "warnings": [],
+  "notes": [],
+  "skipped": []
+}

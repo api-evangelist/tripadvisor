@@ -2,13 +2,20 @@
   "repo": "tripadvisor",
   "feeds": [
     {
+      "source": "https://www.tripadvisor.com/rss/articles.xml",
+      "feed_url": "https://www.tripadvisor.com/rss/articles.xml",
+      "title": "",
+      "saved": 0,
+      "method": "feed"
+    },
+    {
       "source": "https://www.tripadvisor.com/blog/",
       "feed_url": "https://www.tripadvisor.com/rss/articles.xml",
       "title": "",
-      "saved": 2,
+      "saved": 0,
       "method": "discovered"
     }
   ],
-  "fetched": "2026-07-11T11:50:51Z",
-  "post_count": 8
+  "fetched": "2026-08-01T15:49:00Z",
+  "post_count": 30
 }
