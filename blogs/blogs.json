@@ -5,7 +5,7 @@
       "source": "https://www.tripadvisor.com/rss/articles.xml",
       "feed_url": "https://www.tripadvisor.com/rss/articles.xml",
       "title": "",
-      "saved": 0,
+      "saved": 4,
       "method": "feed"
     },
     {
@@ -16,6 +16,6 @@
       "method": "discovered"
     }
   ],
-  "fetched": "2026-08-06T14:08:46Z",
-  "post_count": 31
+  "fetched": "2026-08-15T12:11:08Z",
+  "post_count": 35
 }
