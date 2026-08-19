@@ -1,0 +1,142 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Tripadvisor Content Availability Location Search API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "key",
+      "value": "{{key}}",
+      "placement": "query"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Location Search",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Search for Locations",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.content.tripadvisor.com/api/v1/location/search",
+            "params": [
+              {
+                "name": "searchQuery",
+                "value": "",
+                "type": "query",
+                "description": "The text query to search for matching locations."
+              },
+              {
+                "name": "category",
+                "value": "",
+                "type": "query",
+                "description": "Filter results by location category type."
+              },
+              {
+                "name": "phone",
+                "value": "",
+                "type": "query",
+                "description": "Phone number to search for a specific location."
+              },
+              {
+                "name": "address",
+                "value": "",
+                "type": "query",
+                "description": "Address string to improve search accuracy."
+              },
+              {
+                "name": "latLong",
+                "value": "",
+                "type": "query",
+                "description": "Latitude and longitude pair to bias search results toward a specific geographic area. Format is latitude,longitude."
+              },
+              {
+                "name": "radius",
+                "value": "",
+                "type": "query",
+                "description": "The radius distance from the latLong point to filter results."
+              },
+              {
+                "name": "radiusUnit",
+                "value": "",
+                "type": "query",
+                "description": "The unit of measurement for the radius parameter."
+              },
+              {
+                "name": "language",
+                "value": "",
+                "type": "query",
+                "description": "The language code for the response content. Tripadvisor supports 29 languages."
+              }
+            ]
+          },
+          "docs": "Returns up to 10 locations found by the given search query. You can use category, phone number, address, and latitude/longitude to search with more accuracy. Locations include hotels, restaurants, and attractions."
+        },
+        {
+          "info": {
+            "name": "Search for Nearby Locations",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.content.tripadvisor.com/api/v1/location/nearby_search",
+            "params": [
+              {
+                "name": "latLong",
+                "value": "",
+                "type": "query",
+                "description": "Latitude and longitude pair for the center of the nearby search. Format is latitude,longitude."
+              },
+              {
+                "name": "category",
+                "value": "",
+                "type": "query",
+                "description": "Filter results by location category type."
+              },
+              {
+                "name": "phone",
+                "value": "",
+                "type": "query",
+                "description": "Phone number to search for a specific location."
+              },
+              {
+                "name": "address",
+                "value": "",
+                "type": "query",
+                "description": "Address string to improve search accuracy."
+              },
+              {
+                "name": "radius",
+                "value": "",
+                "type": "query",
+                "description": "The radius distance from the latLong point to filter results."
+              },
+              {
+                "name": "radiusUnit",
+                "value": "",
+                "type": "query",
+                "description": "The unit of measurement for the radius parameter."
+              },
+              {
+                "name": "language",
+                "value": "",
+                "type": "query",
+                "description": "The language code for the response content. Tripadvisor supports 29 languages."
+              }
+            ]
+          },
+          "docs": "Returns up to 10 locations found near the given latitude and longitude. You can use category, phone number, and address to search with more accuracy. Useful for finding hotels, restaurants, and attractions in proximity to a specific geographic point."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

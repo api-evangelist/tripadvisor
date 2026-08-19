@@ -1,0 +1,21 @@
+# Tripadvisor Content API Documentation
+
+> Documentation for Tripadvisor Content API
+
+## API Reference
+- [Overview](https://tripadvisor-content-api.readme.io/reference/overview.md)
+- [FAQ](https://tripadvisor-content-api.readme.io/reference/faq.md): Frequently asked questions about the Tripadvisor Content API
+- [Localization](https://tripadvisor-content-api.readme.io/reference/localization.md)
+- [Authentication](https://tripadvisor-content-api.readme.io/reference/authentication.md)
+- [Rate Limits](https://tripadvisor-content-api.readme.io/reference/rate-limits.md)
+- [Caching Policy](https://tripadvisor-content-api.readme.io/reference/caching-policy.md)
+- [Review Implementation Policy](https://tripadvisor-content-api.readme.io/reference/review-implementation-policy.md)
+- [Display Requirements](https://tripadvisor-content-api.readme.io/reference/display-requirements.md)
+- [API Security](https://tripadvisor-content-api.readme.io/reference/api-security.md)
+- [Prohibited Sites and Content](https://tripadvisor-content-api.readme.io/reference/prohibited-sites-and-content.md)
+- [API Master Terms](https://tripadvisor-content-api.readme.io/reference/api-master-terms-new.md)
+- [Location Details](https://tripadvisor-content-api.readme.io/reference/getlocationdetails.md): A Location Details request returns comprehensive information about a location (hotel, restaurant, or an attraction) such as name, address, rating, and URLs for the listing on Tripadvisor.
+- [Location Photos](https://tripadvisor-content-api.readme.io/reference/getlocationphotos.md): The Location Photos request returns up to 5 high-quality photos for a specific location. Please note that the limits are different for the beta subscribers. You need to upgrade to get the higher limits mentioned here.  The photos are ordered by recency.  Sizes (height x width) for each photo type are as follows:  Thumbnail: Fixed 50x50px, cropped, resized, and optimized by Tripadvisor Small: Fixed 150x150px, cropped, resized, and optimized by Tripadvisor Medium: Max dimension 250px (can be height or width, depending on photo orientation), the other dimension is resized to maintain the aspect ratio Large: Max dimension 550px (same rules as Medium, resized to maintain aspect ratio) Original: This is the photo in its original resolution and aspect ratio as provided by the user who submitted it.
+- [Location Reviews](https://tripadvisor-content-api.readme.io/reference/getlocationreviews.md): The Location Reviews request returns up to 5 of the most recent reviews for a specific location. Please note that the limits are different for the beta subscribers. You need to upgrade to get the higher limits mentioned here.
+- [Find Search](https://tripadvisor-content-api.readme.io/reference/searchforlocations.md): The Location Search request returns up to 10 locations found by the given search query. You can use category ("hotels", "attractions", "restaurants", "geos"), phone number, address, and latitude/longtitude to search with more accuracy.
+- [Nearby Search](https://tripadvisor-content-api.readme.io/reference/searchfornearbylocations.md): The Nearby Location Search request returns up to 10 locations found near the given latitude/longtitude. You can use category ("hotels", "attractions", "restaurants", "geos"), phone number, address to search with more accuracy.

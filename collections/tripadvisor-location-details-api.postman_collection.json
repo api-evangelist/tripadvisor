@@ -1,0 +1,397 @@
+{
+  "item": [
+    {
+      "id": "4f824f54-1ccf-4ae4-878c-0fa739f37c56",
+      "name": "Location Details",
+      "description": {
+        "content": "Retrieve comprehensive information about a specific location including name, address, rating, and Tripadvisor listing URLs.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "ee6e4712-73bb-47d4-a7eb-7c09ca32a029",
+          "name": "Get Location Details",
+          "request": {
+            "name": "Get Location Details",
+            "description": {
+              "content": "Returns comprehensive information about a specific location such as name, address, rating, ranking, and URLs for the listing on Tripadvisor. Works for hotels, restaurants, and attractions.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "location",
+                ":locationId",
+                "details"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "language",
+                  "value": "en",
+                  "description": "The language code for the response content. Tripadvisor supports 29 languages."
+                },
+                {
+                  "disabled": false,
+                  "key": "currency",
+                  "value": "USD",
+                  "description": "The currency code for pricing information in the response."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "locationId",
+                  "description": "(Required) The unique identifier for a Tripadvisor location (hotel, restaurant, or attraction)."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "109034ec-9a67-4262-a3ac-f78f3bb152d0",
+              "name": "Successful location details response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "location",
+                    ":locationId",
+                    "details"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "language",
+                      "value": "en"
+                    },
+                    {
+                      "key": "currency",
+                      "value": "USD"
+                    },
+                    {
+                      "key": "key",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "locationId",
+                      "description": "(Required) The unique identifier for a Tripadvisor location (hotel, restaurant, or attraction)."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"location_id\": \"string\",\n  \"name\": \"string\",\n  \"description\": \"string\",\n  \"web_url\": \"http://xJSTZYimIbLiA.osjtjBuB,hLcVEJSgccC6PWlHGS.GwFeEghUFD1CsKgucs4rshSG\",\n  \"address_obj\": {\n    \"street1\": \"string\",\n    \"street2\": \"string\",\n    \"city\": \"string\",\n    \"state\": \"string\",\n    \"country\": \"string\",\n    \"postalcode\": \"string\",\n    \"address_string\": \"string\"\n  },\n  \"ancestors\": [\n    {\n      \"level\": \"string\",\n      \"name\": \"string\",\n      \"location_id\": \"string\"\n    },\n    {\n      \"level\": \"string\",\n      \"name\": \"string\",\n      \"location_id\": \"string\"\n    }\n  ],\n  \"latitude\": \"string\",\n  \"longitude\": \"string\",\n  \"timezone\": \"string\",\n  \"phone\": \"string\",\n  \"website\": \"https://vXL.molhviGD+OMa23-2aNYT7G2HfehjPc0WoS7K1phOK.P+pfYxTA7,\",\n  \"write_review\": \"http://buPpiJTdr.kiongbvAFr8rJ5m0OwOJbS+OXgfKq2xWRPam\",\n  \"ranking_data\": {\n    \"geo_location_id\": \"string\",\n    \"ranking_string\": \"string\",\n    \"geo_location_name\": \"string\",\n    \"ranking_out_of\": \"string\",\n    \"ranking\": \"string\"\n  },\n  \"rating\": \"string\",\n  \"rating_image_url\": \"http://yCaOdXdedMxSiAwELJSrpfNs.hwyqptwZ1TPhuJeM8aoZhqq8wdDKSE8BoOXgoWUR\",\n  \"num_reviews\": \"string\",\n  \"review_rating_count\": {\n    \"key_0\": \"string\",\n    \"key_1\": \"string\",\n    \"key_2\": \"string\"\n  },\n  \"photo_count\": \"string\",\n  \"see_all_photos\": \"http://Gs.ckoYuH0Grh5nF\",\n  \"price_level\": \"string\",\n  \"hours\": {\n    \"periods\": [\n      {\n        \"open\": {\n          \"day\": 0,\n          \"time\": \"string\"\n        },\n        \"close\": {\n          \"day\": 2,\n          \"time\": \"string\"\n        }\n      },\n      {\n        \"open\": {\n          \"day\": 0,\n          \"time\": \"string\"\n        },\n        \"close\": {\n          \"day\": 5,\n          \"time\": \"string\"\n        }\n      }\n    ],\n    \"weekday_text\": [\n      \"string\",\n      \"string\"\n    ]\n  },\n  \"cuisine\": [\n    {\n      \"name\": \"string\",\n      \"localized_name\": \"string\"\n    },\n    {\n      \"name\": \"string\",\n      \"localized_name\": \"string\"\n    }\n  ],\n  \"category\": {\n    \"name\": \"string\",\n    \"localized_name\": \"string\"\n  },\n  \"subcategory\": [\n    {\n      \"name\": \"string\",\n      \"localized_name\": \"string\"\n    },\n    {\n      \"name\": \"string\",\n      \"localized_name\": \"string\"\n    }\n  ],\n  \"groups\": [\n    {\n      \"name\": \"string\",\n      \"localized_name\": \"string\",\n      \"categories\": [\n        {\n          \"name\": \"string\",\n          \"localized_name\": \"string\"\n        },\n        {\n          \"name\": \"string\",\n          \"localized_name\": \"string\"\n        }\n      ]\n    },\n    {\n      \"name\": \"string\",\n      \"localized_name\": \"string\",\n      \"categories\": [\n        {\n          \"name\": \"string\",\n          \"localized_name\": \"string\"\n        },\n        {\n          \"name\": \"string\",\n          \"localized_name\": \"string\"\n        }\n      ]\n    }\n  ],\n  \"trip_types\": [\n    {\n      \"name\": \"string\",\n      \"localized_name\": \"string\",\n      \"value\": \"string\"\n    },\n    {\n      \"name\": \"string\",\n      \"localized_name\": \"string\",\n      \"value\": \"string\"\n    }\n  ],\n  \"awards\": [\n    {\n      \"award_type\": \"string\",\n      \"year\": \"string\",\n      \"images\": {\n        \"small\": \"http://smZeGIsqu.poF\",\n        \"large\": \"https://liknAdFdSLXxlykoaPf.wlaG1\"\n      },\n      \"display_name\": \"string\"\n    },\n    {\n      \"award_type\": \"string\",\n      \"year\": \"string\",\n      \"images\": {\n        \"small\": \"https://SgOXUcxDCWnKILgPxtXuIF.hmjS9z\",\n        \"large\": \"https://NFUBtM.mkfacRl,p2lpyhp\"\n      },\n      \"display_name\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "2bd0eccd-d9b1-4f6e-ac1a-ce988aa6c0e5",
+              "name": "Bad request due to invalid parameters",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "location",
+                    ":locationId",
+                    "details"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "language",
+                      "value": "en"
+                    },
+                    {
+                      "key": "currency",
+                      "value": "USD"
+                    },
+                    {
+                      "key": "key",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "locationId",
+                      "description": "(Required) The unique identifier for a Tripadvisor location (hotel, restaurant, or attraction)."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"message\": \"string\",\n    \"type\": \"string\",\n    \"code\": 5155\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "efba9657-f8a6-4127-bdbf-76d79c797d73",
+              "name": "Unauthorized due to missing or invalid API key",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "location",
+                    ":locationId",
+                    "details"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "language",
+                      "value": "en"
+                    },
+                    {
+                      "key": "currency",
+                      "value": "USD"
+                    },
+                    {
+                      "key": "key",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "locationId",
+                      "description": "(Required) The unique identifier for a Tripadvisor location (hotel, restaurant, or attraction)."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"message\": \"string\",\n    \"type\": \"string\",\n    \"code\": 5155\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "42ad7a94-bc13-4948-aa24-f1140e91a4eb",
+              "name": "Location not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "location",
+                    ":locationId",
+                    "details"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "language",
+                      "value": "en"
+                    },
+                    {
+                      "key": "currency",
+                      "value": "USD"
+                    },
+                    {
+                      "key": "key",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "locationId",
+                      "description": "(Required) The unique identifier for a Tripadvisor location (hotel, restaurant, or attraction)."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"message\": \"string\",\n    \"type\": \"string\",\n    \"code\": 5155\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "c7f7d5a1-d857-4bdd-aa04-327b0a5ef7d2",
+              "name": "Rate limit exceeded",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "location",
+                    ":locationId",
+                    "details"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "language",
+                      "value": "en"
+                    },
+                    {
+                      "key": "currency",
+                      "value": "USD"
+                    },
+                    {
+                      "key": "key",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "locationId",
+                      "description": "(Required) The unique identifier for a Tripadvisor location (hotel, restaurant, or attraction)."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"message\": \"string\",\n    \"type\": \"string\",\n    \"code\": 5155\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.content.tripadvisor.com/api/v1",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "key"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "query"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "f5d52e4d-f557-4c5f-a130-ae38e2f7452c",
+    "name": "Tripadvisor Content Availability Location Details API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Tripadvisor Content API provides developers with access to Tripadvisor's extensive dataset of more than 7.5 million locations, 1 billion reviews and opinions, and content in 29 languages. The API includes endpoints for location search, nearby search, location details, location photos, and location reviews, enabling developers to integrate rich travel content into their websites and applications. Locations are defined within this API as hotels, restaurants, or attractions. The first 5,000 API calls per month are free for initial development and testing.\n\nContact Support:\n Name: Tripadvisor Developer Support",
+      "type": "text/plain"
+    }
+  }
+}

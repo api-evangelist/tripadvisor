@@ -1,0 +1,155 @@
+{
+  "item": [
+    {
+      "id": "2bd31c01-bfd7-44ef-af87-6468ef12cb9b",
+      "name": "Hotel Inventory",
+      "description": {
+        "content": "Hotel inventory endpoint queried daily by Tripadvisor to import the partner's full list of connected hotels.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "932ec623-3b1a-4327-a80f-94181e2e91a5",
+          "name": "Get Hotel Inventory",
+          "request": {
+            "name": "Get Hotel Inventory",
+            "description": {
+              "content": "Returns the partner's full list of hotel properties that are connected for availability checking. Tripadvisor queries this endpoint once per day and matches the returned hotels to Tripadvisor listings. Partners must provide their complete inventory and remove all test properties before the implementation is considered complete.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "hotel_inventory"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "api_version",
+                  "value": "<integer>",
+                  "description": "(Required) The API version number. Current version is 8."
+                },
+                {
+                  "disabled": false,
+                  "key": "lang",
+                  "value": "en",
+                  "description": "The language code for the response content."
+                },
+                {
+                  "disabled": false,
+                  "key": "inventory_type",
+                  "value": "<string>",
+                  "description": "The type of inventory integration."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "77b45544-1204-44ab-8930-729545e1ac6e",
+              "name": "Successful hotel inventory response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "hotel_inventory"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "api_version",
+                      "value": "8"
+                    },
+                    {
+                      "key": "lang",
+                      "value": "en"
+                    },
+                    {
+                      "key": "inventory_type",
+                      "value": "tripconnect"
+                    },
+                    {
+                      "key": "key",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"api_version\": 8,\n  \"hotels\": [\n    {\n      \"ta_id\": 8617,\n      \"partner_id\": \"string\",\n      \"name\": \"string\",\n      \"street\": \"string\",\n      \"city\": \"string\",\n      \"postal\": \"string\",\n      \"country\": \"string\"\n    },\n    {\n      \"ta_id\": 8529,\n      \"partner_id\": \"string\",\n      \"name\": \"string\",\n      \"street\": \"string\",\n      \"city\": \"string\",\n      \"postal\": \"string\",\n      \"country\": \"string\"\n    }\n  ],\n  \"lang\": \"en\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.content.tripadvisor.com/api/v1",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "key"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "query"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "0eefb5c5-78a4-4685-bf96-94d40989749c",
+    "name": "Tripadvisor Content Availability Hotel Inventory API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Tripadvisor Content API provides developers with access to Tripadvisor's extensive dataset of more than 7.5 million locations, 1 billion reviews and opinions, and content in 29 languages. The API includes endpoints for location search, nearby search, location details, location photos, and location reviews, enabling developers to integrate rich travel content into their websites and applications. Locations are defined within this API as hotels, restaurants, or attractions. The first 5,000 API calls per month are free for initial development and testing.\n\nContact Support:\n Name: Tripadvisor Developer Support",
+      "type": "text/plain"
+    }
+  }
+}

@@ -1,0 +1,302 @@
+{
+  "item": [
+    {
+      "id": "34b8cb32-1e17-42a1-ae36-c208bf1a46e7",
+      "name": "Availability",
+      "description": {
+        "content": "Availability endpoint called in real-time when users view hotel pages on Tripadvisor to retrieve pricing and room availability.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "abc541c1-5678-401c-8c89-59529eab6d34",
+          "name": "Check Hotel Availability",
+          "request": {
+            "name": "Check Hotel Availability",
+            "description": {
+              "content": "Called by Tripadvisor in real-time when a user views a hotel page to retrieve current pricing and availability. The request can include one to many hotels. Partners must respond within 5 seconds on average. All parameters are sent as application/x-www-form-urlencoded and the response must be JSON with Content-Type application/json.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "availability"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/x-www-form-urlencoded"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "urlencoded",
+              "urlencoded": [
+                {
+                  "disabled": false,
+                  "key": "api_version",
+                  "value": "<integer>",
+                  "description": "(Required) The API version for this request."
+                },
+                {
+                  "disabled": false,
+                  "key": "hotel_ids",
+                  "value": "<string>",
+                  "description": "(Required) Comma-separated list of partner hotel IDs to check availability for."
+                },
+                {
+                  "disabled": false,
+                  "key": "start_date",
+                  "value": "<date>",
+                  "description": "(Required) The check-in date in YYYY-MM-DD format."
+                },
+                {
+                  "disabled": false,
+                  "key": "end_date",
+                  "value": "<date>",
+                  "description": "(Required) The check-out date in YYYY-MM-DD format."
+                },
+                {
+                  "disabled": false,
+                  "key": "party",
+                  "value": "<string>",
+                  "description": "(Required) JSON-encoded array of party objects specifying the number of adults and children per room."
+                },
+                {
+                  "disabled": false,
+                  "key": "num_rooms",
+                  "value": "<integer>",
+                  "description": "The number of rooms requested."
+                },
+                {
+                  "disabled": false,
+                  "key": "lang",
+                  "value": "<string>",
+                  "description": "The language code for the response."
+                },
+                {
+                  "disabled": false,
+                  "key": "currency",
+                  "value": "<string>",
+                  "description": "The currency code for pricing."
+                },
+                {
+                  "disabled": false,
+                  "key": "user_country",
+                  "value": "<string>",
+                  "description": "The two-letter country code of the user making the request."
+                },
+                {
+                  "disabled": false,
+                  "key": "device_type",
+                  "value": "<string>",
+                  "description": "The type of device the user is browsing on."
+                },
+                {
+                  "disabled": false,
+                  "key": "query_key",
+                  "value": "<string>",
+                  "description": "A unique identifier for this availability query."
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "f9a52b48-41e2-4255-a948-04fcd3adca14",
+              "name": "Successful availability response. Must always return HTTP 200 even when individual hotels have errors or no availability.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "availability"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "key",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) The API version for this request.",
+                        "type": "text/plain"
+                      },
+                      "key": "api_version",
+                      "value": "8"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) Comma-separated list of partner hotel IDs to check availability for.",
+                        "type": "text/plain"
+                      },
+                      "key": "hotel_ids",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) The check-in date in YYYY-MM-DD format.",
+                        "type": "text/plain"
+                      },
+                      "key": "start_date",
+                      "value": "<date>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) The check-out date in YYYY-MM-DD format.",
+                        "type": "text/plain"
+                      },
+                      "key": "end_date",
+                      "value": "<date>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) JSON-encoded array of party objects specifying the number of adults and children per room.",
+                        "type": "text/plain"
+                      },
+                      "key": "party",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The number of rooms requested.",
+                        "type": "text/plain"
+                      },
+                      "key": "num_rooms",
+                      "value": "<integer>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The language code for the response.",
+                        "type": "text/plain"
+                      },
+                      "key": "lang",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The currency code for pricing.",
+                        "type": "text/plain"
+                      },
+                      "key": "currency",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The two-letter country code of the user making the request.",
+                        "type": "text/plain"
+                      },
+                      "key": "user_country",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The type of device the user is browsing on.",
+                        "type": "text/plain"
+                      },
+                      "key": "device_type",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "A unique identifier for this availability query.",
+                        "type": "text/plain"
+                      },
+                      "key": "query_key",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"api_version\": 8,\n  \"hotels\": [\n    {\n      \"hotel_id\": \"string\",\n      \"room_types\": {\n        \"key_0\": {\n          \"url\": \"http://OuGADDiHhuDioXcODgBLDPGoQ.mjolrlMryaXsd-g1TL5,dK,zAgnU4mqqFffaVKIPRwTZj0U78SQrBpxwELXL6YfbRgqnnfa\",\n          \"description\": \"string\",\n          \"room_type_code\": \"string\",\n          \"photos\": [\n            {\n              \"url\": \"https://Cf.tsduaNKfmnnbFATtOcNCz9cVGg+V9lCx-Cc3nHgctgyry7\",\n              \"caption\": \"string\"\n            },\n            {\n              \"url\": \"http://d.kddF6z+pas9G\",\n              \"caption\": \"string\"\n            }\n          ],\n          \"amenities\": [\n            \"string\",\n            \"string\"\n          ],\n          \"max_occupancy\": 9849,\n          \"bed_types\": [\n            \"string\",\n            \"string\"\n          ]\n        }\n      },\n      \"availability\": \"error\",\n      \"room_rates\": {\n        \"key_0\": {\n          \"room_type_key\": \"string\",\n          \"rate_plan_code\": \"string\",\n          \"rate_plan_description\": \"string\",\n          \"url\": \"http://UAyzqZSiDPWFxUdPABUng.iwmddgJEotAW-iEwUSXB4rzRuvup6FmVpE3btvojEzG.MNlNVjKIdKG0\",\n          \"line_items\": [\n            {\n              \"type\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"price\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"currency\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"sub_type\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"paid_at_checkout\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"type\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"price\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"currency\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"sub_type\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"paid_at_checkout\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ],\n          \"cancellation_rules\": {\n            \"free_cancellation\": true,\n            \"rules\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ]\n          },\n          \"occupancy\": 9398,\n          \"is_refundable\": true,\n          \"meal_plan\": \"all_inclusive\"\n        },\n        \"key_1\": {\n          \"room_type_key\": \"string\",\n          \"rate_plan_code\": \"string\",\n          \"rate_plan_description\": \"string\",\n          \"url\": \"http://GGzpHlxDnaQJFiacOMv.dkjlbc9NcTUBESBeyw30IcWfBbmI2NGaRoPY,prEy2mjdnPcsun\",\n          \"line_items\": [\n            {\n              \"type\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"price\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"currency\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"sub_type\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"paid_at_checkout\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"type\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"price\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"currency\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"sub_type\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"paid_at_checkout\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ],\n          \"cancellation_rules\": {\n            \"free_cancellation\": true,\n            \"rules\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ]\n          },\n          \"occupancy\": 4444,\n          \"is_refundable\": false,\n          \"meal_plan\": \"full_board\"\n        }\n      },\n      \"url\": \"http://sG.jafdu6ySoxY0MIGd3AGDlfjIR4u\"\n    },\n    {\n      \"hotel_id\": \"string\",\n      \"room_types\": {\n        \"key_0\": {\n          \"url\": \"http://bWqWaZeexdsHwmIajzAwf.kpHkmkf-sECrUMRTEdFqUrTjbw,icRK36Z\",\n          \"description\": \"string\",\n          \"room_type_code\": \"string\",\n          \"photos\": [\n            {\n              \"url\": \"https://oycDISFyrJnVNwuMDYhVUKmqe.bqMv,WDmPGR6IN8OKOwd,bNOSuRI0m5rL3f8ta2TnLK\",\n              \"caption\": \"string\"\n            },\n            {\n              \"url\": \"http://rJ.uffxHknz,Xcd-71eqbIFXmnbx4AyF+nPm5XILVVaPInRAirSCWachlwr\",\n              \"caption\": \"string\"\n            }\n          ],\n          \"amenities\": [\n            \"string\",\n            \"string\"\n          ],\n          \"max_occupancy\": 711,\n          \"bed_types\": [\n            \"string\",\n            \"string\"\n          ]\n        },\n        \"key_1\": {\n          \"url\": \"https://N.ujoLUW0EXbIggMunyjzAf3oviet0-E2\",\n          \"description\": \"string\",\n          \"room_type_code\": \"string\",\n          \"photos\": [\n            {\n              \"url\": \"https://Pbq.pzxuibUqW+B,\",\n              \"caption\": \"string\"\n            },\n            {\n              \"url\": \"https://Kyu.aeT2K9YbvQOa7.BjVWrWcqfO6-xhm0OSNeLwMpYysy2jes74A\",\n              \"caption\": \"string\"\n            }\n          ],\n          \"amenities\": [\n            \"string\",\n            \"string\"\n          ],\n          \"max_occupancy\": 2894,\n          \"bed_types\": [\n            \"string\",\n            \"string\"\n          ]\n        }\n      },\n      \"availability\": \"unavailable\",\n      \"room_rates\": {\n        \"key_0\": {\n          \"room_type_key\": \"string\",\n          \"rate_plan_code\": \"string\",\n          \"rate_plan_description\": \"string\",\n          \"url\": \"http://pcCCEseCQAdtITRfm.ypzrNoXx1BtIRO-x47plJiiVD+xYewcLdpqnUoJ4t2uJ+-FNpiNfx09ej\",\n          \"line_items\": [\n            {\n              \"type\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"price\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"currency\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"sub_type\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"paid_at_checkout\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"type\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"price\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"currency\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"sub_type\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"paid_at_checkout\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ],\n          \"cancellation_rules\": {\n            \"free_cancellation\": true,\n            \"rules\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ]\n          },\n          \"occupancy\": 1317,\n          \"is_refundable\": false,\n          \"meal_plan\": \"none\"\n        },\n        \"key_1\": {\n          \"room_type_key\": \"string\",\n          \"rate_plan_code\": \"string\",\n          \"rate_plan_description\": \"string\",\n          \"url\": \"http://ZQxjriuuEa.qzaiH9KQr1eDeYMabcAUNjvrJMVgOuxuHRGBhfEF7MfWXhfiF2mUQgdfXKXhe4hEIKEQhnI90bQ\",\n          \"line_items\": [\n            {\n              \"type\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"price\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"currency\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"sub_type\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"paid_at_checkout\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"type\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"price\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"currency\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"sub_type\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"paid_at_checkout\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ],\n          \"cancellation_rules\": {\n            \"free_cancellation\": false,\n            \"rules\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ]\n          },\n          \"occupancy\": 8736,\n          \"is_refundable\": false,\n          \"meal_plan\": \"half_board\"\n        },\n        \"key_2\": {\n          \"room_type_key\": \"string\",\n          \"rate_plan_code\": \"string\",\n          \"rate_plan_description\": \"string\",\n          \"url\": \"http://R.jsdKdGiEBrMpBZXWkfxM5rKqCssFHhV\",\n          \"line_items\": [\n            {\n              \"type\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"price\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"currency\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"sub_type\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"paid_at_checkout\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"type\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"price\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"currency\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"sub_type\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"paid_at_checkout\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ],\n          \"cancellation_rules\": {\n            \"free_cancellation\": true,\n            \"rules\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ]\n          },\n          \"occupancy\": 7331,\n          \"is_refundable\": false,\n          \"meal_plan\": \"half_board\"\n        }\n      },\n      \"url\": \"https://s.jczXxGFS8Go7vvAdmxk\"\n    }\n  ],\n  \"errors\": [\n    {\n      \"hotel_id\": \"string\",\n      \"error_type\": \"string\",\n      \"message\": \"string\"\n    },\n    {\n      \"hotel_id\": \"string\",\n      \"error_type\": \"string\",\n      \"message\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.content.tripadvisor.com/api/v1",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "key"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "query"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "a991c9d0-386d-41ea-8cab-4e87a00e081b",
+    "name": "Tripadvisor Content Availability API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Tripadvisor Content API provides developers with access to Tripadvisor's extensive dataset of more than 7.5 million locations, 1 billion reviews and opinions, and content in 29 languages. The API includes endpoints for location search, nearby search, location details, location photos, and location reviews, enabling developers to integrate rich travel content into their websites and applications. Locations are defined within this API as hotels, restaurants, or attractions. The first 5,000 API calls per month are free for initial development and testing.\n\nContact Support:\n Name: Tripadvisor Developer Support",
+      "type": "text/plain"
+    }
+  }
+}

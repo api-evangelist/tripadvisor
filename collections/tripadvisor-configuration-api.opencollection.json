@@ -1,0 +1,45 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Tripadvisor Content Availability Configuration API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "key",
+      "value": "{{key}}",
+      "placement": "query"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Configuration",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get Partner Configuration",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.content.tripadvisor.com/api/v1/config",
+            "params": [
+              {
+                "name": "api_version",
+                "value": "",
+                "type": "query",
+                "description": "The API version number. Current version is 8."
+              }
+            ]
+          },
+          "docs": "Returns the partner's API configuration including supported API version, features, and capabilities. Tripadvisor queries this endpoint to understand what the partner supports."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

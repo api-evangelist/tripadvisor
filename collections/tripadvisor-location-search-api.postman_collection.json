@@ -1,0 +1,781 @@
+{
+  "item": [
+    {
+      "id": "95e174c8-6856-43a7-b95b-7c707afe286a",
+      "name": "Location Search",
+      "description": {
+        "content": "Search for locations by keyword query or geographic proximity. Returns up to 10 matching locations per request.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "d0990e7b-0908-4641-857a-3d98a1b19441",
+          "name": "Search for Locations",
+          "request": {
+            "name": "Search for Locations",
+            "description": {
+              "content": "Returns up to 10 locations found by the given search query. You can use category, phone number, address, and latitude/longitude to search with more accuracy. Locations include hotels, restaurants, and attractions.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "location",
+                "search"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "searchQuery",
+                  "value": "<string>",
+                  "description": "(Required) The text query to search for matching locations."
+                },
+                {
+                  "disabled": false,
+                  "key": "category",
+                  "value": "<string>",
+                  "description": "Filter results by location category type."
+                },
+                {
+                  "disabled": false,
+                  "key": "phone",
+                  "value": "<string>",
+                  "description": "Phone number to search for a specific location."
+                },
+                {
+                  "disabled": false,
+                  "key": "address",
+                  "value": "<string>",
+                  "description": "Address string to improve search accuracy."
+                },
+                {
+                  "disabled": false,
+                  "key": "latLong",
+                  "value": "<string>",
+                  "description": "Latitude and longitude pair to bias search results toward a specific geographic area. Format is latitude,longitude."
+                },
+                {
+                  "disabled": false,
+                  "key": "radius",
+                  "value": "<float>",
+                  "description": "The radius distance from the latLong point to filter results."
+                },
+                {
+                  "disabled": false,
+                  "key": "radiusUnit",
+                  "value": "km",
+                  "description": "The unit of measurement for the radius parameter."
+                },
+                {
+                  "disabled": false,
+                  "key": "language",
+                  "value": "en",
+                  "description": "The language code for the response content. Tripadvisor supports 29 languages."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "71043363-35b9-4387-b6ed-c92b13d69147",
+              "name": "Successful location search results",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "location",
+                    "search"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "searchQuery",
+                      "value": "Eiffel Tower"
+                    },
+                    {
+                      "key": "category",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "phone",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "address",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "latLong",
+                      "value": "48.8584,2.2945"
+                    },
+                    {
+                      "key": "radius",
+                      "value": "<float>"
+                    },
+                    {
+                      "key": "radiusUnit",
+                      "value": "km"
+                    },
+                    {
+                      "key": "language",
+                      "value": "en"
+                    },
+                    {
+                      "key": "key",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": [\n    {\n      \"location_id\": \"string\",\n      \"name\": \"string\",\n      \"address_obj\": {\n        \"street1\": \"string\",\n        \"street2\": \"string\",\n        \"city\": \"string\",\n        \"state\": \"string\",\n        \"country\": \"string\",\n        \"postalcode\": \"string\",\n        \"address_string\": \"string\"\n      }\n    },\n    {\n      \"location_id\": \"string\",\n      \"name\": \"string\",\n      \"address_obj\": {\n        \"street1\": \"string\",\n        \"street2\": \"string\",\n        \"city\": \"string\",\n        \"state\": \"string\",\n        \"country\": \"string\",\n        \"postalcode\": \"string\",\n        \"address_string\": \"string\"\n      }\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "80c97a01-2b08-4973-bffb-b02e1c0d0ccc",
+              "name": "Bad request due to invalid parameters",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "location",
+                    "search"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "searchQuery",
+                      "value": "Eiffel Tower"
+                    },
+                    {
+                      "key": "category",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "phone",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "address",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "latLong",
+                      "value": "48.8584,2.2945"
+                    },
+                    {
+                      "key": "radius",
+                      "value": "<float>"
+                    },
+                    {
+                      "key": "radiusUnit",
+                      "value": "km"
+                    },
+                    {
+                      "key": "language",
+                      "value": "en"
+                    },
+                    {
+                      "key": "key",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"message\": \"string\",\n    \"type\": \"string\",\n    \"code\": 6447\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "4232cab0-a2a2-4ad3-8947-8429fcc65124",
+              "name": "Unauthorized due to missing or invalid API key",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "location",
+                    "search"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "searchQuery",
+                      "value": "Eiffel Tower"
+                    },
+                    {
+                      "key": "category",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "phone",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "address",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "latLong",
+                      "value": "48.8584,2.2945"
+                    },
+                    {
+                      "key": "radius",
+                      "value": "<float>"
+                    },
+                    {
+                      "key": "radiusUnit",
+                      "value": "km"
+                    },
+                    {
+                      "key": "language",
+                      "value": "en"
+                    },
+                    {
+                      "key": "key",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"message\": \"string\",\n    \"type\": \"string\",\n    \"code\": 6447\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d4382f35-2ca8-4ff4-98cb-9ed65df78d88",
+              "name": "Rate limit exceeded",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "location",
+                    "search"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "searchQuery",
+                      "value": "Eiffel Tower"
+                    },
+                    {
+                      "key": "category",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "phone",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "address",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "latLong",
+                      "value": "48.8584,2.2945"
+                    },
+                    {
+                      "key": "radius",
+                      "value": "<float>"
+                    },
+                    {
+                      "key": "radiusUnit",
+                      "value": "km"
+                    },
+                    {
+                      "key": "language",
+                      "value": "en"
+                    },
+                    {
+                      "key": "key",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"message\": \"string\",\n    \"type\": \"string\",\n    \"code\": 6447\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "4e6c3862-ce79-4fae-a754-001d30f56f39",
+          "name": "Search for Nearby Locations",
+          "request": {
+            "name": "Search for Nearby Locations",
+            "description": {
+              "content": "Returns up to 10 locations found near the given latitude and longitude. You can use category, phone number, and address to search with more accuracy. Useful for finding hotels, restaurants, and attractions in proximity to a specific geographic point.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "location",
+                "nearby_search"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "latLong",
+                  "value": "<string>",
+                  "description": "(Required) Latitude and longitude pair for the center of the nearby search. Format is latitude,longitude."
+                },
+                {
+                  "disabled": false,
+                  "key": "category",
+                  "value": "<string>",
+                  "description": "Filter results by location category type."
+                },
+                {
+                  "disabled": false,
+                  "key": "phone",
+                  "value": "<string>",
+                  "description": "Phone number to search for a specific location."
+                },
+                {
+                  "disabled": false,
+                  "key": "address",
+                  "value": "<string>",
+                  "description": "Address string to improve search accuracy."
+                },
+                {
+                  "disabled": false,
+                  "key": "radius",
+                  "value": "<float>",
+                  "description": "The radius distance from the latLong point to filter results."
+                },
+                {
+                  "disabled": false,
+                  "key": "radiusUnit",
+                  "value": "km",
+                  "description": "The unit of measurement for the radius parameter."
+                },
+                {
+                  "disabled": false,
+                  "key": "language",
+                  "value": "en",
+                  "description": "The language code for the response content. Tripadvisor supports 29 languages."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "66829a9c-971e-4925-90ae-8d3908071f8b",
+              "name": "Successful nearby search results",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "location",
+                    "nearby_search"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "latLong",
+                      "value": "48.8584,2.2945"
+                    },
+                    {
+                      "key": "category",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "phone",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "address",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "radius",
+                      "value": "<float>"
+                    },
+                    {
+                      "key": "radiusUnit",
+                      "value": "km"
+                    },
+                    {
+                      "key": "language",
+                      "value": "en"
+                    },
+                    {
+                      "key": "key",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": [\n    {\n      \"location_id\": \"string\",\n      \"name\": \"string\",\n      \"address_obj\": {\n        \"street1\": \"string\",\n        \"street2\": \"string\",\n        \"city\": \"string\",\n        \"state\": \"string\",\n        \"country\": \"string\",\n        \"postalcode\": \"string\",\n        \"address_string\": \"string\"\n      }\n    },\n    {\n      \"location_id\": \"string\",\n      \"name\": \"string\",\n      \"address_obj\": {\n        \"street1\": \"string\",\n        \"street2\": \"string\",\n        \"city\": \"string\",\n        \"state\": \"string\",\n        \"country\": \"string\",\n        \"postalcode\": \"string\",\n        \"address_string\": \"string\"\n      }\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "c4dcbf61-b097-4adf-83d2-3544967d498d",
+              "name": "Bad request due to invalid parameters",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "location",
+                    "nearby_search"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "latLong",
+                      "value": "48.8584,2.2945"
+                    },
+                    {
+                      "key": "category",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "phone",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "address",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "radius",
+                      "value": "<float>"
+                    },
+                    {
+                      "key": "radiusUnit",
+                      "value": "km"
+                    },
+                    {
+                      "key": "language",
+                      "value": "en"
+                    },
+                    {
+                      "key": "key",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"message\": \"string\",\n    \"type\": \"string\",\n    \"code\": 6447\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "ef62a379-b0d4-4837-ad67-891f15ec83ba",
+              "name": "Unauthorized due to missing or invalid API key",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "location",
+                    "nearby_search"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "latLong",
+                      "value": "48.8584,2.2945"
+                    },
+                    {
+                      "key": "category",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "phone",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "address",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "radius",
+                      "value": "<float>"
+                    },
+                    {
+                      "key": "radiusUnit",
+                      "value": "km"
+                    },
+                    {
+                      "key": "language",
+                      "value": "en"
+                    },
+                    {
+                      "key": "key",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"message\": \"string\",\n    \"type\": \"string\",\n    \"code\": 6447\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "aa089492-6617-44fe-97f8-9db2d2e5b7e1",
+              "name": "Rate limit exceeded",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "location",
+                    "nearby_search"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "latLong",
+                      "value": "48.8584,2.2945"
+                    },
+                    {
+                      "key": "category",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "phone",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "address",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "radius",
+                      "value": "<float>"
+                    },
+                    {
+                      "key": "radiusUnit",
+                      "value": "km"
+                    },
+                    {
+                      "key": "language",
+                      "value": "en"
+                    },
+                    {
+                      "key": "key",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"message\": \"string\",\n    \"type\": \"string\",\n    \"code\": 6447\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.content.tripadvisor.com/api/v1",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "key"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "query"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "57c56bc1-6e5e-4fc7-b58f-4b87f1dcb307",
+    "name": "Tripadvisor Content Availability Location Search API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Tripadvisor Content API provides developers with access to Tripadvisor's extensive dataset of more than 7.5 million locations, 1 billion reviews and opinions, and content in 29 languages. The API includes endpoints for location search, nearby search, location details, location photos, and location reviews, enabling developers to integrate rich travel content into their websites and applications. Locations are defined within this API as hotels, restaurants, or attractions. The first 5,000 API calls per month are free for initial development and testing.\n\nContact Support:\n Name: Tripadvisor Developer Support",
+      "type": "text/plain"
+    }
+  }
+}

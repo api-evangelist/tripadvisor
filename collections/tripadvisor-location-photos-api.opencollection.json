@@ -1,0 +1,51 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Tripadvisor Content Availability Location Photos API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "key",
+      "value": "{{key}}",
+      "placement": "query"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Location Photos",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get Location Photos",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.content.tripadvisor.com/api/v1/location/:locationId/photos",
+            "params": [
+              {
+                "name": "locationId",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier for a Tripadvisor location (hotel, restaurant, or attraction)."
+              },
+              {
+                "name": "language",
+                "value": "",
+                "type": "query",
+                "description": "The language code for the response content. Tripadvisor supports 29 languages."
+              }
+            ]
+          },
+          "docs": "Returns up to 5 high-quality recent photos for a specific location. Photos are available in multiple sizes including thumbnail (50x50), small (150x150), medium (max 250px), large (max 550px), and original resolution."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

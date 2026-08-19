@@ -1,0 +1,57 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Tripadvisor Content Availability Hotel Inventory API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "key",
+      "value": "{{key}}",
+      "placement": "query"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Hotel Inventory",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get Hotel Inventory",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.content.tripadvisor.com/api/v1/hotel_inventory",
+            "params": [
+              {
+                "name": "api_version",
+                "value": "",
+                "type": "query",
+                "description": "The API version number. Current version is 8."
+              },
+              {
+                "name": "lang",
+                "value": "",
+                "type": "query",
+                "description": "The language code for the response content."
+              },
+              {
+                "name": "inventory_type",
+                "value": "",
+                "type": "query",
+                "description": "The type of inventory integration."
+              }
+            ]
+          },
+          "docs": "Returns the partner's full list of hotel properties that are connected for availability checking. Tripadvisor queries this endpoint once per day and matches the returned hotels to Tripadvisor listings. Partners must provide their complete inventory and remove all test properties before the implementation is considered complete."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

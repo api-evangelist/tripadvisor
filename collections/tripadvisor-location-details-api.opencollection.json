@@ -1,0 +1,57 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Tripadvisor Content Availability Location Details API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "key",
+      "value": "{{key}}",
+      "placement": "query"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Location Details",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get Location Details",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.content.tripadvisor.com/api/v1/location/:locationId/details",
+            "params": [
+              {
+                "name": "locationId",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier for a Tripadvisor location (hotel, restaurant, or attraction)."
+              },
+              {
+                "name": "language",
+                "value": "",
+                "type": "query",
+                "description": "The language code for the response content. Tripadvisor supports 29 languages."
+              },
+              {
+                "name": "currency",
+                "value": "",
+                "type": "query",
+                "description": "The currency code for pricing information in the response."
+              }
+            ]
+          },
+          "docs": "Returns comprehensive information about a specific location such as name, address, rating, ranking, and URLs for the listing on Tripadvisor. Works for hotels, restaurants, and attractions."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

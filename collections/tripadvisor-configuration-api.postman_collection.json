@@ -1,0 +1,135 @@
+{
+  "item": [
+    {
+      "id": "093871ee-1c0b-49be-bd55-e12c5f1afe4c",
+      "name": "Configuration",
+      "description": {
+        "content": "Configuration endpoint that Tripadvisor queries to discover the partner's supported features and API version.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "e912a8ed-1285-41c0-a861-b145d1b26ed5",
+          "name": "Get Partner Configuration",
+          "request": {
+            "name": "Get Partner Configuration",
+            "description": {
+              "content": "Returns the partner's API configuration including supported API version, features, and capabilities. Tripadvisor queries this endpoint to understand what the partner supports.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "config"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "api_version",
+                  "value": "<integer>",
+                  "description": "(Required) The API version number. Current version is 8."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "b1649700-df5c-498b-935e-22778639de8d",
+              "name": "Successful configuration response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "config"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "api_version",
+                      "value": "8"
+                    },
+                    {
+                      "key": "key",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"api_version\": 8,\n  \"supported_languages\": [\n    \"string\",\n    \"string\"\n  ],\n  \"supported_currencies\": [\n    \"string\",\n    \"string\"\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.content.tripadvisor.com/api/v1",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "key"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "query"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "d04b1bed-d6fc-47e0-9cea-2e574b296de3",
+    "name": "Tripadvisor Content Availability Configuration API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Tripadvisor Content API provides developers with access to Tripadvisor's extensive dataset of more than 7.5 million locations, 1 billion reviews and opinions, and content in 29 languages. The API includes endpoints for location search, nearby search, location details, location photos, and location reviews, enabling developers to integrate rich travel content into their websites and applications. Locations are defined within this API as hotels, restaurants, or attractions. The first 5,000 API calls per month are free for initial development and testing.\n\nContact Support:\n Name: Tripadvisor Developer Support",
+      "type": "text/plain"
+    }
+  }
+}
