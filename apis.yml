@@ -30,7 +30,7 @@ tags:
 - Travel
 created: '2026-05-03'
 modified: '2026-06-03'
-specificationVersion: '0.19'
+specificationVersion: '0.23'
 apis:
 - aid: tripadvisor:tripadvisor-availability-api
   name: Tripadvisor Availability API
