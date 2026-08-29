@@ -1,0 +1,25 @@
+slug: tripadvisor
+provider: Tripadvisor
+generated_by: planning/capability-mapping/scripts/classify_capabilities.py
+model: claude-opus-5
+frame:
+- Travel & Hospitality
+min_confidence: 0.7
+capability_model:
+  source: https://github.com/vincentmakes/turbo-ea-capabilities
+  license: CC-BY-4.0
+  attribution: Turbo EA Capabilities by Vincent Verdet — Turbo EA, https://github.com/vincentmakes/turbo-ea-capabilities,
+    CC BY 4.0
+  notice: NOTICE
+edge_count: 1
+edges:
+- tag: Availability
+  spec_file: tripadvisor-availability-api-openapi.yml
+  capability_id: BC-4010.40
+  capability_id_l1: BC-4010
+  capability_name: Metasearch Distribution Management
+  confidence: 0.7
+  evidence: '"allows hotel booking partners to display their availability and pricing on Tripadvisor";
+    "Check Hotel Availability" with RoomRate, CancellationRules'
+  reason: Real-time price/availability polling by a metasearch platform against partner endpoints — metasearch
+    distribution feed/lookup operations rather than reservation capture (no booking is created).

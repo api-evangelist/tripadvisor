@@ -195,6 +195,9 @@ apis:
     url: >-
       https://developer-tripadvisor.com/connectivity-solutions/hotel-availability-check-api/documentation/hotel_inventory/
 common:
+- type: CapabilityMap
+  url: capabilities/tripadvisor-capability-edges.yml
+  name: Tripadvisor Business Capability Map
 - type: AgenticAccess
   url: agentic-access/tripadvisor-agentic-access.yml
 - type: DomainSecurity
