@@ -7,6 +7,18 @@ description: Tripadvisor is the world's largest travel guidance platform, helpin
   7.5 million locations and 1 billion reviews across 43 markets and 29 languages.
   Tripadvisor provides APIs for content integration, hotel connectivity, and restaurant
   reservations.
+deliveryModel:
+  model: saas
+  open_source: false
+  commercial: true
+  callable_host: true
+  label: Hosted service · you call their endpoint
+  confidence: high
+  source:
+  - openapi
+  - pricing
+  generated: '2026-08-28'
+  method: derived
 accessModel:
   pricing: enterprise
   onboarding: self-serve
