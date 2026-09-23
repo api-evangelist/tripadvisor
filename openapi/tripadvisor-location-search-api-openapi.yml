@@ -1,7 +1,7 @@
 openapi: 3.2.0
 info:
   title: Tripadvisor Content Location Search API
-  description: The Tripadvisor Content API provides developers with access to Tripadvisor's extensive dataset of more than 7.5 million locations, 1 billion reviews and opinions, and content in 29 languages. The API includes endpoints for location search, nearby search, location details, location photos, and location reviews, enabling developers to integrate rich travel content into their websites and applications. Locations are defined within this API as hotels, restaurants, or attractions. The first 5,000 API calls per month are free for initial development and testing.
+  description: The Tripadvisor Content API provides developers with access to Tripadvisor's extensive dataset of more than 7.5 million locations, 1 billion reviews and opinions, and content in 29 languages.
   version: '1.0'
   contact:
     name: Tripadvisor Developer Support
@@ -108,6 +108,18 @@ components:
           description: Array of location summary objects matching the search query, up to 10 results.
           items:
             $ref: '#/components/schemas/LocationSummary'
+    LocationSummary:
+      type: object
+      description: A summary representation of a Tripadvisor location returned in search results.
+      properties:
+        location_id:
+          type: string
+          description: The unique Tripadvisor identifier for this location.
+        name:
+          type: string
+          description: The display name of the location.
+        address_obj:
+          $ref: '#/components/schemas/Address'
     Error:
       type: object
       description: Error response returned when a request fails.
@@ -149,19 +161,14 @@ components:
         address_string:
           type: string
           description: The full formatted address as a single string.
-    LocationSummary:
-      type: object
-      description: A summary representation of a Tripadvisor location returned in search results.
-      properties:
-        location_id:
-          type: string
-          description: The unique Tripadvisor identifier for this location.
-        name:
-          type: string
-          description: The display name of the location.
-        address_obj:
-          $ref: '#/components/schemas/Address'
   parameters:
+    Address:
+      name: address
+      in: query
+      required: false
+      description: Address string to improve search accuracy.
+      schema:
+        type: string
     LatLong:
       name: latLong
       in: query
@@ -171,6 +178,29 @@ components:
         type: string
         pattern: ^-?\d+\.?\d*,-?\d+\.?\d*$
         example: 48.8584,2.2945
+    Category:
+      name: category
+      in: query
+      required: false
+      description: Filter results by location category type.
+      schema:
+        type: string
+        enum:
+        - hotels
+        - attractions
+        - restaurants
+        - geos
+    RadiusUnit:
+      name: radiusUnit
+      in: query
+      required: false
+      description: The unit of measurement for the radius parameter.
+      schema:
+        type: string
+        enum:
+        - km
+        - mi
+        default: km
     LatLongRequired:
       name: latLong
       in: query
@@ -188,51 +218,6 @@ components:
       schema:
         type: string
         example: Eiffel Tower
-    Radius:
-      name: radius
-      in: query
-      required: false
-      description: The radius distance from the latLong point to filter results.
-      schema:
-        type: number
-        format: float
-    Address:
-      name: address
-      in: query
-      required: false
-      description: Address string to improve search accuracy.
-      schema:
-        type: string
-    RadiusUnit:
-      name: radiusUnit
-      in: query
-      required: false
-      description: The unit of measurement for the radius parameter.
-      schema:
-        type: string
-        enum:
-        - km
-        - mi
-        default: km
-    Phone:
-      name: phone
-      in: query
-      required: false
-      description: Phone number to search for a specific location.
-      schema:
-        type: string
-    Category:
-      name: category
-      in: query
-      required: false
-      description: Filter results by location category type.
-      schema:
-        type: string
-        enum:
-        - hotels
-        - attractions
-        - restaurants
-        - geos
     Language:
       name: language
       in: query
@@ -242,6 +227,21 @@ components:
         type: string
         default: en
         example: en
+    Radius:
+      name: radius
+      in: query
+      required: false
+      description: The radius distance from the latLong point to filter results.
+      schema:
+        type: number
+        format: float
+    Phone:
+      name: phone
+      in: query
+      required: false
+      description: Phone number to search for a specific location.
+      schema:
+        type: string
   securitySchemes:
     apiKeyQuery:
       type: apiKey

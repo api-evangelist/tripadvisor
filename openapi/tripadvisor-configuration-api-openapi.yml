@@ -1,7 +1,7 @@
 openapi: 3.2.0
 info:
   title: Tripadvisor Hotel Availability Check Configuration API
-  description: The Tripadvisor Hotel Availability Check (HAC) API allows hotel booking partners to display their availability and pricing on Tripadvisor. This specification describes the endpoints that partners must implement on their servers. When a user views a hotel page, Tripadvisor sends HTTP POST requests to the partner's API to retrieve real-time price and availability data. The API supports batch requests for multiple hotels and requires responses within 5 seconds on average. The current version (v8) provides richer availability data to help partners increase conversions. This spec also covers the hotel inventory endpoint that Tripadvisor queries daily, and the configuration endpoint.
+  description: The Tripadvisor Hotel Availability Check (HAC) API allows hotel booking partners to display their availability and pricing on Tripadvisor.
   version: '8'
   contact:
     name: Tripadvisor Connectivity Support
@@ -36,17 +36,6 @@ paths:
               schema:
                 $ref: '#/components/schemas/ConfigResponse'
 components:
-  parameters:
-    ApiVersion:
-      name: api_version
-      in: query
-      required: true
-      description: The API version number. Current version is 8.
-      schema:
-        type: integer
-        enum:
-        - 8
-        example: 8
   schemas:
     ConfigResponse:
       type: object
@@ -66,6 +55,17 @@ components:
           description: Array of currency codes supported by the partner.
           items:
             type: string
+  parameters:
+    ApiVersion:
+      name: api_version
+      in: query
+      required: true
+      description: The API version number. Current version is 8.
+      schema:
+        type: integer
+        enum:
+        - 8
+        example: 8
 externalDocs:
   description: Tripadvisor HAC API Documentation
   url: https://developer-tripadvisor.com/connectivity-solutions/hotel-availability-check-api/documentation/
