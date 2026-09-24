@@ -66,8 +66,6 @@ apis:
     url: openapi/tripadvisor-availability-api-openapi.yml
   - type: Documentation
     url: https://developer-tripadvisor.com/content-api/
-  - type: GraphQL
-    url: graphql/tripadvisor-graphql.md
   - type: Documentation
     url: https://developer-tripadvisor.com/connectivity-solutions/hotel-availability-check-api/
   - type: Documentation
@@ -87,8 +85,6 @@ apis:
     url: openapi/tripadvisor-configuration-api-openapi.yml
   - type: Documentation
     url: https://developer-tripadvisor.com/content-api/
-  - type: GraphQL
-    url: graphql/tripadvisor-graphql.md
   - type: Documentation
     url: https://developer-tripadvisor.com/connectivity-solutions/hotel-availability-check-api/
   - type: Documentation
@@ -108,8 +104,6 @@ apis:
     url: openapi/tripadvisor-hotel-inventory-api-openapi.yml
   - type: Documentation
     url: https://developer-tripadvisor.com/content-api/
-  - type: GraphQL
-    url: graphql/tripadvisor-graphql.md
   - type: Documentation
     url: https://developer-tripadvisor.com/connectivity-solutions/hotel-availability-check-api/
   - type: Documentation
@@ -129,8 +123,6 @@ apis:
     url: openapi/tripadvisor-location-details-api-openapi.yml
   - type: Documentation
     url: https://developer-tripadvisor.com/content-api/
-  - type: GraphQL
-    url: graphql/tripadvisor-graphql.md
   - type: Documentation
     url: https://developer-tripadvisor.com/connectivity-solutions/hotel-availability-check-api/
   - type: Documentation
@@ -148,8 +140,6 @@ apis:
     url: openapi/tripadvisor-location-photos-api-openapi.yml
   - type: Documentation
     url: https://developer-tripadvisor.com/content-api/
-  - type: GraphQL
-    url: graphql/tripadvisor-graphql.md
   - type: Documentation
     url: https://developer-tripadvisor.com/connectivity-solutions/hotel-availability-check-api/
   - type: Documentation
@@ -167,8 +157,6 @@ apis:
     url: openapi/tripadvisor-location-reviews-api-openapi.yml
   - type: Documentation
     url: https://developer-tripadvisor.com/content-api/
-  - type: GraphQL
-    url: graphql/tripadvisor-graphql.md
   - type: Documentation
     url: https://developer-tripadvisor.com/connectivity-solutions/hotel-availability-check-api/
   - type: Documentation
@@ -188,8 +176,6 @@ apis:
     url: openapi/tripadvisor-location-search-api-openapi.yml
   - type: Documentation
     url: https://developer-tripadvisor.com/content-api/
-  - type: GraphQL
-    url: graphql/tripadvisor-graphql.md
   - type: Documentation
     url: https://developer-tripadvisor.com/connectivity-solutions/hotel-availability-check-api/
   - type: Documentation
