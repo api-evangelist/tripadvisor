@@ -59,93 +59,6 @@ paths:
                 $ref: '#/components/schemas/Error'
 components:
   schemas:
-    Photo:
-      type: object
-      description: A photo associated with a Tripadvisor location.
-      properties:
-        id:
-          type: integer
-          description: The unique identifier for this photo.
-        is_blessed:
-          type: boolean
-          description: Whether this photo has been marked as a featured photo.
-        caption:
-          type: string
-          description: The caption text for the photo.
-        published_date:
-          type: string
-          format: date-time
-          description: The date and time the photo was published.
-        images:
-          $ref: '#/components/schemas/PhotoImages'
-        album:
-          type: string
-          description: The album category this photo belongs to.
-        source:
-          type: object
-          description: Information about who uploaded the photo.
-          properties:
-            name:
-              type: string
-              description: The name of the photo contributor.
-            localized_name:
-              type: string
-              description: The localized name of the photo contributor.
-        user:
-          $ref: '#/components/schemas/UserReference'
-    Error:
-      type: object
-      description: Error response returned when a request fails.
-      properties:
-        error:
-          type: object
-          properties:
-            message:
-              type: string
-              description: A human-readable error message describing what went wrong.
-            type:
-              type: string
-              description: The error type classification.
-            code:
-              type: integer
-              description: A numeric error code.
-    LocationPhotosResponse:
-      type: object
-      description: Response containing photos for a specific location.
-      properties:
-        data:
-          type: array
-          description: Array of photo objects for the location, up to 5 photos.
-          items:
-            $ref: '#/components/schemas/Photo'
-    PhotoImages:
-      type: object
-      description: Available image sizes for a photo.
-      properties:
-        thumbnail:
-          $ref: '#/components/schemas/ImageSize'
-        small:
-          $ref: '#/components/schemas/ImageSize'
-        medium:
-          $ref: '#/components/schemas/ImageSize'
-        large:
-          $ref: '#/components/schemas/ImageSize'
-        original:
-          $ref: '#/components/schemas/ImageSize'
-    ImageSize:
-      type: object
-      description: An image at a specific size with dimensions.
-      properties:
-        height:
-          type: integer
-          description: The height of the image in pixels.
-        width:
-          type: integer
-          description: The width of the image in pixels.
-        url:
-          type: string
-          format: uri
-          description: The URL to access the image at this size.
     UserReference:
       type: object
       description: Reference to a Tripadvisor user who contributed content.
@@ -196,7 +109,102 @@ components:
         address_string:
           type: string
           description: The full formatted address as a single string.
+    ImageSize:
+      type: object
+      description: An image at a specific size with dimensions.
+      properties:
+        height:
+          type: integer
+          description: The height of the image in pixels.
+        width:
+          type: integer
+          description: The width of the image in pixels.
+        url:
+          type: string
+          format: uri
+          description: The URL to access the image at this size.
+    Error:
+      type: object
+      description: Error response returned when a request fails.
+      properties:
+        error:
+          type: object
+          properties:
+            message:
+              type: string
+              description: A human-readable error message describing what went wrong.
+            type:
+              type: string
+              description: The error type classification.
+            code:
+              type: integer
+              description: A numeric error code.
+    LocationPhotosResponse:
+      type: object
+      description: Response containing photos for a specific location.
+      properties:
+        data:
+          type: array
+          description: Array of photo objects for the location, up to 5 photos.
+          items:
+            $ref: '#/components/schemas/Photo'
+    Photo:
+      type: object
+      description: A photo associated with a Tripadvisor location.
+      properties:
+        id:
+          type: integer
+          description: The unique identifier for this photo.
+        is_blessed:
+          type: boolean
+          description: Whether this photo has been marked as a featured photo.
+        caption:
+          type: string
+          description: The caption text for the photo.
+        published_date:
+          type: string
+          format: date-time
+          description: The date and time the photo was published.
+        images:
+          $ref: '#/components/schemas/PhotoImages'
+        album:
+          type: string
+          description: The album category this photo belongs to.
+        source:
+          type: object
+          description: Information about who uploaded the photo.
+          properties:
+            name:
+              type: string
+              description: The name of the photo contributor.
+            localized_name:
+              type: string
+              description: The localized name of the photo contributor.
+        user:
+          $ref: '#/components/schemas/UserReference'
+    PhotoImages:
+      type: object
+      description: Available image sizes for a photo.
+      properties:
+        thumbnail:
+          $ref: '#/components/schemas/ImageSize'
+        small:
+          $ref: '#/components/schemas/ImageSize'
+        medium:
+          $ref: '#/components/schemas/ImageSize'
+        large:
+          $ref: '#/components/schemas/ImageSize'
+        original:
+          $ref: '#/components/schemas/ImageSize'
   parameters:
+    LocationId:
+      name: locationId
+      in: path
+      required: true
+      description: The unique identifier for a Tripadvisor location (hotel, restaurant, or attraction).
+      schema:
+        type: integer
+        example: 60745
     Language:
       name: language
       in: query
@@ -206,14 +214,6 @@ components:
         type: string
         default: en
         example: en
-    LocationId:
-      name: locationId
-      in: path
-      required: true
-      description: The unique identifier for a Tripadvisor location (hotel, restaurant, or attraction).
-      schema:
-        type: integer
-        example: 60745
   securitySchemes:
     apiKeyQuery:
       type: apiKey

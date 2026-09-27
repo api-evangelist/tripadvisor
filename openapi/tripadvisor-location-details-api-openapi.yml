@@ -60,6 +60,85 @@ paths:
                 $ref: '#/components/schemas/Error'
 components:
   schemas:
+    Group:
+      type: object
+      description: A category group with associated sub-categories.
+      properties:
+        name:
+          type: string
+          description: The name of the group.
+        localized_name:
+          type: string
+          description: The localized name of the group.
+        categories:
+          type: array
+          description: Array of category tags within this group.
+          items:
+            $ref: '#/components/schemas/Tag'
+    Address:
+      type: object
+      description: The physical address of a location.
+      properties:
+        street1:
+          type: string
+          description: The primary street address line.
+        street2:
+          type: string
+          description: The secondary street address line.
+        city:
+          type: string
+          description: The city name.
+        state:
+          type: string
+          description: The state or province name.
+        country:
+          type: string
+          description: The country name.
+        postalcode:
+          type: string
+          description: The postal or ZIP code.
+        address_string:
+          type: string
+          description: The full formatted address as a single string.
+    Hours:
+      type: object
+      description: Operating hours information for the location.
+      properties:
+        periods:
+          type: array
+          description: Array of time periods when the location is open.
+          items:
+            type: object
+            properties:
+              open:
+                type: object
+                description: The opening time details.
+                properties:
+                  day:
+                    type: integer
+                    description: Day of the week (0 = Sunday, 6 = Saturday).
+                    minimum: 0
+                    maximum: 6
+                  time:
+                    type: string
+                    description: The opening time in 24-hour format (HHMM).
+              close:
+                type: object
+                description: The closing time details.
+                properties:
+                  day:
+                    type: integer
+                    description: Day of the week (0 = Sunday, 6 = Saturday).
+                    minimum: 0
+                    maximum: 6
+                  time:
+                    type: string
+                    description: The closing time in 24-hour format (HHMM).
+        weekday_text:
+          type: array
+          description: Array of human-readable strings describing hours for each day of the week.
+          items:
+            type: string
     Tag:
       type: object
       description: A category or classification tag.
@@ -86,19 +165,6 @@ components:
             code:
               type: integer
               description: A numeric error code.
-    Ancestor:
-      type: object
-      description: A parent geographic location in the location hierarchy.
-      properties:
-        level:
-          type: string
-          description: The level in the geographic hierarchy (e.g., City, Region, Country).
-        name:
-          type: string
-          description: The name of the ancestor location.
-        location_id:
-          type: string
-          description: The Tripadvisor location ID of the ancestor.
     TripType:
       type: object
       description: Rating data for a specific type of trip.
@@ -231,6 +297,19 @@ components:
         ranking:
           type: string
           description: The numeric rank position.
+    Ancestor:
+      type: object
+      description: A parent geographic location in the location hierarchy.
+      properties:
+        level:
+          type: string
+          description: The level in the geographic hierarchy (e.g., City, Region, Country).
+        name:
+          type: string
+          description: The name of the ancestor location.
+        location_id:
+          type: string
+          description: The Tripadvisor location ID of the ancestor.
     Award:
       type: object
       description: An award or recognition received by the location.
@@ -256,95 +335,7 @@ components:
         display_name:
           type: string
           description: The display name of the award.
-    Group:
-      type: object
-      description: A category group with associated sub-categories.
-      properties:
-        name:
-          type: string
-          description: The name of the group.
-        localized_name:
-          type: string
-          description: The localized name of the group.
-        categories:
-          type: array
-          description: Array of category tags within this group.
-          items:
-            $ref: '#/components/schemas/Tag'
-    Hours:
-      type: object
-      description: Operating hours information for the location.
-      properties:
-        periods:
-          type: array
-          description: Array of time periods when the location is open.
-          items:
-            type: object
-            properties:
-              open:
-                type: object
-                description: The opening time details.
-                properties:
-                  day:
-                    type: integer
-                    description: Day of the week (0 = Sunday, 6 = Saturday).
-                    minimum: 0
-                    maximum: 6
-                  time:
-                    type: string
-                    description: The opening time in 24-hour format (HHMM).
-              close:
-                type: object
-                description: The closing time details.
-                properties:
-                  day:
-                    type: integer
-                    description: Day of the week (0 = Sunday, 6 = Saturday).
-                    minimum: 0
-                    maximum: 6
-                  time:
-                    type: string
-                    description: The closing time in 24-hour format (HHMM).
-        weekday_text:
-          type: array
-          description: Array of human-readable strings describing hours for each day of the week.
-          items:
-            type: string
-    Address:
-      type: object
-      description: The physical address of a location.
-      properties:
-        street1:
-          type: string
-          description: The primary street address line.
-        street2:
-          type: string
-          description: The secondary street address line.
-        city:
-          type: string
-          description: The city name.
-        state:
-          type: string
-          description: The state or province name.
-        country:
-          type: string
-          description: The country name.
-        postalcode:
-          type: string
-          description: The postal or ZIP code.
-        address_string:
-          type: string
-          description: The full formatted address as a single string.
   parameters:
-    Currency:
-      name: currency
-      in: query
-      required: false
-      description: The currency code for pricing information in the response.
-      schema:
-        type: string
-        default: USD
-        example: USD
     Language:
       name: language
       in: query
@@ -354,6 +345,15 @@ components:
         type: string
         default: en
         example: en
+    Currency:
+      name: currency
+      in: query
+      required: false
+      description: The currency code for pricing information in the response.
+      schema:
+        type: string
+        default: USD
+        example: USD
     LocationId:
       name: locationId
       in: path
