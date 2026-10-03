@@ -75,6 +75,44 @@ components:
           description: Array of category tags within this group.
           items:
             $ref: '#/components/schemas/Tag'
+    Award:
+      type: object
+      description: An award or recognition received by the location.
+      properties:
+        award_type:
+          type: string
+          description: The type of award.
+        year:
+          type: string
+          description: The year the award was given.
+        images:
+          type: object
+          description: Image URLs for the award badge.
+          properties:
+            small:
+              type: string
+              format: uri
+              description: URL for the small award image.
+            large:
+              type: string
+              format: uri
+              description: URL for the large award image.
+        display_name:
+          type: string
+          description: The display name of the award.
+    Ancestor:
+      type: object
+      description: A parent geographic location in the location hierarchy.
+      properties:
+        level:
+          type: string
+          description: The level in the geographic hierarchy (e.g., City, Region, Country).
+        name:
+          type: string
+          description: The name of the ancestor location.
+        location_id:
+          type: string
+          description: The Tripadvisor location ID of the ancestor.
     Address:
       type: object
       description: The physical address of a location.
@@ -100,55 +138,6 @@ components:
         address_string:
           type: string
           description: The full formatted address as a single string.
-    Hours:
-      type: object
-      description: Operating hours information for the location.
-      properties:
-        periods:
-          type: array
-          description: Array of time periods when the location is open.
-          items:
-            type: object
-            properties:
-              open:
-                type: object
-                description: The opening time details.
-                properties:
-                  day:
-                    type: integer
-                    description: Day of the week (0 = Sunday, 6 = Saturday).
-                    minimum: 0
-                    maximum: 6
-                  time:
-                    type: string
-                    description: The opening time in 24-hour format (HHMM).
-              close:
-                type: object
-                description: The closing time details.
-                properties:
-                  day:
-                    type: integer
-                    description: Day of the week (0 = Sunday, 6 = Saturday).
-                    minimum: 0
-                    maximum: 6
-                  time:
-                    type: string
-                    description: The closing time in 24-hour format (HHMM).
-        weekday_text:
-          type: array
-          description: Array of human-readable strings describing hours for each day of the week.
-          items:
-            type: string
-    Tag:
-      type: object
-      description: A category or classification tag.
-      properties:
-        name:
-          type: string
-          description: The display name of the tag.
-        localized_name:
-          type: string
-          description: The localized display name of the tag.
     Error:
       type: object
       description: Error response returned when a request fails.
@@ -165,19 +154,25 @@ components:
             code:
               type: integer
               description: A numeric error code.
-    TripType:
+    RankingData:
       type: object
-      description: Rating data for a specific type of trip.
+      description: Ranking information for the location within its category and geography.
       properties:
-        name:
+        geo_location_id:
           type: string
-          description: The trip type name (e.g., business, couples, family).
-        localized_name:
+          description: The Tripadvisor ID of the geographic area for ranking.
+        ranking_string:
           type: string
-          description: The localized trip type name.
-        value:
+          description: A human-readable ranking string.
+        geo_location_name:
           type: string
-          description: The count of reviews for this trip type.
+          description: The name of the geographic area for ranking.
+        ranking_out_of:
+          type: string
+          description: The total number of locations in the ranking category.
+        ranking:
+          type: string
+          description: The numeric rank position.
     LocationDetails:
       type: object
       description: Comprehensive information about a specific Tripadvisor location.
@@ -278,73 +273,69 @@ components:
           description: Array of awards received by this location.
           items:
             $ref: '#/components/schemas/Award'
-    RankingData:
+    Tag:
       type: object
-      description: Ranking information for the location within its category and geography.
+      description: A category or classification tag.
       properties:
-        geo_location_id:
-          type: string
-          description: The Tripadvisor ID of the geographic area for ranking.
-        ranking_string:
-          type: string
-          description: A human-readable ranking string.
-        geo_location_name:
-          type: string
-          description: The name of the geographic area for ranking.
-        ranking_out_of:
-          type: string
-          description: The total number of locations in the ranking category.
-        ranking:
-          type: string
-          description: The numeric rank position.
-    Ancestor:
-      type: object
-      description: A parent geographic location in the location hierarchy.
-      properties:
-        level:
-          type: string
-          description: The level in the geographic hierarchy (e.g., City, Region, Country).
         name:
           type: string
-          description: The name of the ancestor location.
-        location_id:
+          description: The display name of the tag.
+        localized_name:
           type: string
-          description: The Tripadvisor location ID of the ancestor.
-    Award:
+          description: The localized display name of the tag.
+    TripType:
       type: object
-      description: An award or recognition received by the location.
+      description: Rating data for a specific type of trip.
       properties:
-        award_type:
+        name:
           type: string
-          description: The type of award.
-        year:
+          description: The trip type name (e.g., business, couples, family).
+        localized_name:
           type: string
-          description: The year the award was given.
-        images:
-          type: object
-          description: Image URLs for the award badge.
-          properties:
-            small:
-              type: string
-              format: uri
-              description: URL for the small award image.
-            large:
-              type: string
-              format: uri
-              description: URL for the large award image.
-        display_name:
+          description: The localized trip type name.
+        value:
           type: string
-          description: The display name of the award.
+          description: The count of reviews for this trip type.
+    Hours:
+      type: object
+      description: Operating hours information for the location.
+      properties:
+        periods:
+          type: array
+          description: Array of time periods when the location is open.
+          items:
+            type: object
+            properties:
+              open:
+                type: object
+                description: The opening time details.
+                properties:
+                  day:
+                    type: integer
+                    description: Day of the week (0 = Sunday, 6 = Saturday).
+                    minimum: 0
+                    maximum: 6
+                  time:
+                    type: string
+                    description: The opening time in 24-hour format (HHMM).
+              close:
+                type: object
+                description: The closing time details.
+                properties:
+                  day:
+                    type: integer
+                    description: Day of the week (0 = Sunday, 6 = Saturday).
+                    minimum: 0
+                    maximum: 6
+                  time:
+                    type: string
+                    description: The closing time in 24-hour format (HHMM).
+        weekday_text:
+          type: array
+          description: Array of human-readable strings describing hours for each day of the week.
+          items:
+            type: string
   parameters:
-    Language:
-      name: language
-      in: query
-      required: false
-      description: The language code for the response content. Tripadvisor supports 29 languages.
-      schema:
-        type: string
-        default: en
-        example: en
     Currency:
       name: currency
       in: query
@@ -354,6 +345,15 @@ components:
         type: string
         default: USD
         example: USD
+    Language:
+      name: language
+      in: query
+      required: false
+      description: The language code for the response content. Tripadvisor supports 29 languages.
+      schema:
+        type: string
+        default: en
+        example: en
     LocationId:
       name: locationId
       in: path

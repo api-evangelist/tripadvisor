@@ -99,31 +99,6 @@ paths:
                 $ref: '#/components/schemas/Error'
 components:
   parameters:
-    LatLong:
-      name: latLong
-      in: query
-      required: false
-      description: Latitude and longitude pair to bias search results toward a specific geographic area. Format is latitude,longitude.
-      schema:
-        type: string
-        pattern: ^-?\d+\.?\d*,-?\d+\.?\d*$
-        example: 48.8584,2.2945
-    Address:
-      name: address
-      in: query
-      required: false
-      description: Address string to improve search accuracy.
-      schema:
-        type: string
-    Language:
-      name: language
-      in: query
-      required: false
-      description: The language code for the response content. Tripadvisor supports 29 languages.
-      schema:
-        type: string
-        default: en
-        example: en
     Radius:
       name: radius
       in: query
@@ -139,14 +114,6 @@ components:
       description: Phone number to search for a specific location.
       schema:
         type: string
-    SearchQuery:
-      name: searchQuery
-      in: query
-      required: true
-      description: The text query to search for matching locations.
-      schema:
-        type: string
-        example: Eiffel Tower
     LatLongRequired:
       name: latLong
       in: query
@@ -156,6 +123,17 @@ components:
         type: string
         pattern: ^-?\d+\.?\d*,-?\d+\.?\d*$
         example: 48.8584,2.2945
+    RadiusUnit:
+      name: radiusUnit
+      in: query
+      required: false
+      description: The unit of measurement for the radius parameter.
+      schema:
+        type: string
+        enum:
+        - km
+        - mi
+        default: km
     Category:
       name: category
       in: query
@@ -168,17 +146,39 @@ components:
         - attractions
         - restaurants
         - geos
-    RadiusUnit:
-      name: radiusUnit
+    Language:
+      name: language
       in: query
       required: false
-      description: The unit of measurement for the radius parameter.
+      description: The language code for the response content. Tripadvisor supports 29 languages.
       schema:
         type: string
-        enum:
-        - km
-        - mi
-        default: km
+        default: en
+        example: en
+    Address:
+      name: address
+      in: query
+      required: false
+      description: Address string to improve search accuracy.
+      schema:
+        type: string
+    SearchQuery:
+      name: searchQuery
+      in: query
+      required: true
+      description: The text query to search for matching locations.
+      schema:
+        type: string
+        example: Eiffel Tower
+    LatLong:
+      name: latLong
+      in: query
+      required: false
+      description: Latitude and longitude pair to bias search results toward a specific geographic area. Format is latitude,longitude.
+      schema:
+        type: string
+        pattern: ^-?\d+\.?\d*,-?\d+\.?\d*$
+        example: 48.8584,2.2945
   schemas:
     Address:
       type: object
@@ -221,6 +221,15 @@ components:
             code:
               type: integer
               description: A numeric error code.
+    LocationSearchResponse:
+      type: object
+      description: Response containing a list of locations matching the search criteria.
+      properties:
+        data:
+          type: array
+          description: Array of location summary objects matching the search query, up to 10 results.
+          items:
+            $ref: '#/components/schemas/LocationSummary'
     LocationSummary:
       type: object
       description: A summary representation of a Tripadvisor location returned in search results.
@@ -233,15 +242,6 @@ components:
           description: The display name of the location.
         address_obj:
           $ref: '#/components/schemas/Address'
-    LocationSearchResponse:
-      type: object
-      description: Response containing a list of locations matching the search criteria.
-      properties:
-        data:
-          type: array
-          description: Array of location summary objects matching the search query, up to 10 results.
-          items:
-            $ref: '#/components/schemas/LocationSummary'
   securitySchemes:
     apiKeyQuery:
       type: apiKey

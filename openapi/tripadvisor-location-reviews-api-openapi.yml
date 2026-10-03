@@ -59,56 +59,6 @@ paths:
                 $ref: '#/components/schemas/Error'
 components:
   schemas:
-    UserReference:
-      type: object
-      description: Reference to a Tripadvisor user who contributed content.
-      properties:
-        username:
-          type: string
-          description: The username of the contributor.
-        user_location:
-          $ref: '#/components/schemas/Address'
-        avatar:
-          type: object
-          description: Avatar images for the user.
-          properties:
-            thumbnail:
-              type: string
-              format: uri
-              description: URL of the user's thumbnail avatar.
-            small:
-              type: string
-              format: uri
-              description: URL of the user's small avatar.
-            large:
-              type: string
-              format: uri
-              description: URL of the user's large avatar.
-    Address:
-      type: object
-      description: The physical address of a location.
-      properties:
-        street1:
-          type: string
-          description: The primary street address line.
-        street2:
-          type: string
-          description: The secondary street address line.
-        city:
-          type: string
-          description: The city name.
-        state:
-          type: string
-          description: The state or province name.
-        country:
-          type: string
-          description: The country name.
-        postalcode:
-          type: string
-          description: The postal or ZIP code.
-        address_string:
-          type: string
-          description: The full formatted address as a single string.
     Review:
       type: object
       description: A user review for a Tripadvisor location.
@@ -172,6 +122,65 @@ components:
               value:
                 type: string
                 description: The sub-rating value.
+    LocationReviewsResponse:
+      type: object
+      description: Response containing reviews for a specific location.
+      properties:
+        data:
+          type: array
+          description: Array of review objects for the location, up to 5 reviews.
+          items:
+            $ref: '#/components/schemas/Review'
+    Address:
+      type: object
+      description: The physical address of a location.
+      properties:
+        street1:
+          type: string
+          description: The primary street address line.
+        street2:
+          type: string
+          description: The secondary street address line.
+        city:
+          type: string
+          description: The city name.
+        state:
+          type: string
+          description: The state or province name.
+        country:
+          type: string
+          description: The country name.
+        postalcode:
+          type: string
+          description: The postal or ZIP code.
+        address_string:
+          type: string
+          description: The full formatted address as a single string.
+    UserReference:
+      type: object
+      description: Reference to a Tripadvisor user who contributed content.
+      properties:
+        username:
+          type: string
+          description: The username of the contributor.
+        user_location:
+          $ref: '#/components/schemas/Address'
+        avatar:
+          type: object
+          description: Avatar images for the user.
+          properties:
+            thumbnail:
+              type: string
+              format: uri
+              description: URL of the user's thumbnail avatar.
+            small:
+              type: string
+              format: uri
+              description: URL of the user's small avatar.
+            large:
+              type: string
+              format: uri
+              description: URL of the user's large avatar.
     Error:
       type: object
       description: Error response returned when a request fails.
@@ -188,24 +197,7 @@ components:
             code:
               type: integer
               description: A numeric error code.
-    LocationReviewsResponse:
-      type: object
-      description: Response containing reviews for a specific location.
-      properties:
-        data:
-          type: array
-          description: Array of review objects for the location, up to 5 reviews.
-          items:
-            $ref: '#/components/schemas/Review'
   parameters:
-    LocationId:
-      name: locationId
-      in: path
-      required: true
-      description: The unique identifier for a Tripadvisor location (hotel, restaurant, or attraction).
-      schema:
-        type: integer
-        example: 60745
     Language:
       name: language
       in: query
@@ -215,6 +207,14 @@ components:
         type: string
         default: en
         example: en
+    LocationId:
+      name: locationId
+      in: path
+      required: true
+      description: The unique identifier for a Tripadvisor location (hotel, restaurant, or attraction).
+      schema:
+        type: integer
+        example: 60745
   securitySchemes:
     apiKeyQuery:
       type: apiKey
