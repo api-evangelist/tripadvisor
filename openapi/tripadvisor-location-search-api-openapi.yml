@@ -99,6 +99,15 @@ paths:
                 $ref: '#/components/schemas/Error'
 components:
   parameters:
+    LatLong:
+      name: latLong
+      in: query
+      required: false
+      description: Latitude and longitude pair to bias search results toward a specific geographic area. Format is latitude,longitude.
+      schema:
+        type: string
+        pattern: ^-?\d+\.?\d*,-?\d+\.?\d*$
+        example: 48.8584,2.2945
     Radius:
       name: radius
       in: query
@@ -107,6 +116,42 @@ components:
       schema:
         type: number
         format: float
+    SearchQuery:
+      name: searchQuery
+      in: query
+      required: true
+      description: The text query to search for matching locations.
+      schema:
+        type: string
+        example: Eiffel Tower
+    Language:
+      name: language
+      in: query
+      required: false
+      description: The language code for the response content. Tripadvisor supports 29 languages.
+      schema:
+        type: string
+        default: en
+        example: en
+    Category:
+      name: category
+      in: query
+      required: false
+      description: Filter results by location category type.
+      schema:
+        type: string
+        enum:
+        - hotels
+        - attractions
+        - restaurants
+        - geos
+    Address:
+      name: address
+      in: query
+      required: false
+      description: Address string to improve search accuracy.
+      schema:
+        type: string
     Phone:
       name: phone
       in: query
@@ -134,51 +179,6 @@ components:
         - km
         - mi
         default: km
-    Category:
-      name: category
-      in: query
-      required: false
-      description: Filter results by location category type.
-      schema:
-        type: string
-        enum:
-        - hotels
-        - attractions
-        - restaurants
-        - geos
-    Language:
-      name: language
-      in: query
-      required: false
-      description: The language code for the response content. Tripadvisor supports 29 languages.
-      schema:
-        type: string
-        default: en
-        example: en
-    Address:
-      name: address
-      in: query
-      required: false
-      description: Address string to improve search accuracy.
-      schema:
-        type: string
-    SearchQuery:
-      name: searchQuery
-      in: query
-      required: true
-      description: The text query to search for matching locations.
-      schema:
-        type: string
-        example: Eiffel Tower
-    LatLong:
-      name: latLong
-      in: query
-      required: false
-      description: Latitude and longitude pair to bias search results toward a specific geographic area. Format is latitude,longitude.
-      schema:
-        type: string
-        pattern: ^-?\d+\.?\d*,-?\d+\.?\d*$
-        example: 48.8584,2.2945
   schemas:
     Address:
       type: object
@@ -205,6 +205,27 @@ components:
         address_string:
           type: string
           description: The full formatted address as a single string.
+    LocationSummary:
+      type: object
+      description: A summary representation of a Tripadvisor location returned in search results.
+      properties:
+        location_id:
+          type: string
+          description: The unique Tripadvisor identifier for this location.
+        name:
+          type: string
+          description: The display name of the location.
+        address_obj:
+          $ref: '#/components/schemas/Address'
+    LocationSearchResponse:
+      type: object
+      description: Response containing a list of locations matching the search criteria.
+      properties:
+        data:
+          type: array
+          description: Array of location summary objects matching the search query, up to 10 results.
+          items:
+            $ref: '#/components/schemas/LocationSummary'
     Error:
       type: object
       description: Error response returned when a request fails.
@@ -221,27 +242,6 @@ components:
             code:
               type: integer
               description: A numeric error code.
-    LocationSearchResponse:
-      type: object
-      description: Response containing a list of locations matching the search criteria.
-      properties:
-        data:
-          type: array
-          description: Array of location summary objects matching the search query, up to 10 results.
-          items:
-            $ref: '#/components/schemas/LocationSummary'
-    LocationSummary:
-      type: object
-      description: A summary representation of a Tripadvisor location returned in search results.
-      properties:
-        location_id:
-          type: string
-          description: The unique Tripadvisor identifier for this location.
-        name:
-          type: string
-          description: The display name of the location.
-        address_obj:
-          $ref: '#/components/schemas/Address'
   securitySchemes:
     apiKeyQuery:
       type: apiKey

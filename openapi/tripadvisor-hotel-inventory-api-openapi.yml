@@ -96,6 +96,15 @@ components:
           type: string
           description: The country code of the hotel.
   parameters:
+    Lang:
+      name: lang
+      in: query
+      required: false
+      description: The language code for the response content.
+      schema:
+        type: string
+        default: en
+        example: en
     ApiVersion:
       name: api_version
       in: query
@@ -106,15 +115,6 @@ components:
         enum:
         - 8
         example: 8
-    Lang:
-      name: lang
-      in: query
-      required: false
-      description: The language code for the response content.
-      schema:
-        type: string
-        default: en
-        example: en
 externalDocs:
   description: Tripadvisor HAC API Documentation
   url: https://developer-tripadvisor.com/connectivity-solutions/hotel-availability-check-api/documentation/
