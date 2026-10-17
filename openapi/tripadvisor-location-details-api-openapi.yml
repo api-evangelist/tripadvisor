@@ -59,23 +59,68 @@ paths:
               schema:
                 $ref: '#/components/schemas/Error'
 components:
+  parameters:
+    Currency:
+      name: currency
+      in: query
+      required: false
+      description: The currency code for pricing information in the response.
+      schema:
+        type: string
+        default: USD
+        example: USD
+    Language:
+      name: language
+      in: query
+      required: false
+      description: The language code for the response content. Tripadvisor supports 29 languages.
+      schema:
+        type: string
+        default: en
+        example: en
+    LocationId:
+      name: locationId
+      in: path
+      required: true
+      description: The unique identifier for a Tripadvisor location (hotel, restaurant, or attraction).
+      schema:
+        type: integer
+        example: 60745
   schemas:
-    Error:
+    Group:
       type: object
-      description: Error response returned when a request fails.
+      description: A category group with associated sub-categories.
       properties:
-        error:
-          type: object
-          properties:
-            message:
-              type: string
-              description: A human-readable error message describing what went wrong.
-            type:
-              type: string
-              description: The error type classification.
-            code:
-              type: integer
-              description: A numeric error code.
+        name:
+          type: string
+          description: The name of the group.
+        localized_name:
+          type: string
+          description: The localized name of the group.
+        categories:
+          type: array
+          description: Array of category tags within this group.
+          items:
+            $ref: '#/components/schemas/Tag'
+    RankingData:
+      type: object
+      description: Ranking information for the location within its category and geography.
+      properties:
+        geo_location_id:
+          type: string
+          description: The Tripadvisor ID of the geographic area for ranking.
+        ranking_string:
+          type: string
+          description: A human-readable ranking string.
+        geo_location_name:
+          type: string
+          description: The name of the geographic area for ranking.
+        ranking_out_of:
+          type: string
+          description: The total number of locations in the ranking category.
+        ranking:
+          type: string
+          description: The numeric rank position.
     Award:
       type: object
       description: An award or recognition received by the location.
@@ -101,6 +146,61 @@ components:
         display_name:
           type: string
           description: The display name of the award.
+    Hours:
+      type: object
+      description: Operating hours information for the location.
+      properties:
+        periods:
+          type: array
+          description: Array of time periods when the location is open.
+          items:
+            type: object
+            properties:
+              open:
+                type: object
+                description: The opening time details.
+                properties:
+                  day:
+                    type: integer
+                    description: Day of the week (0 = Sunday, 6 = Saturday).
+                    minimum: 0
+                    maximum: 6
+                  time:
+                    type: string
+                    description: The opening time in 24-hour format (HHMM).
+              close:
+                type: object
+                description: The closing time details.
+                properties:
+                  day:
+                    type: integer
+                    description: Day of the week (0 = Sunday, 6 = Saturday).
+                    minimum: 0
+                    maximum: 6
+                  time:
+                    type: string
+                    description: The closing time in 24-hour format (HHMM).
+        weekday_text:
+          type: array
+          description: Array of human-readable strings describing hours for each day of the week.
+          items:
+            type: string
+    Error:
+      type: object
+      description: Error response returned when a request fails.
+      properties:
+        error:
+          type: object
+          properties:
+            message:
+              type: string
+              description: A human-readable error message describing what went wrong.
+            type:
+              type: string
+              description: The error type classification.
+            code:
+              type: integer
+              description: A numeric error code.
     Address:
       type: object
       description: The physical address of a location.
@@ -126,21 +226,6 @@ components:
         address_string:
           type: string
           description: The full formatted address as a single string.
-    Group:
-      type: object
-      description: A category group with associated sub-categories.
-      properties:
-        name:
-          type: string
-          description: The name of the group.
-        localized_name:
-          type: string
-          description: The localized name of the group.
-        categories:
-          type: array
-          description: Array of category tags within this group.
-          items:
-            $ref: '#/components/schemas/Tag'
     Ancestor:
       type: object
       description: A parent geographic location in the location hierarchy.
@@ -277,91 +362,6 @@ components:
         localized_name:
           type: string
           description: The localized display name of the tag.
-    RankingData:
-      type: object
-      description: Ranking information for the location within its category and geography.
-      properties:
-        geo_location_id:
-          type: string
-          description: The Tripadvisor ID of the geographic area for ranking.
-        ranking_string:
-          type: string
-          description: A human-readable ranking string.
-        geo_location_name:
-          type: string
-          description: The name of the geographic area for ranking.
-        ranking_out_of:
-          type: string
-          description: The total number of locations in the ranking category.
-        ranking:
-          type: string
-          description: The numeric rank position.
-    Hours:
-      type: object
-      description: Operating hours information for the location.
-      properties:
-        periods:
-          type: array
-          description: Array of time periods when the location is open.
-          items:
-            type: object
-            properties:
-              open:
-                type: object
-                description: The opening time details.
-                properties:
-                  day:
-                    type: integer
-                    description: Day of the week (0 = Sunday, 6 = Saturday).
-                    minimum: 0
-                    maximum: 6
-                  time:
-                    type: string
-                    description: The opening time in 24-hour format (HHMM).
-              close:
-                type: object
-                description: The closing time details.
-                properties:
-                  day:
-                    type: integer
-                    description: Day of the week (0 = Sunday, 6 = Saturday).
-                    minimum: 0
-                    maximum: 6
-                  time:
-                    type: string
-                    description: The closing time in 24-hour format (HHMM).
-        weekday_text:
-          type: array
-          description: Array of human-readable strings describing hours for each day of the week.
-          items:
-            type: string
-  parameters:
-    LocationId:
-      name: locationId
-      in: path
-      required: true
-      description: The unique identifier for a Tripadvisor location (hotel, restaurant, or attraction).
-      schema:
-        type: integer
-        example: 60745
-    Currency:
-      name: currency
-      in: query
-      required: false
-      description: The currency code for pricing information in the response.
-      schema:
-        type: string
-        default: USD
-        example: USD
-    Language:
-      name: language
-      in: query
-      required: false
-      description: The language code for the response content. Tripadvisor supports 29 languages.
-      schema:
-        type: string
-        default: en
-        example: en
   securitySchemes:
     apiKeyQuery:
       type: apiKey

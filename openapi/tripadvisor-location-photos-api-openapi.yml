@@ -58,25 +58,76 @@ paths:
               schema:
                 $ref: '#/components/schemas/Error'
 components:
-  parameters:
-    LocationId:
-      name: locationId
-      in: path
-      required: true
-      description: The unique identifier for a Tripadvisor location (hotel, restaurant, or attraction).
-      schema:
-        type: integer
-        example: 60745
-    Language:
-      name: language
-      in: query
-      required: false
-      description: The language code for the response content. Tripadvisor supports 29 languages.
-      schema:
-        type: string
-        default: en
-        example: en
   schemas:
+    PhotoImages:
+      type: object
+      description: Available image sizes for a photo.
+      properties:
+        thumbnail:
+          $ref: '#/components/schemas/ImageSize'
+        small:
+          $ref: '#/components/schemas/ImageSize'
+        medium:
+          $ref: '#/components/schemas/ImageSize'
+        large:
+          $ref: '#/components/schemas/ImageSize'
+        original:
+          $ref: '#/components/schemas/ImageSize'
+    Error:
+      type: object
+      description: Error response returned when a request fails.
+      properties:
+        error:
+          type: object
+          properties:
+            message:
+              type: string
+              description: A human-readable error message describing what went wrong.
+            type:
+              type: string
+              description: The error type classification.
+            code:
+              type: integer
+              description: A numeric error code.
+    ImageSize:
+      type: object
+      description: An image at a specific size with dimensions.
+      properties:
+        height:
+          type: integer
+          description: The height of the image in pixels.
+        width:
+          type: integer
+          description: The width of the image in pixels.
+        url:
+          type: string
+          format: uri
+          description: The URL to access the image at this size.
+    Address:
+      type: object
+      description: The physical address of a location.
+      properties:
+        street1:
+          type: string
+          description: The primary street address line.
+        street2:
+          type: string
+          description: The secondary street address line.
+        city:
+          type: string
+          description: The city name.
+        state:
+          type: string
+          description: The state or province name.
+        country:
+          type: string
+          description: The country name.
+        postalcode:
+          type: string
+          description: The postal or ZIP code.
+        address_string:
+          type: string
+          description: The full formatted address as a single string.
     Photo:
       type: object
       description: A photo associated with a Tripadvisor location.
@@ -120,59 +171,6 @@ components:
           description: Array of photo objects for the location, up to 5 photos.
           items:
             $ref: '#/components/schemas/Photo'
-    Address:
-      type: object
-      description: The physical address of a location.
-      properties:
-        street1:
-          type: string
-          description: The primary street address line.
-        street2:
-          type: string
-          description: The secondary street address line.
-        city:
-          type: string
-          description: The city name.
-        state:
-          type: string
-          description: The state or province name.
-        country:
-          type: string
-          description: The country name.
-        postalcode:
-          type: string
-          description: The postal or ZIP code.
-        address_string:
-          type: string
-          description: The full formatted address as a single string.
-    ImageSize:
-      type: object
-      description: An image at a specific size with dimensions.
-      properties:
-        height:
-          type: integer
-          description: The height of the image in pixels.
-        width:
-          type: integer
-          description: The width of the image in pixels.
-        url:
-          type: string
-          format: uri
-          description: The URL to access the image at this size.
-    PhotoImages:
-      type: object
-      description: Available image sizes for a photo.
-      properties:
-        thumbnail:
-          $ref: '#/components/schemas/ImageSize'
-        small:
-          $ref: '#/components/schemas/ImageSize'
-        medium:
-          $ref: '#/components/schemas/ImageSize'
-        large:
-          $ref: '#/components/schemas/ImageSize'
-        original:
-          $ref: '#/components/schemas/ImageSize'
     UserReference:
       type: object
       description: Reference to a Tripadvisor user who contributed content.
@@ -198,22 +196,24 @@ components:
               type: string
               format: uri
               description: URL of the user's large avatar.
-    Error:
-      type: object
-      description: Error response returned when a request fails.
-      properties:
-        error:
-          type: object
-          properties:
-            message:
-              type: string
-              description: A human-readable error message describing what went wrong.
-            type:
-              type: string
-              description: The error type classification.
-            code:
-              type: integer
-              description: A numeric error code.
+  parameters:
+    Language:
+      name: language
+      in: query
+      required: false
+      description: The language code for the response content. Tripadvisor supports 29 languages.
+      schema:
+        type: string
+        default: en
+        example: en
+    LocationId:
+      name: locationId
+      in: path
+      required: true
+      description: The unique identifier for a Tripadvisor location (hotel, restaurant, or attraction).
+      schema:
+        type: integer
+        example: 60745
   securitySchemes:
     apiKeyQuery:
       type: apiKey

@@ -98,113 +98,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/Error'
 components:
-  parameters:
-    LatLong:
-      name: latLong
-      in: query
-      required: false
-      description: Latitude and longitude pair to bias search results toward a specific geographic area. Format is latitude,longitude.
-      schema:
-        type: string
-        pattern: ^-?\d+\.?\d*,-?\d+\.?\d*$
-        example: 48.8584,2.2945
-    Radius:
-      name: radius
-      in: query
-      required: false
-      description: The radius distance from the latLong point to filter results.
-      schema:
-        type: number
-        format: float
-    SearchQuery:
-      name: searchQuery
-      in: query
-      required: true
-      description: The text query to search for matching locations.
-      schema:
-        type: string
-        example: Eiffel Tower
-    Language:
-      name: language
-      in: query
-      required: false
-      description: The language code for the response content. Tripadvisor supports 29 languages.
-      schema:
-        type: string
-        default: en
-        example: en
-    Category:
-      name: category
-      in: query
-      required: false
-      description: Filter results by location category type.
-      schema:
-        type: string
-        enum:
-        - hotels
-        - attractions
-        - restaurants
-        - geos
-    Address:
-      name: address
-      in: query
-      required: false
-      description: Address string to improve search accuracy.
-      schema:
-        type: string
-    Phone:
-      name: phone
-      in: query
-      required: false
-      description: Phone number to search for a specific location.
-      schema:
-        type: string
-    LatLongRequired:
-      name: latLong
-      in: query
-      required: true
-      description: Latitude and longitude pair for the center of the nearby search. Format is latitude,longitude.
-      schema:
-        type: string
-        pattern: ^-?\d+\.?\d*,-?\d+\.?\d*$
-        example: 48.8584,2.2945
-    RadiusUnit:
-      name: radiusUnit
-      in: query
-      required: false
-      description: The unit of measurement for the radius parameter.
-      schema:
-        type: string
-        enum:
-        - km
-        - mi
-        default: km
   schemas:
-    Address:
-      type: object
-      description: The physical address of a location.
-      properties:
-        street1:
-          type: string
-          description: The primary street address line.
-        street2:
-          type: string
-          description: The secondary street address line.
-        city:
-          type: string
-          description: The city name.
-        state:
-          type: string
-          description: The state or province name.
-        country:
-          type: string
-          description: The country name.
-        postalcode:
-          type: string
-          description: The postal or ZIP code.
-        address_string:
-          type: string
-          description: The full formatted address as a single string.
     LocationSummary:
       type: object
       description: A summary representation of a Tripadvisor location returned in search results.
@@ -242,6 +136,112 @@ components:
             code:
               type: integer
               description: A numeric error code.
+    Address:
+      type: object
+      description: The physical address of a location.
+      properties:
+        street1:
+          type: string
+          description: The primary street address line.
+        street2:
+          type: string
+          description: The secondary street address line.
+        city:
+          type: string
+          description: The city name.
+        state:
+          type: string
+          description: The state or province name.
+        country:
+          type: string
+          description: The country name.
+        postalcode:
+          type: string
+          description: The postal or ZIP code.
+        address_string:
+          type: string
+          description: The full formatted address as a single string.
+  parameters:
+    SearchQuery:
+      name: searchQuery
+      in: query
+      required: true
+      description: The text query to search for matching locations.
+      schema:
+        type: string
+        example: Eiffel Tower
+    Phone:
+      name: phone
+      in: query
+      required: false
+      description: Phone number to search for a specific location.
+      schema:
+        type: string
+    RadiusUnit:
+      name: radiusUnit
+      in: query
+      required: false
+      description: The unit of measurement for the radius parameter.
+      schema:
+        type: string
+        enum:
+        - km
+        - mi
+        default: km
+    LatLongRequired:
+      name: latLong
+      in: query
+      required: true
+      description: Latitude and longitude pair for the center of the nearby search. Format is latitude,longitude.
+      schema:
+        type: string
+        pattern: ^-?\d+\.?\d*,-?\d+\.?\d*$
+        example: 48.8584,2.2945
+    Language:
+      name: language
+      in: query
+      required: false
+      description: The language code for the response content. Tripadvisor supports 29 languages.
+      schema:
+        type: string
+        default: en
+        example: en
+    LatLong:
+      name: latLong
+      in: query
+      required: false
+      description: Latitude and longitude pair to bias search results toward a specific geographic area. Format is latitude,longitude.
+      schema:
+        type: string
+        pattern: ^-?\d+\.?\d*,-?\d+\.?\d*$
+        example: 48.8584,2.2945
+    Radius:
+      name: radius
+      in: query
+      required: false
+      description: The radius distance from the latLong point to filter results.
+      schema:
+        type: number
+        format: float
+    Category:
+      name: category
+      in: query
+      required: false
+      description: Filter results by location category type.
+      schema:
+        type: string
+        enum:
+        - hotels
+        - attractions
+        - restaurants
+        - geos
+    Address:
+      name: address
+      in: query
+      required: false
+      description: Address string to improve search accuracy.
+      schema:
+        type: string
   securitySchemes:
     apiKeyQuery:
       type: apiKey
