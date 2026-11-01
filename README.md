@@ -1,4 +1,4 @@
-# Tripadvisor (tripadvisor)
+# Tripadvisor
 
 <!-- API-EVANGELIST-PROVENANCE:BEGIN -->
 > ### About this repository
@@ -66,114 +66,177 @@
 
 Tripadvisor is the world's largest travel guidance platform, helping hundreds of millions of travelers each month find places to stay, things to do, and restaurants through reviews, photos, and tools. The platform maintains over 7.5 million locations and 1 billion reviews across 43 markets and 29 languages. Tripadvisor provides APIs for content integration, hotel connectivity, and restaurant reservations.
 
-**APIs.json:** [https://raw.githubusercontent.com/api-evangelist/tripadvisor/refs/heads/main/apis.yml](https://raw.githubusercontent.com/api-evangelist/tripadvisor/refs/heads/main/apis.yml)
+**Areas:** Attractions · Hotels · Hospitality · Restaurant · Reviews · Travel
 
-## Tags
+## Tripadvisor on APIs.io
 
-- Attractions
-- Hotels
-- Hospitality
-- Restaurants
-- Reviews
-- Travel
+Everything profiled for Tripadvisor is published on APIs.io rather than in this repository. Start at the provider page — **[apis.io/providers/tripadvisor/](https://apis.io/providers/tripadvisor/)** — or go straight to one of the APIs or properties below.
 
-## Timestamps
+### APIs (7)
 
-- **Created:** 2026-05-03
-- **Modified:** 2026-06-03
+- [Tripadvisor Availability API](https://apis.io/apis/tripadvisor/tripadvisor-availability-api/) — Availability endpoint called in real-time when users view hotel pages on Tripadvisor to retrieve pricing and room availability.
+- [Tripadvisor Configuration API](https://apis.io/apis/tripadvisor/tripadvisor-configuration-api/) — Configuration endpoint that Tripadvisor queries to discover the partner's supported features and API version.
+- [Tripadvisor Hotel Inventory API](https://apis.io/apis/tripadvisor/tripadvisor-hotel-inventory-api/) — Hotel inventory endpoint queried daily by Tripadvisor to import the partner's full list of connected hotels.
+- [Tripadvisor Location Details API](https://apis.io/apis/tripadvisor/tripadvisor-location-details-api/) — Retrieve comprehensive information about a specific location including name, address, rating, and Tripadvisor listing URLs.
+- [Tripadvisor Location Photos API](https://apis.io/apis/tripadvisor/tripadvisor-location-photos-api/) — Access high-quality recent photos for a specific location in multiple size formats.
+- [Tripadvisor Location Reviews API](https://apis.io/apis/tripadvisor/tripadvisor-location-reviews-api/) — Retrieve the most recent reviews for a specific location, up to 5 reviews per request.
+- [Tripadvisor Location Search API](https://apis.io/apis/tripadvisor/tripadvisor-location-search-api/) — Search for locations by keyword query or geographic proximity. Returns up to 10 matching locations per request.
 
-## APIs
+### Published properties
 
-### Tripadvisor Content API
+Each property below is a page on APIs.io carrying the machine-readable artifact and what it says.
 
-The Tripadvisor Content API provides developers with access to Tripadvisor's extensive dataset of more than 7.5 million locations, 1 billion reviews and opinions, and content in 29 languages. The API includes endpoints for location search, nearby search, location details, location photos, and location reviews, enabling developers to integrate rich travel content into their websites and applications. The first 5,000 API calls per month are free, making it accessible for initial development and testing.
+#### GraphQL (1)
 
-- **Human URL:** [https://developer-tripadvisor.com/content-api/](https://developer-tripadvisor.com/content-api/)
-- **Base URL:** `https://api.content.tripadvisor.com/api/v1`
+GraphQL schemas.
 
-#### Tags
+- [Moved to /providers/tripadvisor/](https://apis.io/graphqls/tripadvisor/tripadvisor-graphql/)
 
-- Attractions
-- Hotels
-- Locations
-- Restaurants
-- Reviews
-- Travel
+#### Agentic access (1)
 
-#### Properties
+Which operations an agent can call, which act, and which need a human in the loop.
 
-- [Documentation](https://developer-tripadvisor.com/content-api/)
-- [OpenAPI](openapi/tripadvisor-content-api-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/tripadvisor-content-api.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/tripadvisor-content-api.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+- [Tripadvisor Agentic Access](https://apis.io/agentic-access/tripadvisor/tripadvisor-agentic-access/)
 
-### Tripadvisor Hotel Availability Check API
+#### JSON Schema (3)
 
-The Tripadvisor Hotel Availability Check (HAC) API allows hotel booking partners to display their availability and pricing on Tripadvisor. When a user views a hotel page, Tripadvisor sends HTTP POST requests to the partner's API to retrieve real-time price and availability data. The API supports batch requests for multiple hotels and requires responses within 5 seconds on average. The current version (v8) provides richer availability data to help partners increase conversions.
+The data models the API reads and writes.
 
-- **Human URL:** [https://developer-tripadvisor.com/connectivity-solutions/hotel-availability-check-api/](https://developer-tripadvisor.com/connectivity-solutions/hotel-availability-check-api/)
-- **Base URL:** `https://partner-endpoint.example.com`
+- [Tripadvisor Hotel Availability Response](https://apis.io/schemas/tripadvisor/tripadvisor-hotel-availability/)
+- [Tripadvisor Location](https://apis.io/schemas/tripadvisor/tripadvisor-location/)
+- [Tripadvisor Review](https://apis.io/schemas/tripadvisor/tripadvisor-review/)
 
-#### Tags
+#### JSON Structure (1)
 
-- Availability
-- Booking
-- Connectivity
-- Hospitality
-- Hotels
-- Travel
+Data models expressed in JSON Structure.
 
-#### Properties
+- [Tripadvisor Location Structure](https://apis.io/json-structure/tripadvisor/tripadvisor-location-structure/)
 
-- [Documentation](https://developer-tripadvisor.com/connectivity-solutions/hotel-availability-check-api/)
-- [OpenAPI](openapi/tripadvisor-hotel-availability-check-api-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/tripadvisor-hotel-availability-check-api.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/tripadvisor-hotel-availability-check-api.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+#### JSON-LD (1)
 
-### Tripadvisor Hotel Inventory API
+Linked-data contexts for the provider's vocabulary.
 
-The Tripadvisor Hotel Inventory API enables connectivity partners to manage their hotel inventory listings on the Tripadvisor platform. Partners use this API to register and update the hotels they can provide availability and pricing data for, ensuring that their connected properties are accurately represented. This API works in conjunction with the Hotel Availability Check API as part of Tripadvisor's connectivity solutions for the hospitality industry.
+- [Tripadvisor Context](https://apis.io/jsonld/tripadvisor/tripadvisor-context/)
 
-- **Human URL:** [https://developer-tripadvisor.com/connectivity-solutions/hotel-availability-check-api/documentation/hotel_inventory/](https://developer-tripadvisor.com/connectivity-solutions/hotel-availability-check-api/documentation/hotel_inventory/)
-- **Base URL:** `https://partner-endpoint.example.com`
+#### Vocabulary (1)
 
-#### Tags
+The provider's domain terms, defined.
 
-- Connectivity
-- Hospitality
-- Hotels
-- Inventory
-- Travel
+- [Tripadvisor Vocabulary](https://apis.io/vocabularies/tripadvisor/tripadvisor-vocabulary/)
 
-#### Properties
+#### Examples (4)
 
-- [Documentation](https://developer-tripadvisor.com/connectivity-solutions/hotel-availability-check-api/documentation/hotel_inventory/)
-- [OpenAPI](openapi/tripadvisor-hotel-availability-check-api-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/tripadvisor-hotel-availability-check-api.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/tripadvisor-hotel-availability-check-api.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+Example requests and responses.
 
-## Common Properties
+- [Tripadvisor Check Hotel Availability Example](https://apis.io/examples/tripadvisor/tripadvisor-check-hotel-availability-example/)
+- [Tripadvisor Get Location Details Example](https://apis.io/examples/tripadvisor/tripadvisor-get-location-details-example/)
+- [Tripadvisor Get Location Reviews Example](https://apis.io/examples/tripadvisor/tripadvisor-get-location-reviews-example/)
+- [Tripadvisor Search For Locations Example](https://apis.io/examples/tripadvisor/tripadvisor-search-for-locations-example/)
 
-- [LinkedIn](https://www.linkedin.com/company/tripadvisor)
+#### Collections (8)
+
+Postman and Open Collection request collections.
+
+- [Tripadvisor Content Availability API](https://apis.io/collections/tripadvisor/open-tripadvisor-availability-api/)
+- [Tripadvisor Content Availability Configuration API](https://apis.io/collections/tripadvisor/open-tripadvisor-configuration-api/)
+- [Tripadvisor Content API](https://apis.io/collections/tripadvisor/open-tripadvisor-content-api/)
+- [Tripadvisor Hotel Availability Check API](https://apis.io/collections/tripadvisor/open-tripadvisor-hotel-availability-check-api/)
+- [Tripadvisor Content Availability Hotel Inventory API](https://apis.io/collections/tripadvisor/open-tripadvisor-hotel-inventory-api/)
+- [Tripadvisor Content Availability Location Details API](https://apis.io/collections/tripadvisor/open-tripadvisor-location-details-api/)
+- [Tripadvisor Content Availability Location Photos API](https://apis.io/collections/tripadvisor/open-tripadvisor-location-photos-api/)
+- [Tripadvisor Content Availability Location Search API](https://apis.io/collections/tripadvisor/open-tripadvisor-location-search-api/)
+
+#### Governance rules (2)
+
+Spectral rulesets for the provider's contracts.
+
+- [Tripadvisor — jsonschema rules](https://apis.io/rules/tripadvisor/tripadvisor-jsonschema-spectral-rules/)
+- [Tripadvisor API Rules](https://apis.io/rules/tripadvisor/tripadvisor-rules/)
+
+#### Security (2)
+
+Authentication, trust centre, and vulnerability disclosure.
+
+- [Tripadvisor Authentication](https://apis.io/security/tripadvisor/tripadvisor-authentication/)
+- [Tripadvisor Domain Security](https://apis.io/security/tripadvisor/tripadvisor-domain-security/)
+
+#### Plans and pricing (1)
+
+Published plans, tiers and prices.
+
+- [Tripadvisor Plans Pricing](https://apis.io/plans/tripadvisor/tripadvisor-plans-pricing/)
+
+#### Rate limits (1)
+
+Published request limits.
+
+- [Tripadvisor Rate Limits](https://apis.io/rate-limits/tripadvisor/tripadvisor-rate-limits/)
+
+#### FinOps (1)
+
+What the API costs to run, by operation.
+
+- [Tripadvisor Finops](https://apis.io/finops/tripadvisor/tripadvisor-finops/)
+
+## Where to find this API
+
+Links to the company's own pages. This repository publishes no copy of their specifications — the canonical document is theirs and lives at the URLs below.
+
 - [Website](https://www.tripadvisor.com)
-- [Developer Portal](https://developer-tripadvisor.com)
 - [Documentation](https://tripadvisor-content-api.readme.io/reference/overview)
-- [Sign Up](https://developer-tripadvisor.com/content-api/)
-- [Terms of Service](https://developer-tripadvisor.com/content-api/terms-of-use/)
-- [GitHub Organization](https://github.com/tripadvisor)
-- [GitHub Organization](https://github.com/tripadvisor-dev)
-- [JSON-LD](json-ld/tripadvisor-context.jsonld) — [JSON-LD](https://www.w3.org/TR/json-ld11/)
-- [JSON Schema](json-schema/tripadvisor-location-schema.json) — [JSON Schema](https://json-schema.org/specification)
-- [JSON Schema](json-schema/tripadvisor-review-schema.json) — [JSON Schema](https://json-schema.org/specification)
-- [JSON Schema](json-schema/tripadvisor-hotel-availability-schema.json) — [JSON Schema](https://json-schema.org/specification)
-- [Spectral Rules](rules/tripadvisor-rules.yml)
-- [Vocabulary](vocabulary/tripadvisor-vocabulary.yml)
-- [Features](undefined)
-- [Use Cases](undefined)
-- [Integrations](undefined)
-- [L L Ms Txt](https://tripadvisor-content-api.readme.io/llms.txt)
+- [Blog](https://www.tripadvisor.com/blog/)
+- [Terms of service](https://developer-tripadvisor.com/content-api/terms-of-use/)
+- [GitHub](https://github.com/tripadvisor)
 
-## Maintainers
+## API Evangelist rating
 
-**FN:** Kin Lane
-**Email:** kin@apievangelist.com
+**Kin Score 37.5** — thin · rubric 0.24.0 · scored 2026-10-17
+
+| Facet | Score |
+|---|---|
+| Discoverability | 73.2 |
+| Contract quality | 51.9 |
+| Contract governance | 27.3 |
+| Operational transparency | 10.5 |
+| Developer ergonomics | 33.3 |
+| Access clarity | 28.9 |
+
+**Agent readiness 23.7** — agent-aware
+
+| Agent-readiness dimension | Result |
+|---|---|
+| Spec Presence | yes |
+| Agentic Access | derived (partial credit) |
+| Reversibility Documented | — |
+| MCP Server | — |
+| Auth Clarity | bearer (partial credit) |
+| Idempotency | — |
+| Error Semantics | verified |
+| OpenAPI Examples | — |
+| Rate Limit Signal | derived (partial credit) |
+| Event Surface Described | — |
+| Agent Skills | — |
+| Well Known Catalog | — |
+| Consent Identity | — |
+| Agent Card | — |
+| Dry Run Mode | — |
+| Delegated Identity | — |
+| Protected Resource Metadata | — |
+| Dynamic Client Registration | — |
+| Agentic Commerce | — |
+
+**Regulatory alignment 20.6** — Horizontal (data, software, accessibility, platform)
+
+The rubric is published at [github.com/api-evangelist/kin-score](https://github.com/api-evangelist/kin-score). The per-check breakdown behind these numbers — which checks were earned, partial or missed — along with score history and how this provider compares to its peers, is available at [apis.io/providers/tripadvisor/](https://apis.io/providers/tripadvisor/).
+
+## How this profile is made
+
+API Evangelist profiles a company's public API surface the way a developer would find it: the website, developer portal and documentation, the specifications it publishes, its public repositories, and its pricing, status and changelog pages. From that it derives the properties above — contracts split per API, workflows, schemas, collections, governance rules, plans and rate limits — and scores them against the published [Kin Score rubric](https://github.com/api-evangelist/kin-score).
+
+The artifacts are published on [APIs.io](https://apis.io), not in this repository. This repository is the public record for Tripadvisor: the place to say something is wrong, missing or out of date, and to ask for a re-score or a removal.
+
+## Open an issue
+
+- **Something about this listing** — a wrong description, a missing API, a stale artifact or a question about the rating: [open an issue on this repository](https://github.com/api-evangelist/tripadvisor/issues/new).
+- **A new API, or one that is not in the catalog yet** — [submit it on APIs.io](https://apis.io/add/).
+- **Anything else** — [the APIs.io inbox](https://github.com/api-search/inbox/issues/new) or [info@apievangelist.com](mailto:info@apievangelist.com).
